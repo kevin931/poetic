@@ -1,7 +1,12 @@
 import warnings
 warnings.filterwarnings("ignore")
 
+print("Welcome to the poetry meter!\nVersion 0.0.1\nLet the world be more poetic!")
 
+print("\n\nProgram Initializing . . . ")
+
+
+import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -15,11 +20,10 @@ sent_model = keras.models.model_from_json(loaded_model_json)
 # load weights into new model
 sent_model.load_weights("./Models/sent_model.h5")
 
-print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
-
-print("This is the Meter-O-Meter Project.\nThis programs classifies poetry.")
-
+if os.name == "nt":
+    os.system("cls")
+else:
+    os.system("clear")
 
 while True:
 
