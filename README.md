@@ -1,7 +1,6 @@
 # Poetry Predictor
 
-> A program based on machine learning to gauge your poetic-ness.
-> Input your best line, or your favorite, and get the poetry index within seconds.
+> A program based on machine learning to gauge your poetic-ness. Input your best line, or your favorite, and get the poetry index within seconds.
 
 ## Installation
 
