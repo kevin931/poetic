@@ -77,12 +77,10 @@ class GUI:
         self.result3.config(text=message)
 
 
-
-
 class Initialize():
 
     def load_dict(self):
-        word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./Models/word_dictionary_complete.txt")
+        word_dictionary = gs.corpora.Dictionary.load_from_text(fname="../Models/word_dictionary_complete.txt")
         return word_dictionary
 
     def load_model(self):
@@ -114,7 +112,7 @@ class Predictor():
     ## Preprocess the input
     def proprocess(self):
         ## Tokenize and to lower
-        input = self.input.lower()
+        sent_token = self.input.lower()
         sent_token = word_tokenize(input)
 
         ## Word to index
