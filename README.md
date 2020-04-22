@@ -4,7 +4,6 @@
 
 ## Installation
 
-### Windows, Linux, and MacOS:
 * Manual installation of python and dependencies required
 * Packages required:
   * python 3.7.3
