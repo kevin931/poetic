@@ -1,64 +1,137 @@
-import warnings
-warnings.filterwarnings("ignore")
-
-print("Welcome to the poetry meter!\nVersion 0.0.1\nLet the world be more poetic!")
-
-print("\n\nProgram Initializing . . . ")
-
-
-import os
+## Import necessary module
+from tkinter import *
 import numpy as np
-import tensorflow as tf
 from tensorflow import keras
 import gensim as gs
 from nltk.tokenize import word_tokenize
 
-json_file = open('./Models/sent_model.json', 'r')
-loaded_model_json = json_file.read()
-json_file.close()
-sent_model = keras.models.model_from_json(loaded_model_json)
-# load weights into new model
-sent_model.load_weights("./Models/sent_model.h5")
+def main():
 
-if os.name == "nt":
-    os.system("cls")
-else:
-    os.system("clear")
+    ## Initialize and load model
+    new_program = Initialize()
+    model = new_program.load_model()
+    dict = new_program.load_dict()
 
-while True:
+    newGUI = GUI(model, dict)
 
-    input_sentence = input("\n\n\nWhat is your sentence? ")
 
-    if input_sentence == "Bivin Sadler" or input_sentence == "Tim Cassedy":
-        print("This is STATE-OF-THE-ART POETRY. PEFECTION!!")
-        continue
+class GUI:
+    ## Start the program:
+    def __init__(self, model, dict):
 
-    sent_token = word_tokenize(input_sentence)
-    sent_lower = []
-    for words in sent_token:
-        sent_lower.append(words.lower())
+        ## Model to use
+        self.model = model
+        self.dict = dict
 
-    word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./Models/word_dictionary_complete.txt")
+        ## Create a window
+        self.window = Tk()
+        self.window.title("Poetry Predictor")
+        self.window.geometry("420x480")
 
-    id_sent = []
-    for words in sent_lower:
-        try:
-            word_dictionary.token2id.get(words) > 0
-            id_sent.append(word_dictionary.token2id.get(words))
-        except:
-            id_sent.append(0)
+        ## Welcome Message
+        self.wcm1 = Label(self.window, text = "Welcome to the Poetry Predictor!", font=("Times", 20))
+        self.wcm2 = Label(self.window, text = "Find out how poetic you are!", font=("Times", 15))
+        self.wcm3 = Label(self.window, text = "v.0.1.0", font=("Times", 15))
 
-    sent_train = [id_sent]
+        self.wcm1.grid(row=0, column=0)
+        self.wcm2.grid(row=1, column=0)
+        self.wcm3.grid(row=2, column=0)
 
-    sent_train = keras.preprocessing.sequence.pad_sequences(sent_train, maxlen=456)
+        self.divider1 =Label(self.window, text="~~~~~~~~~~~~~~~~~~~~~~~~~~", font=("Times",20))
+        self.divider1.grid(row=3, column=0, pady=10)
 
-    result = sent_model.predict(sent_train)
-    result = result.tolist()
+        ## Poetry Input
+        self.input = Entry(self.window, width=40,font=("Times",13))
+        self.input.grid(row=4, column=0, pady=10)
 
-    score = result[0][0]
+        ## Button
+        self.predict_button = Button(self.window, text="Submit",font=("Times",20), command=self.submit)
+        self.predict_button.grid(row=5, column=0)
 
-    if score > 0.5 :
-        print("\nThis sentence is POETRY.\nThe poetic score is " + str(score))
+        ## Results
+        self.divider2 = Label(self.window, text="~~~~~~~~~~~~~~~~~~~~~~~~~~", font=("Times",20))
+        self.result1 = Label(self.window, text="Your Result", font=("Times",20))
+        self.result2 = Label(self.window, text="No result yet!", font=("Times",17))
+        self.result3 = Label(self.window, text="Please type in your sentence and submit!", font=("Times",17))
+        self.divider2.grid(row=6, column=0, pady=15)
+        self.result1.grid(row=7,column=0, pady=10)
+        self.result2.grid(row=8,column=0)
+        self.result3.grid(row=9,column=0)
 
-    else:
-        print("\nThis sentence is NOT POETRY.\nThe poetic score is " + str(score))
+        ## Keep the window open
+        self.window.mainloop()
+
+
+    def submit(self):
+        ## Get the user input
+        input = self.input.get()
+
+        ## Predict
+        new_predictor = Predictor(input, self.model, self.dict)
+        input = new_predictor.proprocess()
+        score = new_predictor.predict(input)
+
+        self.result2.config(text="Your score is "+str(score))
+
+        message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
+        self.result3.config(text=message)
+
+
+
+
+class Initialize():
+
+    def load_dict(self):
+        word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./Models/word_dictionary_complete.txt")
+        return word_dictionary
+
+    def load_model(self):
+        json_file = open('./Models/sent_model.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        sent_model = keras.models.model_from_json(loaded_model_json)
+        # load weights into new model
+        sent_model.load_weights("./Models/sent_model.h5")
+
+        return sent_model
+
+
+class Predictor():
+
+    ## Constructor
+    def __init__(self, input, model, dict):
+        self.input = input
+        self.model = model
+        self.dict = dict
+
+    def predict(self, input):
+        result = self.model.predict(input)
+        result = result.tolist()
+        score = result[0][0]
+
+        return score
+
+    ## Preprocess the input
+    def proprocess(self):
+        ## Tokenize and to lower
+        input = self.input.lower()
+        sent_token = word_tokenize(input)
+
+        ## Word to index
+        id_sent = []
+        for words in sent_token:
+            try:
+                self.dict.token2id.get(words) > 0
+                id_sent.append(self.dict.token2id.get(words))
+            except:
+                id_sent.append(0)
+
+        ## Padding
+        sent_test = [id_sent]
+        sent_test = keras.preprocessing.sequence.pad_sequences(sent_test, maxlen=456)
+
+        return sent_test
+
+
+if __name__ == "__main__":
+    main()
