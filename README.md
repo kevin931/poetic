@@ -4,10 +4,24 @@
 
 ## Installation
 
-- This program requires python and some dependencies.
-- Detailed installation guide will be updated later.
+### Windows, Linux, and MacOS:
+* Manual installation of python and dependencies required
+* Packages required:
+  * python 3.7.3
+  * numpy 1.16.4
+  * tensorflow 1.13.1
+  * gensim 3.4.0
+* Usage of virtual environment strongly encouraged
+
+
 
 ## Version
+
+* v.0.1.0
+  - Added GUI for better user experience
+  - Executable for Windows without need for installation
+  - Updated code structure
+  - Updated Project Structure
 
 * v.0.0.1
   - Project initialization on GitHub.
@@ -16,10 +30,9 @@
   - LFS support for GitHub.
 
 ## Future Updates:
-- GUI support.
 - Support poetic meter.
-- Program OOP Rewrite.
-- Installation guide.
+- Future executables.
+- Functionalities for parsing text files
 
 
 ## License
