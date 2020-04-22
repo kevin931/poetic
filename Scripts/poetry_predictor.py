@@ -112,7 +112,7 @@ class Predictor():
     ## Preprocess the input
     def proprocess(self):
         ## Tokenize and to lower
-        sent_token = self.input.lower()
+        input = self.input.lower()
         sent_token = word_tokenize(input)
 
         ## Word to index
