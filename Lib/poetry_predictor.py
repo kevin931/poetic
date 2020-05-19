@@ -5,9 +5,6 @@ from tensorflow import keras
 import gensim as gs
 from nltk.tokenize import word_tokenize
 
-
-
-
 class GUI:
     ## Start the program:
     def __init__(self, model, dict):
@@ -122,7 +119,3 @@ class Predictor():
         sent_test = keras.preprocessing.sequence.pad_sequences(sent_test, maxlen=456)
 
         return sent_test
-
-
-if __name__ == "__main__":
-    main()
