@@ -1,0 +1,9 @@
+name: PoetryPredictor
+channels:
+  - defaults
+dependencies:
+  - python=3.7.7
+  - gensim=1.18.1
+  - tensorflow=2.1.0
+  - nltk=3.8.0
+
