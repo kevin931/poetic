@@ -4,7 +4,7 @@
 
 > A program based on machine learning to gauge your poetic madness.
 
-![Badge1](https://img.shields.io/badge/Version-0.1.1-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+![Badge1](https://img.shields.io/badge/Version-0.1.1-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -73,6 +73,7 @@ python Launch.py
 If everything installs successfully, run the following commands for every subsequent launch:
 ```shell
 cd DIRECTORY_PATH_OF_PROGRAM
+conda activate PoetryPredictor
 python Launch.py
 ```
 
