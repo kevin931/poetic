@@ -36,7 +36,7 @@ This initiative is originally part of the Robert Mayer Undergraduate Research Fe
 
 Look no further. You have found the poetry predictor.
 
-![Screenshot of program](/Docs/Screenshot.png)
+![Screenshot of program](/Docs/screenshot.png)
 
 **Have fun!!**
 
