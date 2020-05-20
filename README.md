@@ -80,7 +80,7 @@ python Launch.py
 ## Version
 * v.0.1.1
   - Optimized directory structure
-  - Revemped README with detailed guides
+  - Revamped README with detailed guides
   - Added launcher script
   - Easier installation
 
