@@ -58,14 +58,21 @@ class GUI:
 
         ## Predict
         new_predictor = Predictor(input, self.model, self.dict)
-        input = new_predictor.proprocess()
-        score = new_predictor.predict(input)
 
-        self.result2.config(text="Your score is "+str(score))
+        try:
+            input = new_predictor.proprocess()
 
-        message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
-        self.result3.config(text=message)
+        except:
+            message = "Nothing entered. Please try again."
+            self.result3.config(text=message)
 
+        else:
+            score = new_predictor.predict(input)
+
+            self.result2.config(text="Your score is "+str(score))
+
+            message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
+            self.result3.config(text=message)
 
 class Initialize():
 
@@ -105,6 +112,9 @@ class Predictor():
         input = self.input.lower()
         sent_token = word_tokenize(input)
 
+        if len(sent_token)==0:
+            raise Exception("No characters entered. Please try again.")
+
         ## Word to index
         id_sent = []
         for words in sent_token:
@@ -119,3 +129,5 @@ class Predictor():
         sent_test = keras.preprocessing.sequence.pad_sequences(sent_test, maxlen=456)
 
         return sent_test
+
+
