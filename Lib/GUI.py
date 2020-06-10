@@ -20,7 +20,7 @@ class GUI:
         ## Welcome Message
         self.wcm1 = Label(self.window, text = "Welcome to the Poetry Predictor!", font=("Times", 20))
         self.wcm2 = Label(self.window, text = "Find out how poetic you are!", font=("Times", 15))
-        self.wcm3 = Label(self.window, text = "v.0.1.2", font=("Times", 15))
+        self.wcm3 = Label(self.window, text = "v.0.1.2 beta", font=("Times", 15))
 
         self.wcm1.grid(row=0, column=0)
         self.wcm2.grid(row=1, column=0)
