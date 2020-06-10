@@ -16,8 +16,12 @@
     - [The Recommended Way:](#the-recommended-way)
     - [The Other ~~Not So Easy~~ Way:](#the-other-not-so-easy-way)
 - [Run the Program](#run-the-program)
+- [Update the program](#update-the-program)
 - [Version](#version)
-- [Future Update Plans:](#future-update-plans)
+- [Future Update Roadmap:](#future-update-roadmap)
+    - [Short term updates:](#short-term-updates)
+    - [Long term updates:](#long-term-updates)
+- [Collaboration](#collaboration)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
