@@ -77,7 +77,26 @@ conda activate PoetryPredictor
 python Launch.py
 ```
 
+## Update the program
+Unfortunately, there is no easy way to update or auto-update at this time.
+
+**For users with git**, run the following command:
+```shell
+git clone https://github.com/kevin931/PoetryPredictor.git
+```
+
+**For those who downloaded the zip file from GitHub**, the same download is necessary
+again.
+
+There will **NO** need to update the virtual environment with minor feature
+updates or bug fixes.
+
+
 ## Version
+* v.0.1.2 beta
+  - Fixed a bug displaying score without entering anything
+  - Further optimized the directory tree
+
 * v.0.1.1
   - Optimized directory structure
   - Revamped README with detailed guides
