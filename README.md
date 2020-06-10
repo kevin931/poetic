@@ -4,7 +4,7 @@
 
 > A program based on machine learning to gauge your poetic madness.
 
-![Badge1](https://img.shields.io/badge/Version-0.1.1-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
+![Badge1](https://img.shields.io/badge/Version-0.1.2-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
