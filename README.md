@@ -97,8 +97,9 @@ updates or bug fixes.
 
 
 ## Version
-* v.0.1.2 beta
+* v.0.1.2
   - Fixed a bug displaying score without entering anything
+  - Optimized error handling in Predictor class
   - Further optimized the directory tree
 
 * v.0.1.1
