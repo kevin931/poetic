@@ -29,8 +29,7 @@ class Predictor():
         input = input.lower()
         sent_token = word_tokenize(input)
 
-        if len(sent_token)==0:
-            raise Exception("No characters entered. Please try again.")
+        self.check_requirement(sent_token)
 
         ## Word to index
         id_sent = []
@@ -46,3 +45,15 @@ class Predictor():
         sent_test = keras.preprocessing.sequence.pad_sequences(sent_test, maxlen=456)
 
         return sent_test
+
+    ## Check Input length requirement
+    def check_requirement(self,input):
+        ## Check empty input
+        if len(input)==0:
+            raise InputLengthException()
+
+    ## Input length out of bound
+    class InputLengthException(Exception):
+        def __init__(self):
+            message = "Input length out of bound: must be between 1 and 465"
+            super().__init__(message)
