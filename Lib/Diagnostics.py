@@ -4,7 +4,7 @@ import numpy as np
 class Diagnostics():
     ## Five number summary
     @classmethod
-    def five_number(self, input):
+    def five_number(cls, input):
         # Summary Dictionary
         summary = {}
         # Five number summary
@@ -14,5 +14,5 @@ class Diagnostics():
         summary["Stdev"] = np.std(input)
         summary["Max"] = np.max(input)
 
-        return(five_number)
+        return(summary)
 
