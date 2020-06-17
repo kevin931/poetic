@@ -15,7 +15,10 @@ def main():
     if args["Sentence"] is not None:
         ## Prediction
         score = predictor.predict(args["Sentence"])
-        score = str(round(score, 2))
+        ## Diagnostics
+        score = Diagnostics.Diagnostics.five_number(score)
+        ## Extracting the median
+        score = str(round(score["Median"], 2))
         print("\n\nYour score is " + score + "\n\n")
 
     ## Start the program with the GUI
@@ -24,3 +27,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+predictor.predict("I am a good man. Hi there")
