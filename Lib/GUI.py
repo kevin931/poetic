@@ -4,6 +4,7 @@
 
 ## Importing necessary modules
 from tkinter import *
+from Lib import Diagnostics
 
 class GUI:
     ## Start the program:
@@ -64,6 +65,12 @@ class GUI:
             self.result3.config(text="Please type in your sentence and submit!")
 
         else:
+            ## Process the score for the median
+            score = Diagnostics.Diagnostics.five_number(score)
+            score = score["Median"]
+            ## Rounding
+            score = round(score, 2)
+            ## Result
             self.result2.config(text="Your score is "+str(score))
 
             message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
