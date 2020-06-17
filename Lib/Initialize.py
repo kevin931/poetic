@@ -42,9 +42,15 @@ class Arguments():
     ## Constructor
     def __init__(self):
         ## New Parser
-        self.parser = argparse.ArgumentParser(description="Parse command line arguments")
-        self.parser.add_argument("-g", "--GUI", action="store_true")
-        self.parser.add_argument("-s", "--Sentence", action="store")
+        self.parser = argparse.ArgumentParser(description="Poetry Predictor Command Line Mode")
+        self.parser.add_argument("-g", "--GUI", action="store_true",
+                                 help="Tag to open GUI anyway. No imput needed.")
+        self.parser.add_argument("-s", "--Sentence", action="store",
+                                 help="Sentence to be parsed.")
+        self.parser.add_argument("-f", "--File", action="store",
+                                 help="File to be parsed.")
+        self.parser.add_argument("-o", "--Out", action="store",
+                                 help="Path to save results.")
         self.parser.add_argument("--version", action="version", version="Poetry Predictor 0.2.0 alpha")
 
     def parse(self):
