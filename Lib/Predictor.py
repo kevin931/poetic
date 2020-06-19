@@ -13,7 +13,13 @@ class Predictor():
         self.model = model
         self.dict = dict
 
-    def predict(self, input):
+    def predict(self, input, type=["Content", "Path"]):
+
+        ## Check for file path input
+        if type == "Path":
+            # Load the file
+            input = self.file_load(input)
+
         ## Preprocess the input
         input = self.proprocess(input)
 
@@ -39,12 +45,10 @@ class Predictor():
         return sent_test
 
     ## Preprocess files
-    def file_prep(self, path):
+    def file_load(self, path):
         # Open and read file
         file = open(path, "r")
         file = file.read()
-        # Use preprocess method
-        file = self.preprocess(file)
 
         return file
 
