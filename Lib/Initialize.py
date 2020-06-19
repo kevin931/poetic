@@ -14,7 +14,6 @@ class Initializer():
         ## Command-line arguments arguments
         arguments = Arguments()
         arguments = arguments.parse()
-        arguments = vars(arguments)
 
         ## Load dictionary and model
         model = cls.load_model()
@@ -55,4 +54,16 @@ class Arguments():
 
     def parse(self):
         arguments = self.parser.parse_args()
+        arguments = vars(arguments)
+
+        ## Check for error
+        if args["Sentence"] is not None and args["File"] is not None:
+            raise UnsupportedConfigException()
+
         return arguments
+
+    class UnsupportedConfigException(Exception):
+        def __init__(self):
+            message_1 = "Unsupported combination: Unable to process sentence and file in one operation.\n"
+            message_2 = "For help, please run with '-h' tag."
+            super().__init__(message)
