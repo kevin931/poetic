@@ -38,6 +38,16 @@ class Predictor():
 
         return sent_test
 
+    ## Preprocess files
+    def file_prep(self, path):
+        # Open and read file
+        file = open(path, "r")
+        file = file.read()
+        # Use preprocess method
+        file = self.preprocess(file)
+
+        return file
+
     ## Sentence and word tokenize
     def tokenize(self, input):
         ## Split into sentences first
