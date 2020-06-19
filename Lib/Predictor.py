@@ -5,6 +5,7 @@
 ## Load necessary modules
 from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
+from Lib import Diagnostics
 
 class Predictor():
 
@@ -94,3 +95,8 @@ class Predictor():
         def __init__(self):
             message = "Input length out of bound: must be between 1 and 465"
             super().__init__(message)
+
+## Class for Predictor outputs, inheriting from Diagnostics
+class _Predictions(Diagnostics):
+    def __init__(self, results):
+        super().__init__(results)
