@@ -2,6 +2,11 @@
 import numpy as np
 
 class Diagnostics():
+
+    ## Constructor
+    def __init__(self, predictions):
+        self.predictions = predictions
+
     ## Five number summary
     @classmethod
     def five_number(cls, input):
