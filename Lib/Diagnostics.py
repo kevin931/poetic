@@ -6,6 +6,23 @@ class Diagnostics():
     ## Constructor
     def __init__(self, predictions, diagnostics=None):
         self.predictions = predictions
+        self.diagnostics = diagnostics
+
+    ## String representation
+    def __str__(self):
+        general_message = "Diagnostics object for the following predictions: "
+        predictions = str(self.predictions)
+        if len(predictions) > 15:
+            predictions = predictions[0:14] + "..."
+        return general_message + predictions
+
+    ## String Representation
+    def __repr__(self):
+        repr = {"Predictions": self.predictions, "Diagnostics": self.diagnostics}
+        return str(repr)
+
+    def __len__(self):
+        pass
 
     ## Five number summary
     @classmethod
