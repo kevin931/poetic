@@ -5,7 +5,7 @@
 ## Load necessary modules
 from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
-from Lib import Diagnostics
+from Lib.Diagnostics import Diagnostics
 
 class Predictor():
 
