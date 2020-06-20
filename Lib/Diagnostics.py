@@ -21,8 +21,9 @@ class Diagnostics():
         repr = {"Predictions": self.predictions, "Diagnostics": self.diagnostics}
         return str(repr)
 
+    ## len method: return the length of the predictions attribute.
     def __len__(self):
-        pass
+        return len(self.predictions)
 
     ## Five number summary
     @classmethod
