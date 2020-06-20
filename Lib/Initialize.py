@@ -57,7 +57,7 @@ class Arguments():
         arguments = vars(arguments)
 
         ## Check for error
-        if args["Sentence"] is not None and args["File"] is not None:
+        if arguments["Sentence"] is not None and arguments["File"] is not None:
             raise UnsupportedConfigException()
 
         return arguments
