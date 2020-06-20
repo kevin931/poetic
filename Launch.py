@@ -14,12 +14,18 @@ def main():
     ## Check for "-s" tag
     if args["Sentence"] is not None:
         ## Prediction
-        score = predictor.predict(args["Sentence"])
-        ## Diagnostics
-        score = Diagnostics.Diagnostics.five_number(score)
-        ## Extracting the median
-        score = str(round(score["Median"], 2))
-        print("\n\nYour score is " + score + "\n\n")
+        score = predictor.predict(args["Sentence"], type="Content")
+
+    ## Check for "-f" tag
+    if args["File"] is not None:
+        ## Prediction
+        score = predictor.predict(args["Sentence"], type="Path")
+
+    ## Diagnostics
+    score = Diagnostics.Diagnostics.five_number(score)
+    ## Extracting the median
+    score = str(round(score["Median"], 2))
+    print("\n\nYour score is " + score + "\n\n")
 
     ## Start the program with the GUI
     if args["GUI"] or args["Sentence"] is None:
