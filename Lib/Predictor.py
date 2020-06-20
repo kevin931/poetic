@@ -26,7 +26,7 @@ class Predictor():
 
         result = self.model.predict(input)
         result = result.tolist()
-        score = result
+        score = _Predictions(result)
 
         return score
 
