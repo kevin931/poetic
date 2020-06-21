@@ -69,7 +69,6 @@ class Diagnostics():
         r = "Poetry Predictor\n"
         r = r + "Version: 0.2.0\n"
         r = r + 'For latest updates: www.github.com/kevin931/PoetryPredictor\n\n'
-
         ## General Information
         r = "Diagnostics Report\n\n"
         r = r + "Model: Lexical Model\n"
