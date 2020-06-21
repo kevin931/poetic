@@ -86,3 +86,5 @@ class Diagnostics():
         r = r + "~~~All Scores~~~\n"
         for i in range(0, self.diagnostics["Sentence_count"]):
             r = r + f"Sentence #{i+1}: {self.predictions[i]}\n"
+
+        return r
