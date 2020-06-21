@@ -39,7 +39,7 @@ class Diagnostics():
 
         return(summary)
 
-    def get_diagnostics(self):
+    def run_diagnostics(self):
         ## Save diagnostics in a dictionary as instance attribute
         self.diagnostics = {}
         ## Length
@@ -48,8 +48,6 @@ class Diagnostics():
         self.diagnostics["Five_num"] = cls.five_number(self.predictions)
         ## Append the predictions
         self.diagnostics["Predictions"] = self.predictions
-
-        return self.diagnostics
 
     def to_file(self, path):
 
