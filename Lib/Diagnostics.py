@@ -72,14 +72,14 @@ class Diagnostics():
         ## General Information
         r = "Diagnostics Report\n\n"
         r = r + "Model: Lexical Model\n"
-        r = r + f"Number of Sentences: {self.diagnostics["Sentence_count"]}\n\n"
+        r = r + f"Number of Sentences: {self.diagnostics['Sentence_count']}\n\n"
         ## Five Number Summary
         r = r + "~~~Five Number Summary~~~\n"
-        r = r + f"Minimum: {self.diagnostics["Five_num"]["Min"]}\n"
-        r = r + f"Mean: {self.diagnostics["Five_num"]["Mean"]}\n"
-        r = r + f"Median: {self.diagnostics["Five_num"]["Median"]}\n"
-        r = r + f"Maximum: {self.diagnostics["Five_num"]["Max"]}\n"
-        r = r + f"Standard Deviation: {self.diagnostics["Five_num"]["Stdev"]}\n\n"
+        r = r + f"Minimum: {self.diagnostics['Five_num']['Min']}\n"
+        r = r + f"Mean: {self.diagnostics['Five_num']['Mean']}\n"
+        r = r + f"Median: {self.diagnostics['Five_num']['Median']}\n"
+        r = r + f"Maximum: {self.diagnostics['Five_num']['Max']}\n"
+        r = r + f"Standard Deviation: {self.diagnostics['Five_num']['Stdev']}\n\n"
 
         ## Print out the score of each sentence
         r = r + "~~~All Scores~~~\n"
