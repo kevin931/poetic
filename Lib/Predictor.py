@@ -99,4 +99,7 @@ class Predictor():
 ## Class for Predictor outputs, inheriting from Diagnostics
 class _Predictions(Diagnostics):
     def __init__(self, results):
+        ## Process the results into one single list
+        results = [prediction[0] for prediction in results]
+        ## Call Diagnostics class constructor
         super().__init__(results)
