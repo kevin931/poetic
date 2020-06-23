@@ -45,7 +45,7 @@ class Diagnostics():
         ## Length
         self.diagnostics["Sentence_count"] = len(self.predictions)
         ## Five number summary
-        self.diagnostics["Five_num"] = cls.five_number(self.predictions)
+        self.diagnostics["Five_num"] = self.five_number(self.predictions)
         ## Append the predictions
         self.diagnostics["Predictions"] = self.predictions
 
