@@ -58,11 +58,11 @@ class Arguments():
 
         ## Check for error
         if arguments["Sentence"] is not None and arguments["File"] is not None:
-            raise UnsupportedConfigException()
+            raise UnsupportedConfigError()
 
         return arguments
 
-    class UnsupportedConfigException(Exception):
+    class UnsupportedConfigError(Exception):
         def __init__(self):
             message_1 = "Unsupported combination: Unable to process sentence and file in one operation.\n"
             message_2 = "For help, please run with '-h' tag."
