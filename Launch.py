@@ -21,7 +21,7 @@ def main():
         ## Check for "-f" tag
         if args["File"] is not None:
             ## Prediction
-            score = predictor.predict(args["Sentence"], type="Path")
+            score = predictor.predict(args["File"], type="Path")
 
         ## Run diagnostics
         score.run_diagnostics()
