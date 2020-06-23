@@ -4,7 +4,6 @@
 
 ## Importing necessary modules
 from tkinter import *
-from Lib import Diagnostics
 
 class GUI:
     ## Start the program:
@@ -58,7 +57,7 @@ class GUI:
 
         ## Predict
         try:
-            score =self.predictor.predict(input)
+            score =self.predictor.predict(input, type="Content")
 
         except:
             self.result2.config(text = "Nothing entered. Please try again.")
@@ -66,8 +65,8 @@ class GUI:
 
         else:
             ## Process the score for the median
-            score = Diagnostics.Diagnostics.five_number(score)
-            score = score["Median"]
+            score.run_diagnostics()
+            score = score.diagnostics["Five_num"]["Median"]
             ## Rounding
             score = round(score, 2)
             ## Result
