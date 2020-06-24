@@ -1,14 +1,14 @@
 # Import necessary module
-from poetry_predictor import *
+from poetry_predictor import gui, predictor, preprocess, results
 
 def main():
 
     ## Initialize and load the program
-    args, model, dict = Initialize.Initializer.initialize()
+    args, model, dict = preprocess.Initializer.initialize()
 
 
     ## Initialize the predictor
-    predictor = Predictor.Predictor(model, dict)
+    new_pred = predictor.Predictor(model, dict)
 
     ## Check for command-line mode
     if args["Sentence"] is not None or args["File"] is not None:
@@ -16,12 +16,12 @@ def main():
         ## Check for "-s" tag
         if args["Sentence"] is not None:
             ## Prediction
-            score = predictor.predict(args["Sentence"], type="Content")
+            score = new_pred.predict(args["Sentence"], type="Content")
 
         ## Check for "-f" tag
         if args["File"] is not None:
             ## Prediction
-            score = predictor.predict(args["File"], type="Path")
+            score = new_pred.predict(args["File"], type="Path")
 
         ## Run diagnostics
         score.run_diagnostics()
@@ -37,7 +37,7 @@ def main():
 
     ## Start the program with the GUI
     if args["GUI"] or launch_GUI:
-        newGUI = GUI.GUI(predictor)
+        newGUI = gui.GUI(predictor)
 
 if __name__ == "__main__":
     main()
