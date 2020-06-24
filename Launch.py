@@ -1,5 +1,5 @@
 # Import necessary module
-from Lib import *
+from poetry_predictor import *
 
 def main():
 
