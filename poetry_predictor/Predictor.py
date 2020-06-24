@@ -5,7 +5,7 @@
 ## Load necessary modules
 from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
-from Lib.Diagnostics import Diagnostics
+from poetry_predictor.results import Diagnostics
 
 class Predictor():
 
