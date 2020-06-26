@@ -1,3 +1,13 @@
+import warnings
+
+## Warning message for deprecation
+warning_message = "Launching method deprecated.\n"
+warning_message += "Use 'python -m poetry_predictor' instead.\n"
+warning_message += "Launcher is no longer updated after v.0.2.0 "
+warning_message += "and will be removed at in the future."
+
+warnings.warn(warning_message, FutureWarning)
+
 # Import necessary module
 from poetry_predictor import gui, predictor, preprocess, results
 
