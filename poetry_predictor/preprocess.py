@@ -23,7 +23,7 @@ class Initializer():
 
     @staticmethod
     def load_dict():
-        word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./Models/word_dictionary_complete.txt")
+        word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./data/word_dictionary_complete.txt")
         return word_dictionary
 
     @staticmethod
