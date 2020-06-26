@@ -37,7 +37,7 @@ def main():
 
     ## Start the program with the GUI
     if args["GUI"] or launch_GUI:
-        newGUI = gui.GUI(predictor)
+        newGUI = gui.GUI(new_pred)
 
 if __name__ == "__main__":
     main()
