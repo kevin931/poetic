@@ -3,7 +3,7 @@
 #####################
 
 ## Importing necessary modules
-from tkinter import *
+from tkinter import Tk, Entry, Label
 
 class GUI:
     ## Start the program:
