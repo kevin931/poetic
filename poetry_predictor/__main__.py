@@ -35,8 +35,3 @@ launch_GUI = True if args["Sentence"] is None and args["File"] is None else Fals
 ## Start the program with the GUI
 if args["GUI"] or launch_GUI:
     newGUI = gui.GUI(new_pred)
-
-
-
-# if __name__ == "__main__":
-#     main()
