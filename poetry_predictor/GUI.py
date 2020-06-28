@@ -52,7 +52,7 @@ class GUI():
         self.sentence_input.grid(row=1,pady=20)
 
         ## Button
-        self.predict_button = Button(self.tab1, text="Submit",font=("Times",20), command=self.submit)
+        self.predict_button = Button(self.tab1, text="Submit",font=("Times",20), command=self.submit_sentence)
         self.predict_button.grid(row=2)
 
         ## Results
@@ -104,9 +104,10 @@ class GUI():
 
         self.root.mainloop()
 
-    def submit(self):
+    ## Predict with sentence in interactive mode
+    def submit_sentence(self):
         ## Get the user input
-        input = self.input.get()
+        input = self.sentence_input.get()
 
         ## Predict
         try:
