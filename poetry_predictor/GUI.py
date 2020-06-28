@@ -52,7 +52,7 @@ class GUI():
         self.sentence_input.grid(row=1,pady=20)
 
         ## Button
-        self.predict_button = Button(self.tab1, text="Submit",font=("Times",20), command=self.submit_sentence)
+        self.predict_button = Button(self.tab1, text="Submit",font=("Times",20), command=self._submit_sentence)
         self.predict_button.grid(row=2)
 
         ## Results
@@ -105,7 +105,7 @@ class GUI():
         self.root.mainloop()
 
     ## Predict with sentence in interactive mode
-    def submit_sentence(self):
+    def _submit_sentence(self):
         ## Get the user input
         input = self.sentence_input.get()
 
@@ -129,7 +129,13 @@ class GUI():
             message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
             self.result3.config(text=message)
 
-    def select_file(self):
+    def _select_file(self):
+        pass
+
+    def _select_directory(self):
+        pass
+
+    def _submit_file(self):
         pass
 
 
