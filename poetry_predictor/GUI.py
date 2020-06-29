@@ -139,7 +139,12 @@ class GUI():
         self.file_input_path.config(text=file_name, font =("Times", 15))
 
     def _select_directory(self):
-        pass
+        ## Ask for directory to save results
+        self.savedir = filedialog.askdirectory(initialdir=".", title="Select your save directory.")
+        ## Use regex to display only the file name
+        dir_name = re.split("/", self.savedir)[-1]
+        ## Update the file name
+        self.file_output_dir.config(text=dir_name, font =("Times", 15))
 
     def _submit_file(self):
         pass
