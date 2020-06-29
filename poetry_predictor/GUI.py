@@ -74,7 +74,7 @@ class GUI():
         self.file_input_path = Label(self.tab2, text="File selected: None", font =("Times", 15))
         self.file_input_path.grid(row=2, pady=5)
         ## Select button
-        self.file_input_button = Button(self.tab2, text="Select File", font=("Times",15), command=self.submit)
+        self.file_input_button = Button(self.tab2, text="Select File", font=("Times",15), command=self._select_file)
         self.file_input_button.grid(row=1, pady =5)
 
         self.divider3 =Label(self.tab2, text="~~~~~~~~~~~~~~~~~~~~~~~~~~", font=("Times",20))
@@ -87,14 +87,14 @@ class GUI():
         self.file_output_dir = Label(self.tab2, text="Directory Chosen: None" ,font=("Times", 15))
         self.file_output_dir.grid(row=6,pady=1)
         ## Select button
-        self.file_input_button2 = Button(self.tab2, text="Select", font=("Times",15), command=self.submit)
-        self.file_input_button2.grid(row=5, pady =5)
+        self.directory_input_button = Button(self.tab2, text="Select", font=("Times",15), command=self._select_directory)
+        self.directory_input_button.grid(row=5, pady =5)
 
         self.divider4 =Label(self.tab2, text="~~~~~~~~~~~~~~~~~~~~~~~~~~", font=("Times",20))
         self.divider4.grid(row=7, pady=3)
 
         ## Run and Status
-        self.run_button = Button(self.tab2, text="Run!", font=("Times",15), command=self.submit)
+        self.run_button = Button(self.tab2, text="Run!", font=("Times",15), command=self._submit_file)
         self.run_button.grid(row=8)
 
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
