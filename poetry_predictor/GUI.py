@@ -5,6 +5,7 @@
 ## Importing necessary modules
 from tkinter import Tk, Entry, Label, Button, Frame, ttk, filedialog
 import re
+import os
 
 class GUI():
 
@@ -100,9 +101,7 @@ class GUI():
 
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
         self.status_message.grid(row=9, pady=3)
-
-
-
+        
         self.root.mainloop()
 
     ## Predict with sentence in interactive mode
@@ -147,7 +146,25 @@ class GUI():
         self.file_output_dir.config(text=dir_name, font =("Times", 15))
 
     def _submit_file(self):
-        pass
+        ## Update the status
+        self.status_message.config(text="Status: Running. . .", font=("Times",15))
+        ## Run the results
+        results = self.predictor.predict(self.filepath, type="Path")
+        ## Diagnostics
+        results.run_diagnostics()
+        ## Save filepath
+        file_name = re.split("/",self.filepath)[-1]
+        file_name = file_name.split(".")[0]
+        file_path = self.savedir+"/"+file_name
+        ## Check if the file already exists to prevent overwriting
+        if os.path.exists(file_path):
+            error_msg = "Error: "+file_name+" already exists."
+            self.status_message.config(text=error_msg, font=("Times",15))
+        else:
+            ## Save results
+            results.to_file(file_path)
+            ## Update the status
+            self.status_message.config(text="Status: Done! Hooray!", font=("Times",15))
 
 
 ## For developing purposes only
