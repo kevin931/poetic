@@ -4,6 +4,7 @@
 
 ## Importing necessary modules
 from tkinter import Tk, Entry, Label, Button, Frame, ttk, filedialog
+import re
 
 class GUI():
 
@@ -100,7 +101,7 @@ class GUI():
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
         self.status_message.grid(row=9, pady=3)
 
-        # self.root.filename = filedialog.askopenfilename(initialdir=".", title="Select your file.", filetypes=("txt"))
+
 
         self.root.mainloop()
 
@@ -130,7 +131,12 @@ class GUI():
             self.result3.config(text=message)
 
     def _select_file(self):
-        pass
+        ## Ask for file path
+        self.filepath = filedialog.askopenfilename(initialdir=".", title="Select your file.")
+        ## Use regex to display only the file name
+        file_name = re.split("/", self.filepath)[-1]
+        ## Update the file name
+        self.file_input_path.config(text=file_name, font =("Times", 15))
 
     def _select_directory(self):
         pass
