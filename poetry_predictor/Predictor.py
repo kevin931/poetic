@@ -48,7 +48,7 @@ class Predictor():
     ## Preprocess files
     def file_load(self, path):
         # Open and read file
-        file = open(path, "r")
+        file = open(path, "r", encoding='utf-8')
         file = file.read()
 
         return file
