@@ -101,7 +101,7 @@ class GUI():
 
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
         self.status_message.grid(row=9, pady=3)
-        
+
         self.root.mainloop()
 
     ## Predict with sentence in interactive mode
@@ -155,7 +155,7 @@ class GUI():
         ## Save filepath
         file_name = re.split("/",self.filepath)[-1]
         file_name = file_name.split(".")[0]
-        file_path = self.savedir+"/"+file_name
+        file_path = self.savedir+"/"+file_name+"_results.txt"
         ## Check if the file already exists to prevent overwriting
         if os.path.exists(file_path):
             error_msg = "Error: "+file_name+" already exists."
