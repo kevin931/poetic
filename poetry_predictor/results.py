@@ -52,17 +52,23 @@ class Diagnostics():
 
     def to_file(self, path):
 
-        contents = self.generate_report()
+        ## Check output file type for csv
+        path_len = len(path)
+        if (path[(path_len-4):path_len]==".csv"):
+            ## Call to_csv method
+            self.to_csv(path)
+        else:
+            ## Generate the general report
+            contents = self.generate_report()
+            ## Try open or create a new file
+            try:
+                f = open(path, "w")
+                f.write(contents)
+                f.close() # Close File
 
-        ## Try open or create a new file
-        try:
-            f = open(path, "w")
-            f.write(contents)
-            f.close() # Close File
-
-        except:
-            print(contents)
-            print("Warning: Unable to open file at designated path.\n\n")
+            except:
+                print(contents)
+                print("Warning: Unable to open file at designated path.\n\n")
 
     def to_csv(self, path):
         try:
@@ -75,7 +81,6 @@ class Diagnostics():
                 ## Loop through each prediction
                 for i in range(0, len(self.predictions)):
                     writer.writerow([i+1, self.predictions[i]])
-
         except:
             print("Warning: Unable to open file at designated path.\n\n")
 
