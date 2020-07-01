@@ -77,10 +77,10 @@ class Predictor():
         for sentence in input:
             ## Each word in sentence
             id_sent = []
-            for words in sentence:
+            for word in sentence:
                 try:
-                    self.dict.token2id.get(words) > 0
-                    id_sent.append(self.dict.token2id.get(words))
+                    self.dict.token2id.get(word) > 0
+                    id_sent.append(self.dict.token2id.get(word))
                 except:
                     id_sent.append(0)
             ## Append sentences
