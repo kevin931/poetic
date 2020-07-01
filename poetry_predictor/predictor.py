@@ -37,10 +37,12 @@ class Predictor():
         ## Check for errors
         self.check_requirement(sent_token)
         ## To lower case
-        sent_test = sent_token.lower()
+        sent_lower = []
+        for sentence in sent_token:
+            word_lower = [word.lower() for word in sentence]
+            sent_lower.append(word_lower)
         ## Word to ID
-        id_sent = self.word_id(sent_test)
-
+        id_sent = self.word_id(sent_lower)
         ## Padding
         sent_test = keras.preprocessing.sequence.pad_sequences(id_sent, maxlen=456)
 
