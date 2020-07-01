@@ -1,5 +1,6 @@
 # Import necessary modules
 import numpy as np
+import csv
 
 class Diagnostics():
 
@@ -61,6 +62,21 @@ class Diagnostics():
 
         except:
             print(contents)
+            print("Warning: Unable to open file at designated path.\n\n")
+
+    def to_csv(self, path):
+        try:
+            ## Open the file
+            with open(path, "w") as file:
+                ## Writer
+                writer = csv.writer(file)
+                ## Write header
+                writer.writerow(["Sentence_num", "Score"])
+                ## Loop through each prediction
+                for i in range(0, len(self.predictions)):
+                    writer.writerow([i+1, self.predictions[i]])
+
+        except:
             print("Warning: Unable to open file at designated path.\n\n")
 
     ## Generate the contents of the output file
