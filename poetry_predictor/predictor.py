@@ -24,9 +24,9 @@ class Predictor():
         ## Preprocess the input
         input = self.proprocess(input)
         ## Prediction
-        result = self.model.predict(input)
-        result = result.tolist()
-        score = _Predictions(self._sentences ,result)
+        results = self.model.predict(input)
+        results = result.tolist()
+        score = _Predictions(results, self._sentences)
 
         return score
 
@@ -100,8 +100,8 @@ class Predictor():
 
 ## Class for Predictor outputs, inheriting from Diagnostics
 class _Predictions(Diagnostics):
-    def __init__(self, sentences, results):
+    def __init__(self, results, sentences):
         ## Process the results into one single list
         results = [prediction[0] for prediction in results]
         ## Call Diagnostics class constructor
-        super().__init__(sentences, results)
+        super().__init__(predictions=results, sentences=sentences)
