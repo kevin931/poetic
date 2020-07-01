@@ -5,9 +5,9 @@ import csv
 class Diagnostics():
 
     ## Constructor
-    def __init__(self, sentences=None, predictions, diagnostics=None):
-        self.sentences = sentences
+    def __init__(self, predictions, sentences=None, diagnostics=None):
         self.predictions = predictions
+        self.sentences = sentences
         self.diagnostics = diagnostics
 
     ## String representation
