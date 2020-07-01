@@ -5,7 +5,8 @@ import csv
 class Diagnostics():
 
     ## Constructor
-    def __init__(self, predictions, diagnostics=None):
+    def __init__(self, sentences=None, predictions, diagnostics=None):
+        self.sentences = sentences
         self.predictions = predictions
         self.diagnostics = diagnostics
 
