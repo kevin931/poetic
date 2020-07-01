@@ -26,7 +26,7 @@ class Predictor():
         ## Prediction
         result = self.model.predict(input)
         result = result.tolist()
-        score = _Predictions(result)
+        score = _Predictions(self._sentences ,result)
 
         return score
 
@@ -58,6 +58,8 @@ class Predictor():
     def tokenize(self, input):
         ## Split into sentences first
         sentences = sent_tokenize(input)
+        ## Store tokenized sentence with the class
+        self._sentences = sentences
         ## Word tokenize each sentence
         tokens = []
         for sentence in sentences:
@@ -98,8 +100,8 @@ class Predictor():
 
 ## Class for Predictor outputs, inheriting from Diagnostics
 class _Predictions(Diagnostics):
-    def __init__(self, results):
+    def __init__(self, sentences, results):
         ## Process the results into one single list
         results = [prediction[0] for prediction in results]
         ## Call Diagnostics class constructor
-        super().__init__(results)
+        super().__init__(sentences, results)
