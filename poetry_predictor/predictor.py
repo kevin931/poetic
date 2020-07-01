@@ -25,7 +25,7 @@ class Predictor():
         input = self.proprocess(input)
         ## Prediction
         results = self.model.predict(input)
-        results = result.tolist()
+        results = results.tolist()
         score = _Predictions(results, self._sentences)
 
         return score
