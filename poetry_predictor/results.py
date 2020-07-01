@@ -78,10 +78,16 @@ class Diagnostics():
                 ## Writer
                 writer = csv.writer(file)
                 ## Write header
-                writer.writerow(["Sentence_num", "Score"])
+                writer.writerow(["Sentence_num","Sentence", "Score"])
                 ## Loop through each prediction
                 for i in range(0, len(self.predictions)):
-                    writer.writerow([i+1, self.predictions[i]])
+                    ## Check whether sentences are included
+                    if self.sentences is not None:
+                        row = [i+1, self.sentences[i], self.predictions[i]]
+                    else:
+                        row = [i+1, "NA", self.predictions[i]]
+                    ## Write results
+                    writer.writerow(row)
         except:
             print("Warning: Unable to open file at designated path.\n\n")
 
