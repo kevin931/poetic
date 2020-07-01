@@ -23,7 +23,7 @@ class Predictor():
 
         ## Preprocess the input
         input = self.proprocess(input)
-
+        ## Prediction
         result = self.model.predict(input)
         result = result.tolist()
         score = _Predictions(result)
@@ -32,11 +32,12 @@ class Predictor():
 
     ## Preprocess the input
     def proprocess(self, input):
-        ## Tokenize and to lower
-        input = input.lower()
+        ## Tokenize
         sent_token = self.tokenize(input)
         ## Check for errors
         self.check_requirement(sent_token)
+        ## To lower case
+        sent_test = sent_token.lower()
         ## Word to ID
         id_sent = self.word_id(sent_token)
 
@@ -57,7 +58,6 @@ class Predictor():
     def tokenize(self, input):
         ## Split into sentences first
         sentences = sent_tokenize(input)
-
         ## Word tokenize each sentence
         tokens = []
         for sentence in sentences:
