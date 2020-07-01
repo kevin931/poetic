@@ -39,7 +39,7 @@ class Predictor():
         ## To lower case
         sent_test = sent_token.lower()
         ## Word to ID
-        id_sent = self.word_id(sent_token)
+        id_sent = self.word_id(sent_test)
 
         ## Padding
         sent_test = keras.preprocessing.sequence.pad_sequences(id_sent, maxlen=456)
