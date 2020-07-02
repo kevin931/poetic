@@ -63,7 +63,7 @@ class Diagnostics():
             contents = self.generate_report()
             ## Try open or create a new file
             try:
-                f = open(path, "w")
+                f = open(path, "w", encoding='utf-8')
                 f.write(contents)
                 f.close() # Close File
 
@@ -74,7 +74,7 @@ class Diagnostics():
     def to_csv(self, path):
         try:
             ## Open the file
-            with open(path, "w") as file:
+            with open(path, "w", encoding='utf-8') as file:
                 ## Writer
                 writer = csv.writer(file)
                 ## Write header
@@ -88,7 +88,8 @@ class Diagnostics():
                         row = [i+1, "NA", self.predictions[i]]
                     ## Write results
                     writer.writerow(row)
-        except:
+        except Exception as e:
+            print(e)
             print("Warning: Unable to open file at designated path.\n\n")
 
     ## Generate the contents of the output file
