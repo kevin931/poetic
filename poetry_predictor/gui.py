@@ -99,12 +99,32 @@ class GUI():
         self.divider4 =Label(self.tab2, text="~~~~~~~~~~~~~~~~~~~~~~~~~~", font=("Times",20))
         self.divider4.grid(row=7, pady=3)
 
+        ## Output mode
+        self.radiolabel = Label(self.tab2, text="Select Output File Type", font=("Times",15))
+        self.radiolabel.grid(row=8, pady=5)
+        ## Radio Buttons
+        self.output_variable = IntVar()
+        self.radio1 = Radiobutton(self.tab2,
+            text="Summary Text File",
+            variable=self.output_variable,
+            value=1)
+        self.radio2 = Radiobutton(self.tab2,
+            text = "CSV File",
+            variable=self.output_variable,
+            value=2)
+
+        self.radio1.grid(row=9)
+        self.radio2.grid(row=10)
+
+        self.divider5 =Label(self.tab2, text="~~~~~~~~~~~~~~~~~~~~~~~~~~", font=("Times",20))
+        self.divider5.grid(row=11, pady=3)
+
         ## Run and Status
         self.run_button = Button(self.tab2, text="Run!", font=("Times",15), command=self._submit_file)
-        self.run_button.grid(row=8)
+        self.run_button.grid(row=12)
 
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
-        self.status_message.grid(row=9, pady=3)
+        self.status_message.grid(row=13, pady=3)
 
         self.root.mainloop()
 
