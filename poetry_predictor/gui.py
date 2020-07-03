@@ -24,8 +24,10 @@ class GUI():
         self.root.title("Poetry Predictor")
         self.root.geometry("410x575")
 
-        self.top_frame = Frame(self.root, height = 100)
-        self.top_frame.grid(row=0, sticky = "ew")
+        self.root.grid_columnconfigure(0, weight=1)
+
+        self.top_frame = Frame(self.root)
+        self.top_frame.grid(row=0)
 
         ## Welcome Message
         self.wcm1 = Label(self.top_frame, text = "Welcome to the Poetry Predictor!", font=("Times", 20))
