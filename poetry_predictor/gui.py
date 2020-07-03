@@ -22,7 +22,7 @@ class GUI():
         ## Open the GUI
         self.root = Tk()
         self.root.title("Poetry Predictor")
-        self.root.geometry("410x575")
+        self.root.geometry("610x775")
 
         self.root.grid_columnconfigure(0, weight=1)
 
