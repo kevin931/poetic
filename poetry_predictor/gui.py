@@ -3,7 +3,8 @@
 #####################
 
 ## Importing necessary modules
-from tkinter import Tk, Entry, Label, Button, Frame, ttk, filedialog
+from tkinter import Tk, Entry, Label, Button, Frame, ttk
+from tkinter import filedialog, Radiobutton, IntVar
 import re
 import os
 from concurrent import futures
