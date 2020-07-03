@@ -6,6 +6,10 @@
 from tkinter import Tk, Entry, Label, Button, Frame, ttk, filedialog
 import re
 import os
+from concurrent import futures
+
+## Set up a threadpool
+thread_pool = futures.ThreadPoolExecutor(max_workers=1)
 
 class GUI():
 
@@ -146,8 +150,11 @@ class GUI():
         self.file_output_dir.config(text=dir_name, font =("Times", 15))
 
     def _submit_file(self):
-        ## Update the status
-        self.status_message.config(text="Status: Running. . .", font=("Times",15))
+        thread_pool.submit(self._run_file)
+
+    def _run_file(self):
+        ## Update status
+        self.root.after(0, self._update_status, "Running")
         ## Run the results
         results = self.predictor.predict(self.filepath, type="Path")
         ## Diagnostics
@@ -159,12 +166,17 @@ class GUI():
         ## Check if the file already exists to prevent overwriting
         if os.path.exists(file_path):
             error_msg = "Error: "+file_name+" already exists."
-            self.status_message.config(text=error_msg, font=("Times",15))
+            self.root.after(0, self._update_status, error_msg)
         else:
             ## Save results
             results.to_file(file_path)
             ## Update the status
-            self.status_message.config(text="Status: Done! Hooray!", font=("Times",15))
+            self.root.after(0, self._update_status, "Done!")
+
+    def _update_status(self, status):
+        ## Update the status
+        self.status_message.config(text="Status: "+status, font=("Times",15))
+
 
 
 ## For developing purposes only
