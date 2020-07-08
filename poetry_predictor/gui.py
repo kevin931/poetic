@@ -185,7 +185,15 @@ class GUI():
         ## Save filepath
         file_name = re.split("/",self.filepath)[-1]
         file_name = file_name.split(".")[0]
-        file_path = self.savedir+"/"+file_name+"_results.txt"
+        file_path = self.savedir+"/"+file_name+"_results"
+        ## Check file type
+        file_type = self.output_variable.get()
+
+        if file_type == 1:
+            file_path += ".txt"
+        elif file_type ==2:
+            file_path += ".csv"
+
         ## Check if the file already exists to prevent overwriting
         if os.path.exists(file_path):
             error_msg = "Error: "+file_name+" already exists."
@@ -199,8 +207,6 @@ class GUI():
     def _update_status(self, status):
         ## Update the status
         self.status_message.config(text="Status: "+status, font=("Times",15))
-
-
 
 ## For developing purposes only
 if __name__ == "__main__":
