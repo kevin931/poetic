@@ -47,14 +47,14 @@ class Predictor():
         if type == "Path":
             input = self.file_load(input)
 
-        input = self.proprocess(input)
+        input = self.preprocess(input)
         results = self.model.predict(input)
         results = results.tolist()
         score = _Predictions(results, self._sentences)
 
         return score
 
-    def proprocess(self, input):
+    def preprocess(self, input):
         """
         Preprocess inputs: tokenize, to lower, and padding.
 
