@@ -45,7 +45,7 @@ class Predictor():
         """
 
         if type == "Path":
-            input = self.file_load(input)
+            input = self._file_load(input)
 
         input = self.preprocess(input)
         results = self.model.predict(input)
@@ -68,7 +68,7 @@ class Predictor():
 
         sent_token = self.tokenize(input)
 
-        self.check_requirement(sent_token)
+        self._check_requirement(sent_token)
 
         sent_lower = []
         for sentence in sent_token:
@@ -81,7 +81,7 @@ class Predictor():
 
         return sent_test
 
-    def file_load(self, path):
+    def _file_load(self, path):
         # Open a specified file.
         # Method used for accepting file input.
 
@@ -137,7 +137,7 @@ class Predictor():
 
         return(id_input)
 
-    def check_requirement(self,input):
+    def _check_requirement(self,input):
         #Check empty input
         if len(input)==0:
             raise InputLengthError()
