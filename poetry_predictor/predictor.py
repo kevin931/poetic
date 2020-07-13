@@ -1,6 +1,7 @@
 from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
 from poetry_predictor.results import Diagnostics
+from poetry_predictor.preprocess import Initializer
 
 class Predictor():
     """
@@ -29,8 +30,9 @@ class Predictor():
             dict: gensim dictionary, optional
                 The dictionary used to convert words to indices.
         """
-        self.model = model
-        self.dict = dict
+
+        self.model = model if model is not None else Initializer.load_model()
+        self.dict = dict if dict is not None else Initializer.load_dict()
 
     def predict(self, input, type=["Content", "Path"]):
         """
