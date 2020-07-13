@@ -25,9 +25,9 @@ class Predictor():
     def __init__(self, model=None, dict=None):
         """
         Parameters:
-            model: keras model, optional
+            model: tensorflow.python.keras.engine.training.Model, optional
                 The pre-trained Keras model used to predict poetic scores.
-            dict: gensim dictionary, optional
+            dict: gensim.corpora.dictionary.Dictionary, optional
                 The dictionary used to convert words to indices.
         """
 
