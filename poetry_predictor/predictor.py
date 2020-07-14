@@ -34,25 +34,40 @@ class Predictor():
         self.model = model if model is not None else Initializer.load_model()
         self.dict = dict if dict is not None else Initializer.load_dict()
 
-    def predict(self, input, type=["Content", "Path"]):
+    def predict(self, input):
         """
-        Predict poetic score from file or direct input.
+        Predict poetic score from file.
 
         Parameters:
-            input (str): Text content or file path.
-            type (str): "Content" or "Path" for text or file.
+            input (str): Text content to be predicted.
 
         Returns:
-            score (float): The predicted scores of given input.
+            score (float): The predicted scores of the given input.
         """
-
-        if type == "Path":
-            input = self._file_load(input)
 
         input = self.preprocess(input)
         results = self.model.predict(input)
         results = results.tolist()
         score = _Predictions(results, self._sentences)
+
+        return score
+
+    def predict_file(self, path):
+        """
+        Predict poetic score from file.
+
+        This method essentially loads the text file into a string
+        of text and then calls the predict method.
+
+        Parameters:
+            path (str): The path to the text file.
+
+        Returns:
+            score (float): The predicted scores of the contents of the file.
+        """
+
+        input = self._file_load(path)
+        score = self.predict(input)
 
         return score
 
