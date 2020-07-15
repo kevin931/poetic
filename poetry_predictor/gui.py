@@ -179,7 +179,7 @@ class GUI():
         ## Update status
         self.root.after(0, self._update_status, "Running")
         ## Run the results
-        results = self.predictor.predict(self.filepath, type="Path")
+        results = self.predictor.predict_file(self.filepath)
         ## Diagnostics
         results.run_diagnostics()
         ## Save filepath
