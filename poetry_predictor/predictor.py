@@ -14,6 +14,8 @@ class Predictor():
     Methods:
         predict(input)
             Predicts the poetic score of the given input.
+        predict_file(file)
+            Predicts the poetic score from a text file.
         preprocess(input)
             Preprocesses (tokenize, lower case, and pad) the given input.
         tokenize(input)
