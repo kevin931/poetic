@@ -12,7 +12,7 @@ class Predictor():
         dict: Gensim dictionary for word IDs.
 
     Methods:
-        predict(input, type=["Content", "Path"])
+        predict(input)
             Predicts the poetic score of the given input.
         preprocess(input)
             Preprocesses (tokenize, lower case, and pad) the given input.
