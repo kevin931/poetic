@@ -7,6 +7,26 @@ from tensorflow import keras
 import gensim as gs
 import argparse
 
+class Info():
+    """
+    Provide the basic information of the package.
+
+    Methods:
+        version(): Returns the current version of the package.
+    """
+    
+    @staticmethod
+    def version():
+        """
+        A single method to return the version of the package.
+
+        Returns:
+            VERSION (str): The current version of the package.
+        """
+
+        VERSION = "0.2.0"
+        return VERSION
+
 class Initializer():
 
     @classmethod
