@@ -27,6 +27,18 @@ class Info():
         VERSION = "0.2.0"
         return VERSION
 
+    @staticmethod
+    def build_status():
+        """
+        Get the build status of the current version.
+
+        Returns:
+            BUILD (str): The build status of the current version.
+        """
+
+        BUILD = "Dev"
+        return BUILD
+
 class Initializer():
 
     @classmethod
