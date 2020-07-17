@@ -8,6 +8,7 @@ from tkinter import filedialog, Radiobutton, IntVar
 import re
 import os
 from concurrent import futures
+from poetry_predictor.util import Info
 
 ## Set up a threadpool
 thread_pool = futures.ThreadPoolExecutor(max_workers=1)

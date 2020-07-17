@@ -1,8 +1,8 @@
 # Import necessary module
-from poetry_predictor import gui, predictor, preprocess, results
+from poetry_predictor import gui, predictor, util, results
 
 ## Initialize and load the program
-args, model, dict = preprocess.Initializer.initialize()
+args, model, dict = util.Initializer.initialize()
 
 ## Initialize the predictor
 new_pred = predictor.Predictor(model, dict)
