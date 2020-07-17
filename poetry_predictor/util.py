@@ -14,7 +14,7 @@ class Info():
     Methods:
         version(): Returns the current version of the package.
     """
-    
+
     @staticmethod
     def version():
         """
@@ -82,7 +82,7 @@ class Arguments():
                                  help="File to be parsed.")
         self.parser.add_argument("-o", "--Out", action="store",
                                  help="Path to save results.")
-        self.parser.add_argument("--version", action="version", version="Poetry Predictor 0.2.0 alpha")
+        self.parser.add_argument("--version", action="version", version=self._version())
 
     def parse(self):
         arguments = self.parser.parse_args()
@@ -93,6 +93,15 @@ class Arguments():
             raise UnsupportedConfigError()
 
         return arguments
+
+    def _version(self):
+        """Format the command-line version output"""
+
+        v = "Poetry Predictor "
+        v += Info.version() + " "
+        v += Info.build_status()
+
+        return v
 
     class UnsupportedConfigError(Exception):
         def __init__(self):
