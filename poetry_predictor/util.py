@@ -44,8 +44,8 @@ class Initializer():
     @classmethod
     def initialize(cls):
         ## Command-line arguments arguments
-        arguments = Arguments()
-        arguments = arguments.parse()
+        arguments = _Arguments()
+        arguments = arguments._parse()
 
         ## Load dictionary and model
         model = cls.load_model()
