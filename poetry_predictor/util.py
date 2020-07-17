@@ -69,7 +69,7 @@ class Initializer():
         return sent_model
 
 ## Parsing arguments
-class Arguments():
+class _Arguments():
     ## Constructor
     def __init__(self):
         ## New Parser
@@ -84,7 +84,7 @@ class Arguments():
                                  help="Path to save results.")
         self.parser.add_argument("--version", action="version", version=self._version())
 
-    def parse(self):
+    def _parse(self):
         arguments = self.parser.parse_args()
         arguments = vars(arguments)
 
