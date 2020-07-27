@@ -139,11 +139,19 @@ class GUI():
 
         ## Predict
         try:
-            score =self.predictor.predict(input, type="Content")
+            score =self.predictor.predict(input)
 
-        except:
+        # Input Length Error
+        except self.predictor._InputLengthError as e:
+            print(e)
             self.result2.config(text = "Nothing entered. Please try again.")
             self.result3.config(text="Please type in your sentence and submit!")
+
+        # All other exceptions
+        except Exception as e:
+            self.result2.config(text = "An error has occurred. Please try again.")
+            self.result3.config(text="Please type in your sentence and submit!")
+            raise e
 
         else:
             ## Process the score for the median
