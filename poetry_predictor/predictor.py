@@ -159,10 +159,10 @@ class Predictor():
     def _check_requirement(self,input):
         #Check empty input
         if len(input)==0:
-            raise InputLengthError()
+            raise self._InputLengthError()
 
 
-    class InputLengthError(Exception):
+    class _InputLengthError(Exception):
         # Raise error for inproper input length
         def __init__(self):
             message = "Input length out of bound: must be between 1 and 465"
