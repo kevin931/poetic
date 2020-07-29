@@ -13,6 +13,7 @@ class Info():
 
     Methods:
         version(): Returns the current version of the package.
+        build_status(): Returns the current build status.
     """
 
     @staticmethod
