@@ -6,10 +6,13 @@
 from tensorflow import keras
 import gensim as gs
 
-import argparse
 from zipfile import ZipFile
 from urllib.request import urlopen
 from io import BytesIO
+
+from os import path
+import argparse
+import pkg_resources
 
 class Info():
     """
@@ -46,6 +49,9 @@ class Info():
 
 class Initializer():
 
+    # Package data directory
+    _data_dir = pkg_resources.resource_filename("poetic", "data/")
+
     @classmethod
     def initialize(cls):
         ## Command-line arguments arguments
@@ -63,15 +69,33 @@ class Initializer():
         word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./data/word_dictionary_complete.txt")
         return word_dictionary
 
-    @staticmethod
-    def load_model():
-        json_file = open('./data/sent_model.json', 'r')
+    @classmethod
+    def load_model(cls):
+        """Load Keras models.
+
+        This method uses Keras interface to load the previously
+        trained models, which are necessary for the Predictor and
+        the GUI.
+
+        Returns:
+            model (tensorflow.python.keras.engine.training.Model): Pretrained Keras model
+
+        """
+        weights_dir = cls._data_dir+"sent_model.h5"
+        model_dir = cls._data_dir+"sent_model.json"
+
+        model_status = not path.exists(model_dir)
+        weights_status = not path.exists(weights_dir)
+        if model_status and weights_status:
+            cls.download_assets()
+
+        json_file = open(model_dir, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
-        sent_model = keras.models.model_from_json(loaded_model_json)
+        model = keras.models.model_from_json(loaded_model_json)
         # load weights into new model
-        sent_model.load_weights("./data/sent_model.h5")
-        return sent_model
+        model.load_weights(weights_dir)
+        return model
 
     @classmethod
     def download_assets(self):
