@@ -1,8 +1,15 @@
-#####################
-### Loading the necessary files
-#####################
+"""Module for package utility.
 
-## Import necessary module
+This module includes the necessary functionalities to load and
+download assets for other module in the package and provide basic
+information for the current build and version of the package.
+
+Classes:
+    Info(): Provides the basic information of the package.
+    Initializer(): Initializes core components of the package.
+
+"""
+
 from tensorflow import keras
 import gensim as gs
 
@@ -16,7 +23,7 @@ import pkg_resources
 
 class Info():
     """
-    Provide the basic information of the package.
+    Provides the basic information of the package.
 
     Methods:
         version(): Returns the current version of the package.
@@ -48,24 +55,63 @@ class Info():
         return BUILD
 
 class Initializer():
+    """Initializes core components of the package.
+
+    The Initializer is core part of Poetic that loads and
+    downloads models and other necessary assets. It also
+    facilitates the command line mode by interacting with
+    the _Arguments class.
+
+    Methods:
+        initialize():
+            Initializes the package with all necessities.
+        load_dict():
+            Loads the gensim disctionary.
+        load_model():
+            Loads the Keras model and its weights.
+        download_assets():
+            Download the Keras model and its weights.
+    """
 
     # Package data directory
     _data_dir = pkg_resources.resource_filename("poetic", "data/")
 
     @classmethod
     def initialize(cls):
-        ## Command-line arguments arguments
+        """Initializes the package.
+
+        This methods checks for any command line arguments,
+        and then loads both the gensim dictionary and the
+        Keras model with its weights.
+
+        Returns:
+            arguments (dict):
+                A dictionary of commandline arguments.
+            model (tensorflow.python.keras.engine.training.Model, optional):
+                A pre-trained Keras model with its weights loaded.
+            word_dictionary (gensim.corpora.dictionary.Dictionary):
+                A gensim dictionary.
+
+        """
+
         arguments = _Arguments()
         arguments = arguments._parse()
 
-        ## Load dictionary and model
         model = cls.load_model()
-        dict = cls.load_dict()
+        word_dictionary = cls.load_dict()
 
-        return arguments, model, dict
+        return arguments, model, word_dictionary
 
     @classmethod
     def load_dict(cls):
+
+        """Loads gensim dictionary.
+
+        Returns:
+            word_dictionary (gensim.corpora.dictionary.Dictionary):
+                A gensim dictionary.
+
+        """
         dir = cls._data_dir + "word_dictionary_complete.txt"
         word_dictionary = gs.corpora.Dictionary.load_from_text(fname=dir)
         return word_dictionary
@@ -118,11 +164,13 @@ class Initializer():
             with ZipFile(BytesIO(contents)) as file:
                 file.extractall(cls._data_dir)
 
-## Parsing arguments
+
 class _Arguments():
-    ## Constructor
+    # This class parses command line arguments.
+
     def __init__(self):
-        ## New Parser
+        # New parser with the appropriate flags.
+
         self.parser = argparse.ArgumentParser(description="Poetry Predictor Command Line Mode")
         self.parser.add_argument("-g", "--GUI", action="store_true",
                                  help="Tag to open GUI anyway. No imput needed.")
@@ -135,17 +183,18 @@ class _Arguments():
         self.parser.add_argument("--version", action="version", version=self._version())
 
     def _parse(self):
+        # Parse arguments
+
         arguments = self.parser.parse_args()
         arguments = vars(arguments)
-
-        ## Check for error
+        # Check for error
         if arguments["Sentence"] is not None and arguments["File"] is not None:
             raise UnsupportedConfigError()
 
         return arguments
 
     def _version(self):
-        """Format the command-line version output"""
+        # Format the command-line version output
 
         v = "Poetry Predictor "
         v += Info.version() + " "
