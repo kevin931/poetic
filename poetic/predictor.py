@@ -1,7 +1,7 @@
 from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
-from poetry_predictor.results import Diagnostics
-from poetry_predictor.util import Initializer
+from poetic.results import Diagnostics
+from poetic.util import Initializer
 
 class Predictor():
     """

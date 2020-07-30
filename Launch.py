@@ -9,7 +9,7 @@ warning_message += "and will be removed at in the future."
 warnings.warn(warning_message, FutureWarning)
 
 # Import necessary module
-from poetry_predictor import gui, predictor, preprocess, results
+from poetic import gui, predictor, preprocess, results
 
 def main():
 

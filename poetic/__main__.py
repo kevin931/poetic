@@ -1,5 +1,5 @@
 # Import necessary module
-from poetry_predictor import gui, predictor, util, results
+from poetic import gui, predictor, util, results
 
 ## Initialize and load the program
 args, model, dict = util.Initializer.initialize()

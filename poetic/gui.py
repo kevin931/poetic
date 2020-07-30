@@ -1,11 +1,11 @@
 """Module for Poetry Predictor GUI.
 
-This module includes the class and methods for Poetry
-Predictor's desktop Tkinter GUI. As an internal interface,
-This is not intended or recommended for being used as an import.
-To run the GUI, execute on the command line the following command:
+This module includes the class and methods for poetic's desktop
+Tkinter GUI. As an internal interface, this is not intended or
+recommended for being used as an import. To run the GUI, execute
+on the command line the following command:
 
-    $python -m poetry_predictor
+    $python -m poetic
 """
 
 from tkinter import Tk, Entry, Label, Button, Frame, ttk
@@ -13,7 +13,7 @@ from tkinter import filedialog, Radiobutton, IntVar
 import re
 import os
 from concurrent import futures
-from poetry_predictor.util import Info
+from poetic.util import Info
 
 # Set up a threadpool
 thread_pool = futures.ThreadPoolExecutor(max_workers=1)
