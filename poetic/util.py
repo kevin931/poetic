@@ -64,9 +64,10 @@ class Initializer():
 
         return arguments, model, dict
 
-    @staticmethod
-    def load_dict():
-        word_dictionary = gs.corpora.Dictionary.load_from_text(fname="./data/word_dictionary_complete.txt")
+    @classmethod
+    def load_dict(cls):
+        dir = cls._data_dir + "word_dictionary_complete.txt"
+        word_dictionary = gs.corpora.Dictionary.load_from_text(fname=dir)
         return word_dictionary
 
     @classmethod
