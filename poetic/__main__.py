@@ -13,12 +13,12 @@ if args["Sentence"] is not None or args["File"] is not None:
     ## Check for "-s" tag
     if args["Sentence"] is not None:
         ## Prediction
-        score = new_pred.predict(args["Sentence"], type="Content")
+        score = new_pred.predict(args["Sentence"])
 
     ## Check for "-f" tag
     if args["File"] is not None:
         ## Prediction
-        score = new_pred.predict(args["File"], type="Path")
+        score = new_pred.predict_file(args["File"])
 
     ## Run diagnostics
     score.run_diagnostics()
