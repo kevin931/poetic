@@ -98,12 +98,24 @@ class Initializer():
         return model
 
     @classmethod
-    def download_assets(self):
-        url = "https://github.com/kevin931/MeterOMeter/archive/v.0.1.2.zip"
+    def download_assets(cls):
+        """Method to download models.
+
+        This method downloads models from the poetic-models
+        github repository. Explicitly calling this method will
+        initiate a download regardless of whether the model has
+        previously been downloaded. Under usual circumstances,
+        other functions will download the models automatically.
+
+        """
+
+        url = "https://github.com/kevin931/poetic-models/releases/download/v0.1-alpha/sent_model.zip"
+
+        # Downloading and unzipping
         with urlopen(url) as contents:
             contents = contents.read()
             with ZipFile(BytesIO(contents)) as file:
-                file.extractall()
+                file.extractall(cls._data_dir)
 
 ## Parsing arguments
 class _Arguments():
