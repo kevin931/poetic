@@ -94,23 +94,24 @@ class Diagnostics():
 
     ## Generate the contents of the output file
     def generate_report(self):
-        ## Program Information
-        r = "Poetry Predictor\n"
-        r = r + "Version: 0.2.0\n"
-        r = r + 'For latest updates: www.github.com/kevin931/PoetryPredictor\n\n'
-        ## General Information
-        r = "Diagnostics Report\n\n"
-        r = r + "Model: Lexical Model\n"
-        r = r + f"Number of Sentences: {self.diagnostics['Sentence_count']}\n\n"
-        ## Five Number Summary
-        r = r + "~~~Five Number Summary~~~\n"
-        r = r + f"Minimum: {self.diagnostics['Five_num']['Min']}\n"
-        r = r + f"Mean: {self.diagnostics['Five_num']['Mean']}\n"
-        r = r + f"Median: {self.diagnostics['Five_num']['Median']}\n"
-        r = r + f"Maximum: {self.diagnostics['Five_num']['Max']}\n"
-        r = r + f"Standard Deviation: {self.diagnostics['Five_num']['Stdev']}\n\n"
+        version = Info.version()
 
-        ## Print out the score of each sentence
+        # Program Information
+        r = "\nPoetry Predictor\n"
+        r += f"Version: {version}\n"
+        r += 'For latest updates: www.github.com/kevin931/Poetic\n\n'
+        # General Information
+        r += "Diagnostics Report\n\n"
+        r += "Model: Lexical Model\n"
+        r += f"Number of Sentences: {self.diagnostics['Sentence_count']}\n\n"
+        # Five Number Summary
+        r += "~~~Five Number Summary~~~\n"
+        r += f"Minimum: {self.diagnostics['Five_num']['Min']}\n"
+        r += f"Mean: {self.diagnostics['Five_num']['Mean']}\n"
+        r += f"Median: {self.diagnostics['Five_num']['Median']}\n"
+        r += f"Maximum: {self.diagnostics['Five_num']['Max']}\n"
+        r += f"Standard Deviation: {self.diagnostics['Five_num']['Stdev']}\n\n"
+        # Score of each sentence
         r = r + "~~~All Scores~~~\n"
         for i in range(0, self.diagnostics["Sentence_count"]):
             r = r + f"Sentence #{i+1}: {self.predictions[i]}\n"
