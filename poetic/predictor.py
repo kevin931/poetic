@@ -19,8 +19,10 @@ class Predictor():
     This is the class to process and predict inputs.
 
     Attributes:
-        model:The pre-trained keras model.
-        dict: Gensim dictionary for word IDs.
+        model (tensorflow.python.keras.engine.training.Model, optional):
+            The pre-trained keras model.
+        dict (gensim.corpora.dictionary.Dictionary, optional):
+            Gensim dictionary for word IDs.
 
     Methods:
         predict(input)
@@ -38,14 +40,15 @@ class Predictor():
     def __init__(self, model=None, dict=None):
         """
         Parameters:
-            model: tensorflow.python.keras.engine.training.Model, optional
+            model (tensorflow.python.keras.engine.training.Model, optional):
                 The pre-trained Keras model used to predict poetic scores.
-            dict: gensim.corpora.dictionary.Dictionary, optional
+            dict (gensim.corpora.dictionary.Dictionary, optional):
                 The dictionary used to convert words to indices.
         """
 
         self.model = model if model is not None else Initializer.load_model()
         self.dict = dict if dict is not None else Initializer.load_dict()
+        self._sentences = None
 
     def predict(self, input):
         """
@@ -55,7 +58,7 @@ class Predictor():
             input (str): Text content to be predicted.
 
         Returns:
-            score (float): The predicted scores of the given input.
+            score (list): The predicted scores of the given input.
         """
 
         input = self.preprocess(input)
@@ -76,7 +79,7 @@ class Predictor():
             path (str): The path to the text file.
 
         Returns:
-            score (float): The predicted scores of the contents of the file.
+            score (list): The predicted scores of the contents of the file.
         """
 
         input = self._file_load(path)
