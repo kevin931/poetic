@@ -1,3 +1,14 @@
+"""Module for poetry predictions.
+
+This module provides interfaces for poetry predictions with
+the Predictor class. To make prediction, an instance of the
+Predictor is needed with the necessary model and gensim
+dictionary is needed.
+
+Classes:
+    Predictor(model, dict): Class for making predictions.
+"""
+
 from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
 from poetic.results import Diagnostics
