@@ -1,37 +1,37 @@
-# Import necessary module
+"""Runs package as main.
+
+The __main__.py is intended for the command line usage
+of the package with the command below. Command line arguments
+are parsed accordingly with its associated behaviors.
+
+    $python -m poetic
+
+"""
+
 from poetic import gui, predictor, util, results
 
-## Initialize and load the program
+# Initialization and predictor
 args, model, dict = util.Initializer.initialize()
-
-## Initialize the predictor
 new_pred = predictor.Predictor(model, dict)
 
-## Check for command-line mode
+# Check for command-line mode
 if args["Sentence"] is not None or args["File"] is not None:
-
-    ## Check for "-s" tag
+    # "-s" flag
     if args["Sentence"] is not None:
-        ## Prediction
         score = new_pred.predict(args["Sentence"])
-
-    ## Check for "-f" tag
+    # "-f" flag
     if args["File"] is not None:
-        ## Prediction
         score = new_pred.predict_file(args["File"])
 
-    ## Run diagnostics
     score.run_diagnostics()
-
-    ## Check for "-o" tag
+    # Check for "-o" tag
     if args["Out"] is not None:
         score.to_file(args["Out"])
     else:
         print(score.generate_report())
 
-## Check whether for default GUI mode without "-f" and "-s" tag
+# Check for default GUI mode without "-f" and "-s" tag
 launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
-
-## Start the program with the GUI
+# Start the program with the GUI
 if args["GUI"] or launch_GUI:
     newGUI = gui.GUI(new_pred)
