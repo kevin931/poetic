@@ -1,10 +1,10 @@
 ![Logo](/Docs/Logo.png)
 
-# Poetic
+# Poetic (poetic-py)
 
 > A machine-learning package to gauge your poetic madness.
 
-![Badge1](https://img.shields.io/badge/Version-1.0.0Beta-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
+![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -47,11 +47,11 @@ Look no further. You have found poetic.
 **Have fun!!**
 
 ## Installation
-Python 3 and pip are required for Poetic to work. There is currently no support for Conda, which will be a consideration on the roadmap.
+Python 3 and pip are required for Poetic to work. There is currently no support for Conda, which will be a consideration on the roadmap. The package is itself installs as "poetic".
 
 To install from pypi:
 ```shell
-  pip install poetic
+  pip install poetic-py
 
 ```
 
