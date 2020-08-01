@@ -43,6 +43,8 @@ This initiative is originally part of the Robert Mayer Undergraduate Research Fe
 Look no further. You have found poetic.
 
 ![Demo of program](/Docs/gui_demo.gif)
+<img src="/Docs/gui_demo.gif" width="300" height="400" />
+
 
 **Have fun!!**
 
