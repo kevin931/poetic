@@ -6,3 +6,7 @@ public-domain works. For further documentation and latest releases,
 please visit https://github.com/kevin931/poetic.
 
 """
+
+from poetic.predictor import *
+from poetic.results import *
+import poetic.util
