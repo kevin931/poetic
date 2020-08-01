@@ -16,7 +16,7 @@ setuptools.setup(
     data_files = [("data", ["word_dictionary_complete.txt"])],
     classifiers = [
         "License :: OSI Approved :: MIT License",
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 3 - Beta",
         "Programming Language :: Python :: 3 :: Only"
     ]
 )
