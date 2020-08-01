@@ -1,4 +1,4 @@
-name: PoetryPredictor
+name: Poetic
 channels:
   - defaults
 dependencies:
