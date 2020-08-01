@@ -17,7 +17,7 @@ setuptools.setup(
                         "nltk>=3.4"
     ],
     install_package_data=True,
-    package_data={"poetic":["*.txt"]},
+    package_data={"poetic":["./data/word_dictionary_complete.txt"]},
     classifiers = [
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3 :: Only"
