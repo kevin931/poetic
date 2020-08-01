@@ -3,3 +3,5 @@ poetic/data/*_model.h5
 poetic/data/*_model.json
 temp/
 poetic/__pycache__
+dist/
+poetic.egg-info/
