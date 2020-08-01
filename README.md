@@ -1,6 +1,6 @@
 ![Logo](/Docs/Logo.png)
 
-# Poetic (poetic-py)
+# Poetic (poetic-py on pypi)
 
 > A machine-learning package to gauge your poetic madness.
 
@@ -42,14 +42,13 @@ This initiative is originally part of the Robert Mayer Undergraduate Research Fe
 
 Look no further. You have found poetic.
 
-![Demo of program](/Docs/gui_demo.gif)
 <img src="/Docs/gui_demo.gif" width="300" height="400" />
 
 
 **Have fun!!**
 
 ## Installation
-Python 3 and pip are required for Poetic to work. There is currently no support for Conda, which will be a consideration on the roadmap. The package is itself installs as "poetic".
+Python 3 and pip are required for Poetic to work. There is currently no support for Conda, which will be a consideration on the roadmap. The package itself is named as "poetic" after installation.
 
 To install from pypi:
 ```shell
