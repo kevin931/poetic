@@ -41,9 +41,10 @@ class GUI():
         self.top_frame.grid(row=0)
 
         # Welcome Message
+        version = "v."+Info.version()
         self.wcm1 = Label(self.top_frame, text = "Welcome to the Poetry Predictor!", font=("Times", 20))
         self.wcm2 = Label(self.top_frame, text = "Find out how poetic you are!", font=("Times", 15))
-        self.wcm3 = Label(self.top_frame, text = "v.0.1.2", font=("Times", 15))
+        self.wcm3 = Label(self.top_frame, text = version, font=("Times", 15))
         self.wcm1.grid(row=0)
         self.wcm2.grid(row=1)
         self.wcm3.grid(row=2)
