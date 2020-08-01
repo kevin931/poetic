@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name = "poetic",
-    version = "1.0.0-Alpha",
+    version = "1.0.0-Beta",
     url = "https://github.com/kevin931/poetic",
     author = "Kevin Wang",
     author_email = "bridgemarian@gmail.com",
