@@ -4,4 +4,4 @@ poetic/data/*_model.json
 temp/
 poetic/__pycache__
 dist/
-poetic.egg-info/
+poetic_py.egg-info/
