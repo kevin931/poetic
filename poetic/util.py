@@ -75,6 +75,8 @@ class Initializer():
 
     # Package data directory
     _data_dir = pkg_resources.resource_filename("poetic", "data/")
+    if _data_dir[-1] != "\\" and _data_dir[-1] != "/":
+        _data_dir += "/"
 
     @classmethod
     def initialize(cls):
