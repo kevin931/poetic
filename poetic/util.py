@@ -39,7 +39,7 @@ class Info():
             VERSION (str): The current version of the package.
         """
 
-        VERSION = "1.0.0-Beta"
+        VERSION = "1.0.0b1"
         return VERSION
 
     @staticmethod

@@ -116,7 +116,7 @@ Below are some common use cases:
 
 
 ## Version
-* v.1.0.0-Beta
+* v.1.0.0b1
   - **Now on pypi**
   - Support for command-line mode.
   - Support for processing text file.
