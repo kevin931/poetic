@@ -12,9 +12,10 @@ setuptools.setup(
     description = "Predicts how poetic sentences are.",
     long_description = description,
     packages=["poetic"],
-    install_requires = ["tensorflow==2.0",
-                        "gensim>=3.8",
-                        "nltk>=3.4"
+    python_requires=">3.5, <3.8",
+    install_requires=["tensorflow==2.0",
+                      "gensim>=3.8",
+                      "nltk>=3.4"
     ],
     install_package_data=True,
     package_data={"poetic":["./data/word_dictionary_complete.txt"]},
