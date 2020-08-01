@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name = "poetic",
+    name = "poetic-py",
     version = "1.0.0-Beta",
     url = "https://github.com/kevin931/poetic",
     author = "Kevin Wang",
