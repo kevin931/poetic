@@ -160,6 +160,11 @@ Below are some common use cases:
   - Updated model.
   - LFS support for GitHub.
 
+## Known issues (To be fixed before official release):
+- Current lack of progress bar or warning messages in util.Initializer.download_assets().
+- Version compatibility checking and testing.
+- Lack of working tests for CI/CD.  
+
 ## Future Update Roadmap:
 - Support poetic meter
 - Support for other and custom Keras models
