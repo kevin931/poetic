@@ -58,6 +58,18 @@ To install from pypi:
 
 Pypi should be able to handle all the dependencies. More testing on version compatibility is on the way.
 
+#### Dependencies
+* tensorflow == 2.0
+* nltk >= 3.4
+* gensim >= 3.8
+
+Poetic theoretically supports later versions of TensorFlow, but due to a TensorFlow bug regarding scipy version and installation, [setup.py](/setup.py) specifies only TensorFlow 2.0. If you wish to use other versions (1.x may also work), **install poetic using pip first and then make necessary changes!** Otherwise, pip will throw an error.
+
+#### Conda
+I love Conda (and that is what I use on my development machine)! At this time, poetic is not yet hosted on conda or conda-forge. More works to make that happen are on the way.
+
+If you wish to use dependencies from conda channel, which is recommended with conda environments, install these dependencies **first**! For more information on conda environments, [this is a good guide.](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+
 
 ## Usage
 Poetic supports both command-line mode and be used as a standard Python package.
