@@ -118,7 +118,7 @@ Below are some common use cases:
 
 ## Version
 * v.1.0.0b1
-  - **Now on pypi**
+  - **Now on [pypi](https://pypi.org/project/poetic-py/)**
   - Support for command-line mode.
   - Support for processing text file.
   - Added docstring documentation.
