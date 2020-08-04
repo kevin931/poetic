@@ -148,6 +148,29 @@ class Initializer():
 
     @classmethod
     def download_assets(cls):
+    def check_assets(cls):
+        """ Method to check whether assets requirements are met.
+
+        This method checks both the model and its weights in the
+        corresponding directory. It reports back their existence
+        as part of the package requirement.
+
+        Returns:
+            status (dict): the status of the assets as a dictionary.
+
+        """
+        weights_dir = cls._data_dir+"sent_model.h5"
+        model_dir = cls._data_dir+"sent_model.json"
+        model_status = path.exists(model_dir)
+        weights_status = path.exists(weights_dir)
+
+        status = {}
+        status["all_exist"] = True if model_status and weights_status else False
+        status["model"] = model_status
+        status["weights"] = weights_status
+
+        return status
+
         """Method to download models.
 
         This method downloads models from the poetic-models
