@@ -130,13 +130,11 @@ class Initializer():
             model (tensorflow.python.keras.engine.training.Model): Pretrained Keras model
 
         """
-        weights_dir = cls._data_dir+"sent_model.h5"
-        model_dir = cls._data_dir+"sent_model.json"
 
-        model_status = not path.exists(model_dir)
-        weights_status = not path.exists(weights_dir)
-        if model_status and weights_status:
-            cls.download_assets()
+        # Check model assets status
+        assets = cls.check_assets()
+        if not assets["all_exist"]:
+            cls.download_assets(assets_status=assets)
 
         json_file = open(model_dir, 'r')
         loaded_model_json = json_file.read()
@@ -147,7 +145,6 @@ class Initializer():
         return model
 
     @classmethod
-    def download_assets(cls):
     def check_assets(cls):
         """ Method to check whether assets requirements are met.
 
@@ -171,6 +168,8 @@ class Initializer():
 
         return status
 
+    @classmethod
+    def download_assets(cls, assets_status=None, force_download=False):
         """Method to download models.
 
         This method downloads models from the poetic-models
@@ -183,11 +182,46 @@ class Initializer():
 
         url = "https://github.com/kevin931/poetic-models/releases/download/v0.1-alpha/sent_model.zip"
 
-        # Downloading and unzipping
+        if assets_status is None:
+            assets_status = cls.check_assets()
+        # Check if download needed
+        if assets_status["all_exist"]:
+            return None
+
+        # Download Message
+        message = "\nThe following important assets are missing:\n"
+        message += "-- sent_model.json\n" if not assets_status["model"] else ""
+        message += "-- sent_model.h5\n" if not assets_status["weights"] else ""
+        message += f"\nDownloading from: {url}\n"
+        message += "Download size: 835MB.\n\n"
+        print(message)
+
+        if not force_download:
+            value = input("Would you like to download? [y/n]")
+            # Anything other than "y"
+            if value.lower() != "y":
+                message_2 = "\nYou have declined to download the assets.\n"
+                message_2 += "To download in the future, call Predictor()\n"
+                message_2 += "or use util.Initializer.download_assets().\n"
+                message_2 += "At this time, Predictor is unfunctional without\n"
+                message_2 += "the necessary assets. For future features or feature requests\n"
+                message_2 += "please visit: https://github.com/kevin931/poetic\n"
+                message_2 += "Stay poetic!\n"
+                print(message_2)
+
+                return None
+
+        # All other conditions, which warrants downloading
+        message_3 = "\nDownload in progress...\n"
+        message_3 += "This may take quite a while, "
+        message_3 += "go grab a coffee and be poetic.\n"
+        print(message_3)
+
         with urlopen(url) as contents:
             contents = contents.read()
             with ZipFile(BytesIO(contents)) as file:
                 file.extractall(cls._data_dir)
+
 
 
 class _Arguments():
