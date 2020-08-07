@@ -37,16 +37,21 @@ class Predictor():
             Converts words from tokenized input to indices.
     """
 
-    def __init__(self, model=None, dict=None):
+    def __init__(self, model=None, dict=None, force_download_assets=False):
         """
         Parameters:
             model (tensorflow.python.keras.engine.training.Model, optional):
                 The pre-trained Keras model used to predict poetic scores.
             dict (gensim.corpora.dictionary.Dictionary, optional):
                 The dictionary used to convert words to indices.
+            force_download_assets (bool, optional):
+                A boolean value on whether the util module's load_model()
+                funtion will download the assets for the model without
+                asking. If the model parameter is supplied, this parameter
+                is effectively ignored.
         """
 
-        self.model = model if model is not None else Initializer.load_model()
+        self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
         self.dict = dict if dict is not None else Initializer.load_dict()
         self._sentences = None
 
