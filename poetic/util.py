@@ -180,10 +180,15 @@ class Initializer():
         """Method to download models.
 
         This method downloads models from the poetic-models
-        github repository. Explicitly calling this method will
-        initiate a download regardless of whether the model has
-        previously been downloaded. Under usual circumstances,
-        other functions will download the models automatically.
+        github repository. Under usual circumstances, other
+        functions will download the models automatically if needed.
+        If all the models already exist, this function will not
+        download them again for package efficiency and bandwidth
+        saving.
+
+        If you would like to redownload the assets anyway, a manual
+        download from https://github.com/kevin931/poetic-models/releases
+        is necessary.
 
         Parameters:
             assets_status (dict):
