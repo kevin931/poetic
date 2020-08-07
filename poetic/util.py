@@ -119,12 +119,19 @@ class Initializer():
         return word_dictionary
 
     @classmethod
-    def load_model(cls):
+    def load_model(cls, force_download=False):
         """Load Keras models.
 
         This method uses Keras interface to load the previously
         trained models, which are necessary for the Predictor and
-        the GUI.
+        the GUI. If the model does not exist, the download_assets()
+        method is automatically called for the option to obtain
+        the necessary assets.
+
+        Parameters:
+            force_download (bool):
+                A boolean value on whether to download the models
+                without asking if the models do not exist.
 
         Returns:
             model (tensorflow.python.keras.engine.training.Model): Pretrained Keras model
@@ -134,7 +141,7 @@ class Initializer():
         # Check model assets status
         assets = cls.check_assets()
         if not assets["all_exist"]:
-            cls.download_assets(assets_status=assets)
+            cls.download_assets(assets_status=assets, force_download=force_download)
 
         json_file = open(model_dir, 'r')
         loaded_model_json = json_file.read()
