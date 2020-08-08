@@ -167,8 +167,9 @@ class Diagnostics():
                     writer.writerow(row)
 
         except Exception as e:
-            print(e)
             print("Warning: Unable to open file at designated path.\n\n")
+            raise e
+
 
 
     def generate_report(self):
