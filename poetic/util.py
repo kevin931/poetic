@@ -80,6 +80,10 @@ class Initializer():
     if _data_dir[-1] != "\\" and _data_dir[-1] != "/":
         _data_dir += "/"
 
+    # Model Path
+    _weights_dir = _data_dir+"sent_model.h5"
+    _model_dir = _data_dir+"sent_model.json"
+
     @classmethod
     def initialize(cls):
         """Initializes the package.
@@ -145,12 +149,12 @@ class Initializer():
         if not assets["all_exist"]:
             cls.download_assets(assets_status=assets, force_download=force_download)
 
-        json_file = open(model_dir, 'r')
+        json_file = open(cls._model_dir, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         model = keras.models.model_from_json(loaded_model_json)
         # load weights into new model
-        model.load_weights(weights_dir)
+        model.load_weights(cls._weights_dir)
         return model
 
     @classmethod
@@ -165,10 +169,9 @@ class Initializer():
             status (dict): the status of the assets as a dictionary.
 
         """
-        weights_dir = cls._data_dir+"sent_model.h5"
-        model_dir = cls._data_dir+"sent_model.json"
-        model_status = path.exists(model_dir)
-        weights_status = path.exists(weights_dir)
+
+        model_status = path.exists(cls._model_dir)
+        weights_status = path.exists(cls._weights_dir)
 
         status = {}
         status["all_exist"] = True if model_status and weights_status else False
