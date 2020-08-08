@@ -13,6 +13,7 @@ from tensorflow import keras
 from nltk.tokenize import word_tokenize, sent_tokenize
 from poetic.results import Diagnostics
 from poetic.util import Initializer
+from poetic import exceptions
 
 class Predictor():
     """
@@ -178,14 +179,8 @@ class Predictor():
     def _check_requirement(self,input):
         #Check empty input
         if len(input)==0:
-            raise self._InputLengthError()
-
-
-    class _InputLengthError(Exception):
-        # Raise error for inproper input length
-        def __init__(self):
             message = "Input length out of bound: must be between 1 and 465"
-            super().__init__(message)
+            raise exceptions.InputLengthError(message)
 
 
 class _Predictions(Diagnostics):
