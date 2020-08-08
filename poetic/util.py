@@ -21,6 +21,8 @@ from os import path
 import argparse
 import pkg_resources
 
+from poetic import exceptions
+
 class Info():
     """
     Provides the basic information of the package.
@@ -272,7 +274,10 @@ class _Arguments():
         arguments = vars(arguments)
         # Check for error
         if arguments["Sentence"] is not None and arguments["File"] is not None:
-            raise UnsupportedConfigError()
+            message = "Unsupported configurations: "
+            message += "-f and -s tags cannot be both used.\n"
+            message += "To make two predictions, please do two operations.\n"
+            raise exceptions.UnsupportedConfigError(message)
 
         return arguments
 
@@ -284,9 +289,3 @@ class _Arguments():
         v += Info.build_status()
 
         return v
-
-    class UnsupportedConfigError(Exception):
-        def __init__(self):
-            message_1 = "Unsupported combination: Unable to process sentence and file in one operation.\n"
-            message_2 = "For help, please run with '-h' tag."
-            super().__init__(message)
