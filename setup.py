@@ -13,7 +13,7 @@ setuptools.setup(
     long_description = description,
     packages=["poetic"],
     python_requires=">3.5, <3.8",
-    install_requires=["tensorflow==2.0.1",
+    install_requires=["tensorflow==2.3.1",
                       "gensim>=3.8",
                       "nltk>=3.4"
     ],
