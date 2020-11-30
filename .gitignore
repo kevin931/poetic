@@ -1,8 +1,17 @@
+## Python files 
 *.pyc
+*__pycache__
+*_cache
+
+## Local models
 poetic/data/*_model.h5
 poetic/data/*_model.json
-temp/
-poetic/__pycache__
+
+## build
 dist/
 poetic_py.egg-info/
 build/
+
+# Local Development Files
+temp/
+.vscode/
