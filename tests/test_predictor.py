@@ -1,6 +1,8 @@
 from poetic.predictor import Predictor
 import poetic
+
 from tensorflow import keras
+import numpy as np
 import os
 
 class TestPredictor():
@@ -27,25 +29,72 @@ class TestPredictor():
         id = self.pred.word_id([["you"]])
         assert isinstance(id, list)
 
+
     def test_word_id(self):
         id = self.pred.word_id([["you"]])
         assert id[0][0] == 141
 
-    def test_predict_type(self):
-        score = self.pred.predict("This is a test.")
-        assert isinstance(score, poetic.predictor.Predictions)
 
     def test_file_load(self):
         path = self.script_path + "/data/file_test.txt"
         file = self.pred._file_load(path)
         assert file == "This is just a test."
+        
+        
+    def test_predict_type(self):
+        score = self.pred.predict("This is a test.")
+        assert isinstance(score, poetic.predictor.Predictions)
+ 
+        
+    def test_predict_type_inheritance(self):
+        score = self.pred.predict("This is a test.")
+        assert isinstance(score, poetic.results.Diagnostics)
+
 
     def test_file_predict(self):
         score = self.pred.predict_file(self.script_path +"/data/file_test.txt")
         score = score.predictions[0]
         assert score >= 0 and score <= 1
         
+        
     def test_string_predict(self):
         score = self.pred.predict("This is just a test.")
         score = score.predictions[0]
         assert score >= 0 and score <= 1
+      
+        
+    def test_input_length_check(self):
+        try:
+            self.pred.predict("")
+        except Exception as e:
+            assert isinstance(e, poetic.exceptions.InputLengthError)
+       
+            
+    def test_check_requirement(self):
+        try:
+            self.pred._check_requirement([])
+        except Exception as e:
+            assert isinstance(e, poetic.exceptions.InputLengthError)
+    
+            
+    def test_tokenize(self):
+        tokens = self.pred.tokenize("This is just a test. Hi.")
+        expected = [["This", "is", "just", "a", "test", "."], ["Hi", "."]]
+        assert tokens == expected
+   
+        
+    def test_tokenize_type(self):
+        tokens = self.pred.tokenize("This is just a test.")
+        assert isinstance(tokens, list)
+        
+        
+    def test_preprocess_type(self):
+        processed = self.pred.preprocess("This is just a test.")
+        assert isinstance(processed, np.ndarray)
+        
+        
+    def test_preprocess_length(self):
+        processed = self.pred.preprocess("This is just a test. Hi.")
+        processed = [len(processed), len(processed[0])]
+        expected = [2, 456]
+        assert processed == expected
