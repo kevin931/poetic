@@ -104,7 +104,7 @@ class Predictor():
                 Text either in a single string or a list of strings.
 
         Returns:
-            sent_test (list): A 2-d list of processed inputs.
+            sent_test (list): A 2-d numpy array of processed inputs.
         """
 
         sent_token = self.tokenize(input)
