@@ -15,6 +15,7 @@ from poetic.results import Diagnostics
 from poetic.util import Initializer
 from poetic import exceptions
 
+
 class Predictor():
     """
     This is the class to process and predict inputs.
@@ -38,6 +39,7 @@ class Predictor():
             Converts words from tokenized input to indices.
     """
 
+
     def __init__(self, model=None, dict=None, force_download_assets=False):
         """
         Parameters:
@@ -55,6 +57,7 @@ class Predictor():
         self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
         self.dict = dict if dict is not None else Initializer.load_dict()
         self._sentences = None
+
 
     def predict(self, input):
         """
@@ -74,6 +77,7 @@ class Predictor():
         score = Predictions(results, self._sentences)
 
         return score
+
 
     def predict_file(self, path):
         """
@@ -95,6 +99,7 @@ class Predictor():
 
         return score
 
+
     def preprocess(self, input):
         """
         Preprocess inputs: tokenize, to lower, and padding.
@@ -108,7 +113,6 @@ class Predictor():
         """
 
         sent_token = self.tokenize(input)
-
         self._check_requirement(sent_token)
 
         sent_lower = []
@@ -117,10 +121,10 @@ class Predictor():
             sent_lower.append(word_lower)
 
         id_sent = self.word_id(sent_lower)
-
         sent_test = keras.preprocessing.sequence.pad_sequences(id_sent, maxlen=456)
 
         return sent_test
+
 
     def _file_load(self, path):
         # Open a specified file.
@@ -130,6 +134,7 @@ class Predictor():
         file = file.read()
 
         return file
+
 
     def tokenize(self, input):
         """
@@ -178,11 +183,13 @@ class Predictor():
 
         return(id_input)
 
+
     def _check_requirement(self,input):
         #Check empty input
         if len(input)==0:
             message = "Input length out of bound: must be between 1 and 465"
             raise exceptions.InputLengthError(message)
+
 
 
 class Predictions(Diagnostics):
