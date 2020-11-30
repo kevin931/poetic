@@ -58,7 +58,7 @@ class Predictor():
 
     def predict(self, input):
         """
-        Predict poetic score from file.
+        Predict poetic score from string.
 
         Parameters:
             input (str): Text content to be predicted.
