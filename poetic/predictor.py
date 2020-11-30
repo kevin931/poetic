@@ -64,13 +64,14 @@ class Predictor():
             input (str): Text content to be predicted.
 
         Returns:
-            score (list): The predicted scores of the given input.
+            score (Predictions): A Predictions object with predicted
+                scores of the given input.
         """
 
         input = self.preprocess(input)
         results = self.model.predict(input)
         results = results.tolist()
-        score = _Predictions(results, self._sentences)
+        score = Predictions(results, self._sentences)
 
         return score
 
@@ -85,7 +86,8 @@ class Predictor():
             path (str): The path to the text file.
 
         Returns:
-            score (list): The predicted scores of the contents of the file.
+            score (Predictions): A Predictions object with predicted
+                scores of the given input.
         """
 
         input = self._file_load(path)
@@ -183,7 +185,7 @@ class Predictor():
             raise exceptions.InputLengthError(message)
 
 
-class _Predictions(Diagnostics):
+class Predictions(Diagnostics):
     # Class for Predictor outputs
     # Inheriting from Diagnostics class
 
