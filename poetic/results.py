@@ -61,7 +61,9 @@ class Diagnostics():
 
     # String Representation
     def __repr__(self):
-        repr = {"Predictions": self.predictions, "Diagnostics": self.diagnostics}
+        repr = {"Predictions": self.predictions, 
+                "Sentences": self.sentences,
+                "Diagnostics": self.diagnostics}
         return str(repr)
 
     def __len__(self):
