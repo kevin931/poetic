@@ -41,4 +41,11 @@ class TestPredictor():
         assert file == "This is just a test."
 
     def test_file_predict(self):
-        pass
+        score = self.pred.predict_file(self.script_path +"/data/file_test.txt")
+        score = score.predictions[0]
+        assert score >= 0 and score <= 1
+        
+    def test_string_predict(self):
+        score = self.pred.predict("This is just a test.")
+        score = score.predictions[0]
+        assert score >= 0 and score <= 1
