@@ -1,8 +1,10 @@
 from poetic.util import Info, Initializer, _Arguments
+import poetic
 
 import re
 import os
 import gensim
+import pytest
 
 class TestInfo():
     
@@ -56,13 +58,12 @@ class TestInitializer():
         status_bool = status_all and status_model and status_weights
         assert status_bool
         
-        
 class Test_Arguments():
     
     @classmethod
     def setup_class(cls):
         cls.parser = _Arguments()
-        cls.arguments = cls.parser.parse()
+        
     
     def test_version_type(self):
         version = self.parser.version()
@@ -70,14 +71,49 @@ class Test_Arguments():
     
     
     def test_version(self):
-        pass
+        pattern = "Poetic [0-9]*\\.[0-9]*\\.[0-9]*"
+        version = self.parser.version()
+        matched = re.match(pattern, version)
+        assert matched is not None
     
     
     def test_parse_type(self):
-        assert isinstance(self.arguments, dict)
+        test_args = []
+        arguments = self.parser.parse(test_args)
+        assert isinstance(arguments, dict)
     
     
     def test_parse_flags(self):
-        arguments_keys = list(self.arguments.keys())
+        test_args = []
+        arguments = self.parser.parse(test_args)
+        arguments_keys = list(arguments.keys())
         expected = ["GUI", "Sentence", "File", "Out"]
         assert arguments_keys == expected
+        
+        
+    @pytest.mark.parametrize("input,",
+                             [(["-s", ".", "-f", "."],),
+                             (["--Sentence", ".", "--File", "."],)]
+                             )
+    def test_unsupported_config_error(self, input):
+        input, = input
+        try:
+            self.parser.parse(input)
+        except Exception as e:
+            assert isinstance(e, poetic.exceptions.UnsupportedConfigError)
+            
+            
+    @pytest.mark.parametrize("input,key",
+                             [(["-s", "."], "Sentence"),
+                             (["--Sentence", "."], "Sentence"),
+                             (["--GUI"], "GUI"),
+                             (["-g"], "GUI"),
+                             (["--File", "."], "File"),
+                             (["-f", "."], "File"),
+                             (["--Out", "."], "Out"),
+                             (["-o", "."], "Out")]
+                             )        
+    def test_config_single_flag(self, input, key):
+        arguments = self.parser.parse(input)
+        assert arguments[key] is not None
+        
