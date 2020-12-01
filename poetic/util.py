@@ -287,7 +287,7 @@ class _Arguments():
     def version(self):
         # Format the command-line version output
 
-        v = "Poetry Predictor "
+        v = "Poetic "
         v += Info.version() + " "
         v += Info.build_status()
 
