@@ -270,10 +270,10 @@ class _Arguments():
                                  help="Path to save results.")
         self.parser.add_argument("--version", action="version", version=self.version())
 
-    def parse(self):
+    def parse(self, args=None):
         # Parse arguments
 
-        arguments = self.parser.parse_args()
+        arguments = self.parser.parse_args(args)
         arguments = vars(arguments)
         # Check for error
         if arguments["Sentence"] is not None and arguments["File"] is not None:
