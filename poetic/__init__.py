@@ -7,6 +7,6 @@ please visit https://github.com/kevin931/poetic.
 
 """
 
-from poetic.predictor import *
-from poetic.results import *
-import poetic.util
+from poetic.predictor import Predictor
+from poetic.results import Diagnostics
+from poetic import util
