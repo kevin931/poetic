@@ -1,5 +1,4 @@
-from poetic.util import Info, Initializer
-import poetic
+from poetic.util import Info, Initializer, _Arguments
 
 import re
 import os
@@ -56,3 +55,29 @@ class TestInitializer():
         
         status_bool = status_all and status_model and status_weights
         assert status_bool
+        
+        
+class Test_Arguments():
+    
+    @classmethod
+    def setup_class(cls):
+        cls.parser = _Arguments()
+        cls.arguments = cls.parser.parse()
+    
+    def test_version_type(self):
+        version = self.parser.version()
+        assert isinstance(version, str)
+    
+    
+    def test_version(self):
+        pass
+    
+    
+    def test_parse_type(self):
+        assert isinstance(self.arguments, dict)
+    
+    
+    def test_parse_flags(self):
+        arguments_keys = list(self.arguments.keys())
+        expected = ["GUI", "Sentence", "File", "Out"]
+        assert arguments_keys == expected
