@@ -103,7 +103,7 @@ class Initializer():
         """
 
         arguments = _Arguments()
-        arguments = arguments._parse()
+        arguments = arguments.parse()
 
         model = cls.load_model()
         word_dictionary = cls.load_dict()
@@ -268,9 +268,9 @@ class _Arguments():
                                  help="File to be parsed.")
         self.parser.add_argument("-o", "--Out", action="store",
                                  help="Path to save results.")
-        self.parser.add_argument("--version", action="version", version=self._version())
+        self.parser.add_argument("--version", action="version", version=self.version())
 
-    def _parse(self):
+    def parse(self):
         # Parse arguments
 
         arguments = self.parser.parse_args()
@@ -284,7 +284,7 @@ class _Arguments():
 
         return arguments
 
-    def _version(self):
+    def version(self):
         # Format the command-line version output
 
         v = "Poetry Predictor "
