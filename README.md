@@ -5,6 +5,7 @@
 > A machine-learning package to gauge your poetic madness.
 
 ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
+[![Dev](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
