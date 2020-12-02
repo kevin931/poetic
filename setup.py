@@ -12,7 +12,7 @@ setuptools.setup(
     description = "Predicts how poetic sentences are.",
     long_description = description,
     packages=["poetic"],
-    python_requires=">=3.5, <=3.8",
+    python_requires=">=3.6, <=3.8",
     install_requires=["tensorflow>=2",
                       "gensim>=3.8",
                       "nltk>=3.4"
