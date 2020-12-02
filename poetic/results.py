@@ -188,7 +188,7 @@ class Diagnostics():
         version = Info.version()
 
         # Program Information
-        r = "\nPoetry Predictor\n"
+        r = "\nPoetic\n"
         r += f"Version: {version}\n"
         r += 'For latest updates: www.github.com/kevin931/Poetic\n\n'
         # General Information
