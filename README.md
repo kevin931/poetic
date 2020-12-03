@@ -1,4 +1,4 @@
-![Logo](/Docs/Logo.png)
+![Logo](/docs/Logo.png)
 
 # Poetic (poetic-py on pypi)
 
@@ -46,7 +46,7 @@ This initiative is originally part of the Robert Mayer Undergraduate Research Fe
 
 Look no further. You have found poetic.
 
-<img src="/Docs/gui_demo.gif" width="300" height="400" />
+<img src="/docs/gui_demo.gif" width="300" height="400" />
 
 
 **Have fun!!**
