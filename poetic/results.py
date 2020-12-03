@@ -140,9 +140,10 @@ class Diagnostics():
                 f.write(contents)
                 f.close() # Close File
 
-            except:
+            except Exception as e:
                 print(contents)
                 print("Warning: Unable to open file at designated path.\n\n")
+                raise e
 
 
     def to_csv(self, path):
