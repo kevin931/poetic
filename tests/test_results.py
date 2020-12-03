@@ -26,7 +26,7 @@ class TestDiagnostics():
         expected = "Diagnostics object for the following predictions: [1, 0, 1, 0]"
         assert output == expected
         
-        
+                
     def test_repr_type(self):
         output = repr(self.results)
         assert isinstance(output, str)
@@ -93,13 +93,13 @@ class TestDiagnostics():
         
     def test_to_file(self):
         path = self.script_path + "/data/txt_test_temp.txt"
-        self.results.to_csv(path)       
+        self.results.to_file(path)       
         assert os.path.exists(path)
         
         
     def test_to_file_csv_parse(self):
         path = self.script_path + "/data/csv_test_via_txt_temp.txt"
-        self.results.to_csv(path)       
+        self.results.to_file(path)       
         assert os.path.exists(path)
         
              
