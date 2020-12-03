@@ -12,6 +12,11 @@ dist/
 poetic_py.egg-info/
 build/
 
+## Docs
+docs/build
+docs/source/_static
+docs/source/_templates
+
 # Local Development Files
 temp/
 .vscode/
