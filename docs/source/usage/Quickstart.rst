@@ -116,8 +116,7 @@ Prediction Diagnostics
 
 .. code-block:: python
 
-    import poetic
-
-    new_pred = poetic.Predictor()
-    sentence_result = new_pred.predict("I am poetic. Are you?") # Directly
-    file_result = new_pred.predict_file("FILE_PATH.txt") # From a file
+    # sentence_result is from the previous section.
+    sentence_result.run_diagnostics()
+    sentence_result.to_file("SAVE_PATH.txt")
+    sentence_result.to_csv("SAVE_PATH.csv")
