@@ -33,6 +33,11 @@ class TestPredictor():
     def test_word_id(self):
         id = self.pred.word_id([["you"]])
         assert id[0][0] == 141
+        
+        
+    def test_word_id_non_exist(self):
+        id = self.pred.word_id([["this_is_a_test"]])
+        assert id[0][0] == 0
 
 
     def test_file_load(self):
