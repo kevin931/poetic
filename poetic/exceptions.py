@@ -7,12 +7,12 @@ class InputLengthError(Exception):
             message = "The current length is unsupported or out of bound."
         super().__init__(message)
 
+
 class UnsupportedConfigError(Exception):
     # Check unsupported command line argument configuration.
     # Used in util.Arguments()
 
     def __init__(self, message=None):
         if message is None:
-            message = "Unsupported configuration: Please refer to documentation."
-
+            message = "Unsupported configuration: Please refer to docummentation."
         super().__init__(message)
