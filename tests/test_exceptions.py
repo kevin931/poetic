@@ -17,6 +17,15 @@ class TestExceptions():
         assert expected in message
         
         
+    def test_input_length_errror_inheritance(self):
+        try:
+            raise exceptions.InputLengthError()
+        except exceptions.InputLengthError as e:
+            assert isinstance(e, Exception)
+        else:
+            assert False
+            
+              
     def test_unsupported_config_message(self):
         
         try:
@@ -28,3 +37,12 @@ class TestExceptions():
             
         expected = "Unsupported configuration: Please refer to docummentation."
         assert expected in message
+        
+    
+    def test_unsupported_config_inheritance(self):
+        try:
+            raise exceptions.UnsupportedConfigError()
+        except exceptions.UnsupportedConfigError as e:
+            assert isinstance(e, Exception)
+        else:
+            assert False
