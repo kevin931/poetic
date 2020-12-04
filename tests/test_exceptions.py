@@ -1,7 +1,5 @@
 from poetic import exceptions
 
-from io import StringIO
-import sys
 
 class TestExceptions():
     
