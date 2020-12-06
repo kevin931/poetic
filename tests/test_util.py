@@ -42,7 +42,7 @@ class TestInitializer():
     def setup_class(cls):
         # File paths
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        cls.initialize_return =  Initializer.initialize(_test=True)
+        cls.initialize_return =  Initializer.initialize(_test=True, _test_args="")
         cls.assets_status = Initializer.check_assets()
         
         
