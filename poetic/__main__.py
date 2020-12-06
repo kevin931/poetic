@@ -11,9 +11,9 @@ please visit: poetic.readthedocs.io or github.com/kevin931/poetic
 
 from poetic import gui, predictor, util, results
 
-def main(*, _test=False):
+def main(*, _test=False, _test_args=None):
     # Initialization and predictor
-    args, model, dictionary = util.Initializer.initialize(_test=_test)
+    args, model, dictionary = util.Initializer.initialize(_test=_test, _test_args=_test_args)
     new_pred = predictor.Predictor(model, dictionary)
 
     # Check for command-line mode
@@ -35,8 +35,12 @@ def main(*, _test=False):
     # Check for default GUI mode without "-f" and "-s" tag
     launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
     # Start the program with the GUI
-    if (args["GUI"] or launch_GUI) and not _test:
-        gui.GUI(new_pred)
+    if args["GUI"] or launch_GUI:
+        if _test:           
+            print("Test GUI launch")
+        else:
+            gui.GUI(new_pred)
+                   
 
 
 if __name__ == "__main__":
