@@ -2,7 +2,7 @@ Modules and Classes Doccumentation
 ===================================
 
 *****************
-Module contents
+Package Overview
 *****************
 
 .. automodule:: poetic
