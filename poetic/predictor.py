@@ -6,7 +6,8 @@ Predictor is needed with the necessary model and gensim
 dictionary is needed.
 
 Classes:
-    Predictor(model, dict): Class for making predictions.
+    Predictor(model, dict): 
+        Class for making predictions and as the central class of the package.
 """
 
 from tensorflow import keras
@@ -18,7 +19,8 @@ from poetic import exceptions
 
 class Predictor():
     """
-    This is the class to process and predict inputs.
+    The Predictor() class processes and predicts inputs for poetic scores. It can be used
+    as the single interface of the package with other modules built as helpers. 
 
     Attributes:
         model (tensorflow.python.keras.engine.training.Model, optional):
@@ -67,8 +69,8 @@ class Predictor():
             input (str): Text content to be predicted.
 
         Returns:
-            score (Predictions): A Predictions object with predicted
-                scores of the given input.
+            score (Predictions): 
+                A Predictions object with predicted scores of the given input.
         """
 
         input = self.preprocess(input)
@@ -90,8 +92,8 @@ class Predictor():
             path (str): The path to the text file.
 
         Returns:
-            score (Predictions): A Predictions object with predicted
-                scores of the given input.
+            score (Predictions): 
+                A Predictions object with predicted scores of the given input.
         """
 
         input = self._file_load(path)
