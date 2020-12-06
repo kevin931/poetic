@@ -110,7 +110,7 @@ class TestDiagnostics():
         
         
     def test_to_file_csv_parse(self):
-        path = self.script_path + "/data/csv_test_via_txt_temp.txt"
+        path = self.script_path + "/data/csv_test_via_txt_temp.csv"
         self.results.to_file(path)       
         assert os.path.exists(path)
         
@@ -215,5 +215,5 @@ class TestDiagnostics():
     def teardown_class(cls):
         os.remove(cls.script_path + "/data/csv_test_temp.csv")
         os.remove(cls.script_path + "/data/txt_test_temp.txt")
-        os.remove(cls.script_path + "/data/csv_test_via_txt_temp.txt")
+        os.remove(cls.script_path + "/data/csv_test_via_txt_temp.csv")
         os.remove(cls.script_path + "/data/csv_test_sentence_temp.csv")
