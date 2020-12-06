@@ -9,7 +9,7 @@ import sys
 import http
 
 import gensim
-from tensorflow.python.keras.engine.training import Model
+from tensorflow.python.keras.engine.training import Model # pylint: disable=no-name-in-module, import-error
 
 class TestInfo():
     
