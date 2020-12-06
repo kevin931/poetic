@@ -3,8 +3,13 @@ import poetic
 
 import re
 import os
-import gensim
 import pytest
+from io import StringIO
+import sys
+import http
+
+import gensim
+from tensorflow.python.keras.engine.training import Model
 
 class TestInfo():
     
@@ -37,26 +42,148 @@ class TestInitializer():
     def setup_class(cls):
         # File paths
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
+        cls.initialize_return =  Initializer.initialize(_test=True)
+        cls.assets_status = Initializer.check_assets()
         
+        
+    def test_initialize_return_tuple_type(self):
+        assert isinstance(self.initialize_return, tuple)
+        
+        
+    def test_initialize_return_tuple_length(self):
+        assert len(self.initialize_return) == 3
+        
+        
+    @pytest.mark.parametrize("index, return_type",
+                             [(0, dict),
+                             (1, Model),
+                             (2, gensim.corpora.dictionary.Dictionary)]
+                             )   
+    def test_initialize_return_tuple_contents_type(self, index, return_type):    
+        assert isinstance(self.initialize_return[index], return_type)
     
+        
     def test_load_dict(self):
         gensim_dict = Initializer.load_dict()
         assert isinstance(gensim_dict, gensim.corpora.dictionary.Dictionary)
-    
-    
+        
+        
+    def test_load_model(self):
+        model = Initializer.load_model(_test=True)
+        assert isinstance(model, Model)
+        
+       
     def test_check_assets_type(self):
-        status = Initializer.check_assets()
-        assert isinstance(status, dict)
+        assert isinstance(self.assets_status, dict)
         
         
     def test_check_assets_contents_type(self):
-        status = Initializer.check_assets()
-        status_all = isinstance(status["all_exist"], bool)  
-        status_model = isinstance(status["model"], bool) 
-        status_weights = isinstance(status["weights"], bool)
+        status_all = isinstance(self.assets_status["all_exist"], bool)  
+        status_model = isinstance(self.assets_status["model"], bool) 
+        status_weights = isinstance(self.assets_status["weights"], bool)
         
         status_bool = status_all and status_model and status_weights
         assert status_bool
+        
+        
+    def test_download_assets_all_exist(self):
+        self.assets_status["all_exist"] = True
+        
+        screen_stdout = sys.stdout
+        string_stdout = StringIO()
+        sys.stdout = string_stdout
+        
+        Initializer.download_assets(self.assets_status)
+            
+        output = string_stdout.getvalue()
+        sys.stdout = screen_stdout     
+        assert output == ""
+
+      
+    def test_download_assets_all_exist_return_none(self):
+        self.assets_status["all_exist"] = True
+        result = Initializer.download_assets(self.assets_status)       
+        assert result is None
+        
+        
+    def test_download_assets_input_n_return_none(self):
+        self.assets_status["all_exist"] = False
+        result = Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input="n")
+        assert result is None
+        
+        
+    def test_download_assets_input_n_prompt(self):
+        self.assets_status["all_exist"] = False
+        
+        screen_stdout = sys.stdout
+        string_stdout = StringIO()
+        sys.stdout = string_stdout
+        
+        Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input="n")
+        
+        output = string_stdout.getvalue()
+        sys.stdout = screen_stdout
+        
+        assert "You have declined to download the assets." in output
+        
+    
+    @pytest.mark.parametrize("input,",
+                             [("Y",),
+                             ("y",)]
+                             )     
+    def test_download_assets_input_y_output(self, input):
+        self.assets_status["all_exist"] = False
+        
+        screen_stdout = sys.stdout
+        string_stdout = StringIO()
+        sys.stdout = string_stdout
+        
+        input, = input
+        Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input=input)
+        
+        output = string_stdout.getvalue()
+        sys.stdout = screen_stdout
+        
+        assert "Download in progress..." in output
+        
+        
+    def test_download_assets_force_download(self):
+        self.assets_status["all_exist"] = False
+         
+        screen_stdout = sys.stdout
+        string_stdout = StringIO()
+        sys.stdout = string_stdout
+        
+        Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test=True, _test_input=input)
+        
+        output = string_stdout.getvalue()
+        sys.stdout = screen_stdout
+        
+        assert "Download in progress..." in output
+        
+        
+    def test_download_assets_url(self):
+        self.assets_status["all_exist"] = False
+        
+        try:
+            Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test=True)
+        except:
+            assert False
+        else:
+            assert True
+            
+            
+    def test_download_assets_return_type(self):
+        self.assets_status["all_exist"] = False
+        
+        try:
+            contents = Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test=True)
+        except:
+            assert False
+        else:
+            print(type(contents))
+            assert isinstance(contents, http.client.HTTPResponse)
+   
         
 class Test_Arguments():
     
