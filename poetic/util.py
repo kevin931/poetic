@@ -89,7 +89,7 @@ class Initializer():
 
 
     @classmethod
-    def initialize(cls, _test=False):
+    def initialize(cls, _test=False, _test_args=None):
         """Initializes the package.
 
         This methods checks for any command line arguments,
@@ -106,11 +106,10 @@ class Initializer():
 
         """
         
-        test_arguments = "" if _test else None
         arguments = _Arguments()
-        arguments = arguments.parse(test_arguments)
+        arguments = arguments.parse(_test_args)
 
-        model = cls.load_model(_test=True)
+        model = cls.load_model(_test=_test)
         word_dictionary = cls.load_dict()
 
         return arguments, model, word_dictionary
