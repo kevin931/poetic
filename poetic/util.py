@@ -89,7 +89,7 @@ class Initializer():
 
 
     @classmethod
-    def initialize(cls, _test=False, _test_args=None):
+    def initialize(cls, *, _test=False, _test_args=None):
         """Initializes the package.
 
         This methods checks for any command line arguments,
@@ -131,7 +131,7 @@ class Initializer():
 
 
     @classmethod
-    def load_model(cls, force_download=False, _test=False):
+    def load_model(cls, force_download=False, *, _test=False):
         """Load Keras models.
 
         This method uses Keras interface to load the previously
@@ -193,7 +193,7 @@ class Initializer():
 
 
     @classmethod
-    def download_assets(cls, assets_status=None, force_download=False, _test=False, _test_input=None):
+    def download_assets(cls, assets_status=None, force_download=False, *, _test=False, _test_input=None):
         """Method to download models.
 
         This method downloads models from the poetic-models
