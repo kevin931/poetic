@@ -4,8 +4,15 @@
 
 > A machine-learning package to gauge your poetic madness.
 
-![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
-[![Dev](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
+
+| Branch | Version | Build Status | Docs | Coverage |
+| --- | --- | --- | --- | --- |
+| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
+| master | ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=master)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=master)](https://coveralls.io/github/kevin931/poetic?branch=master) |
+
+
+
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
