@@ -106,6 +106,11 @@ class TestInitializer():
         assert result is None
         
         
+    def test_download_assets_check_assets_return_none(self):
+        result = Initializer.download_assets(_test=True)
+        assert result is None
+        
+        
     def test_download_assets_input_n_return_none(self):
         self.assets_status["all_exist"] = False
         result = Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input="n")
