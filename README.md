@@ -5,8 +5,13 @@
 > A machine-learning package to gauge your poetic madness.
 
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-| Branch | Version | Build Status | Docs | Coverage |
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
+
+| Branch | Release | Build Status | Docs | Coverage |
 | --- | --- | --- | --- | --- |
 | dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
 | master | ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=master)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=master)](https://coveralls.io/github/kevin931/poetic?branch=master) |
