@@ -9,16 +9,16 @@ warning_message += "and will be removed at in the future."
 warnings.warn(warning_message, FutureWarning)
 
 # Import necessary module
-from poetic import gui, predictor, preprocess, results
+from poetic import gui, predictor, util, results
 
 def main():
 
     ## Initialize and load the program
-    args, model, dict = preprocess.Initializer.initialize()
+    args, model, dictionary = util.Initializer.initialize()
 
 
     ## Initialize the predictor
-    new_pred = predictor.Predictor(model, dict)
+    new_pred = predictor.Predictor(model, dictionary)
 
     ## Check for command-line mode
     if args["Sentence"] is not None or args["File"] is not None:
@@ -26,12 +26,12 @@ def main():
         ## Check for "-s" tag
         if args["Sentence"] is not None:
             ## Prediction
-            score = new_pred.predict(args["Sentence"], type="Content")
+            score = new_pred.predict(args["Sentence"])
 
         ## Check for "-f" tag
         if args["File"] is not None:
             ## Prediction
-            score = new_pred.predict(args["File"], type="Path")
+            score = new_pred.predict_file(args["File"])
 
         ## Run diagnostics
         score.run_diagnostics()
@@ -47,7 +47,7 @@ def main():
 
     ## Start the program with the GUI
     if args["GUI"] or launch_GUI:
-        newGUI = gui.GUI(new_pred)
+        gui.GUI(new_pred)
 
 if __name__ == "__main__":
     main()
