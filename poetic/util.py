@@ -259,7 +259,7 @@ class Initializer():
         message_3 += "go grab a coffee and be poetic.\n"
         print(message_3)
         
-        with urlopen(url) as contents:
+        with urlopen(url) as contents: # pragma: no cover
             if _test: return contents
             contents = contents.read()
             with ZipFile(BytesIO(contents)) as file:
