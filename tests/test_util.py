@@ -9,7 +9,7 @@ import sys
 import http
 
 import gensim
-from tensorflow.python.keras.engine.training import Model # pylint: disable=no-name-in-module, import-error
+from tensorflow import keras
 
 class TestInfo():
     
@@ -56,7 +56,7 @@ class TestInitializer():
         
     @pytest.mark.parametrize("index, return_type",
                              [(0, dict),
-                             (1, Model),
+                             (1, keras.Model),
                              (2, gensim.corpora.dictionary.Dictionary)]
                              )   
     def test_initialize_return_tuple_contents_type(self, index, return_type):    
@@ -70,7 +70,7 @@ class TestInitializer():
         
     def test_load_model(self):
         model = Initializer.load_model(_test=True)
-        assert isinstance(model, Model)
+        assert isinstance(model, keras.Model)
         
        
     def test_check_assets_type(self):
