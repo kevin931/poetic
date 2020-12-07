@@ -10,8 +10,9 @@ please visit: poetic.readthedocs.io or github.com/kevin931/poetic
 """
 
 from poetic import gui, predictor, util, results
+from typing import List, Union, Optional
 
-def main(*, _test=False, _test_args=None):
+def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None) -> None:
     # Initialization and predictor
     args, model, dictionary = util.Initializer.initialize(_test=_test, _test_args=_test_args)
     new_pred = predictor.Predictor(model, dictionary)

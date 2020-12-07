@@ -29,7 +29,7 @@ class GUI():
             object, the GUI will have no predicting functionality.
     """
 
-    def __init__(self, predictor=None, *, _test=False):
+    def __init__(self, predictor=None, *, _test=False) -> None:
         self.predictor = predictor
         # GUI parameters
         self.root = Tk()
@@ -137,7 +137,7 @@ class GUI():
             self.root.mainloop() # End
 
 
-    def _submit_sentence(self):
+    def _submit_sentence(self) -> None:
         # Predict with sentence in interactive mode
 
         input = self.sentence_input.get()
@@ -165,7 +165,7 @@ class GUI():
             message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
             self.result3.config(text=message)
 
-    def _select_file(self):
+    def _select_file(self) -> None:
         # Method that selects file.
 
         self.filepath = filedialog.askopenfilename(initialdir=".", title="Select your file.")
@@ -173,16 +173,16 @@ class GUI():
         self.file_input_path.config(text=file_name,
                                     font =("Times", 15))
 
-    def _select_directory(self):
+    def _select_directory(self) -> None:
         # Ask for save directory
         self.savedir = filedialog.askdirectory(initialdir=".", title="Select your save directory.")
         dir_name = re.split("/", self.savedir)[-1]
         self.file_output_dir.config(text=dir_name, font =("Times", 15))
 
-    def _submit_file(self):
+    def _submit_file(self) -> None:
         thread_pool.submit(self._run_file)
 
-    def _run_file(self):
+    def _run_file(self) -> None:
         # Method for submitting the file to run.
 
         # Update status
@@ -210,7 +210,7 @@ class GUI():
             results.to_file(file_path)
             self.root.after(0, self._update_status, "Done!")
 
-    def _update_status(self, status):
+    def _update_status(self, status) -> None:
         # Method for updating the status
         self.status_message.config(text="Status: "+status, font=("Times",15))
 

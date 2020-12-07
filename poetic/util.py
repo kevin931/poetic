@@ -11,7 +11,7 @@ Classes:
 """
 
 from tensorflow import keras
-import gensim as gs
+import gensim
 
 from zipfile import ZipFile
 from urllib.request import urlopen
@@ -22,6 +22,8 @@ import argparse
 import pkg_resources
 
 from poetic import exceptions
+
+from typing import Optional, List, Dict, Union
 
 
 class Info():
@@ -34,7 +36,7 @@ class Info():
     """
 
     @staticmethod
-    def version():
+    def version() -> str:
         """
         A single method to return the version of the package.
 
@@ -47,7 +49,7 @@ class Info():
 
 
     @staticmethod
-    def build_status():
+    def build_status() -> str:
         """
         Get the build status of the current version.
 
@@ -89,7 +91,7 @@ class Initializer():
 
 
     @classmethod
-    def initialize(cls, *, _test=False, _test_args=None):
+    def initialize(cls, *, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None):
         """Initializes the package.
 
         This methods checks for any command line arguments,
@@ -116,7 +118,7 @@ class Initializer():
 
 
     @classmethod
-    def load_dict(cls):
+    def load_dict(cls) -> gensim.corpora.dictionary.Dictionary:
         """Loads gensim dictionary.
 
         Returns:
@@ -126,12 +128,15 @@ class Initializer():
         """
         
         dir = cls._data_dir + "word_dictionary_complete.txt"
-        word_dictionary = gs.corpora.Dictionary.load_from_text(fname=dir)
+        word_dictionary = gensim.corpora.Dictionary.load_from_text(fname=dir)
         return word_dictionary
 
 
     @classmethod
-    def load_model(cls, force_download=False, *, _test=False):
+    def load_model(cls, 
+                   force_download: bool=False, 
+                   *, 
+                   _test: bool=False) -> keras.Model: # pylint: disable=no-member
         """Load Keras models.
 
         This method uses Keras interface to load the previously
@@ -169,7 +174,7 @@ class Initializer():
 
 
     @classmethod
-    def check_assets(cls):
+    def check_assets(cls) -> Dict[str,bool]:
         """ Method to check whether assets requirements are met.
 
         This method checks both the model and its weights in the
@@ -193,7 +198,13 @@ class Initializer():
 
 
     @classmethod
-    def download_assets(cls, assets_status=None, force_download=False, *, _test=False, _test_input=None):
+    def download_assets(cls, 
+                        assets_status: Optional[Dict[str,bool]]=None, 
+                        force_download: bool=False, 
+                        *, 
+                        _test: bool=False, 
+                        _test_input: Optional[str]=None) -> None:
+        
         """Method to download models.
 
         This method downloads models from the poetic-models
@@ -267,7 +278,7 @@ class Initializer():
                 
     
     @classmethod
-    def _test_variables(cls):
+    def _test_variables(cls) -> Dict[str, str]:
         # Test models for unit testing
         
         module_path = path.dirname(path.realpath(__file__))
@@ -281,7 +292,7 @@ class Initializer():
 class _Arguments():
     # This class parses command line arguments.
 
-    def __init__(self):
+    def __init__(self) -> None:
         # New parser with the appropriate flags.
 
         self.parser = argparse.ArgumentParser(description="Poetry Predictor Command Line Mode")
@@ -296,7 +307,7 @@ class _Arguments():
         self.parser.add_argument("--version", action="version", version=self.version())
 
 
-    def parse(self, args=None):
+    def parse(self, args=None) -> Dict[str, Optional[str]]:
         # Parse arguments
 
         arguments = self.parser.parse_args(args)
@@ -311,7 +322,7 @@ class _Arguments():
         return arguments
 
 
-    def version(self):
+    def version(self) -> str:
         # Format the command-line version output
 
         v = "Poetic "

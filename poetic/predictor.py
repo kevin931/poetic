@@ -11,10 +11,15 @@ Classes:
 """
 
 from tensorflow import keras
+from gensim.corpora.dictionary import Dictionary
+from tensorflow.python.keras.engine.training import Model # pylint: disable=no-name-in-module, import-error
 from nltk.tokenize import word_tokenize, sent_tokenize
 from poetic.results import Diagnostics
 from poetic.util import Initializer
 from poetic import exceptions
+
+from typing import Optional, Union, List
+import numpy
 
 
 class Predictor():
@@ -42,7 +47,10 @@ class Predictor():
     """
 
 
-    def __init__(self, model=None, dict=None, force_download_assets=False):
+    def __init__(self, 
+                 model: Model=None, 
+                 dict: Dictionary=None, 
+                 force_download_assets:bool=False) -> None:
         """
         Parameters:
             model (tensorflow.python.keras.engine.training.Model, optional):
@@ -61,7 +69,7 @@ class Predictor():
         self._sentences = None
 
 
-    def predict(self, input):
+    def predict(self, input: str) -> "Predictions":
         """
         Predict poetic score from string.
 
@@ -81,7 +89,7 @@ class Predictor():
         return score
 
 
-    def predict_file(self, path):
+    def predict_file(self, path: str) -> "Predictions":
         """
         Predict poetic score from file.
 
@@ -102,7 +110,7 @@ class Predictor():
         return score
 
 
-    def preprocess(self, input):
+    def preprocess(self, input: Union[str, List[str]]) -> numpy.ndarray:
         """
         Preprocess inputs: tokenize, to lower, and padding.
 
@@ -111,7 +119,7 @@ class Predictor():
                 Text either in a single string or a list of strings.
 
         Returns:
-            sent_test (list): A 2-d numpy array of processed inputs.
+            sent_test (np.ndarray): A 2-d numpy array of processed inputs.
         """
 
         sent_token = self.tokenize(input)
@@ -128,7 +136,7 @@ class Predictor():
         return sent_test
 
 
-    def _file_load(self, path):
+    def _file_load(self, path: str) -> str:
         # Open a specified file.
         # Method used for accepting file input.
 
@@ -138,7 +146,7 @@ class Predictor():
         return file
 
 
-    def tokenize(self, input):
+    def tokenize(self, input: Union[str, List[str]]) -> List[List[str]]:
         """
         Tokenize text input into sentences and then words.
 
@@ -161,7 +169,7 @@ class Predictor():
         return tokens
 
 
-    def word_id(self, input):
+    def word_id(self, input: List[List[str]]) -> List[List[int]]:
         """
         Convert tokenized words to word IDs using a gensim dictionary.
 
@@ -186,7 +194,7 @@ class Predictor():
         return(id_input)
 
 
-    def _check_requirement(self,input):
+    def _check_requirement(self,input: List[List[str]]) -> None:
         #Check empty input
         if len(input)==0:
             message = "Input length out of bound: must be between 1 and 465"
@@ -195,9 +203,14 @@ class Predictor():
 
 
 class Predictions(Diagnostics):
-    # Class for Predictor outputs
-    # Inheriting from Diagnostics class
+    """
+        Class for prediction results from Predictor class.
 
-    def __init__(self, results, sentences):
+        This class inherets from Diagnostics class of the results module,
+        and it is intended for being internally called by the Predictor class.
+        To directly access the Diagnostics class's functionality, use it instead.
+        """
+
+    def __init__(self, results: List[float], sentences: Optional[List[str]]) -> None:
         results = [prediction[0] for prediction in results]
         super().__init__(predictions=results, sentences=sentences)

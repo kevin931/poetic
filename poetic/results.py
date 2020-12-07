@@ -16,6 +16,8 @@ import numpy as np
 import csv
 from poetic.util import Info
 
+from typing import Optional, List, Sequence, Union
+
 class Diagnostics():
     """ Class for storing and processing prediction results.
 
@@ -38,7 +40,7 @@ class Diagnostics():
             Generate diagnostics report for predictions as a string.
     """
 
-    def __init__(self, predictions, sentences=None):
+    def __init__(self, predictions: List[float], sentences: Optional[List[str]]=None) -> None:
         """
         Parameters:
             predictions (list):
@@ -52,7 +54,7 @@ class Diagnostics():
         self.diagnostics = None
 
     # String representation
-    def __str__(self):
+    def __str__(self) -> str:
         general_message = "Diagnostics object for the following predictions: "
         predictions = str(self.predictions)
         if len(predictions) > 15:
@@ -60,13 +62,13 @@ class Diagnostics():
         return general_message + predictions
 
     # String Representation
-    def __repr__(self):
+    def __repr__(self) -> str:
         repr = {"Predictions": self.predictions, 
                 "Sentences": self.sentences,
                 "Diagnostics": self.diagnostics}
         return str(repr)
 
-    def __len__(self):
+    def __len__(self) -> int:
         """ Method for len().
 
         Returns: The length of the predictions attribute
@@ -75,7 +77,7 @@ class Diagnostics():
 
 
     @classmethod
-    def five_number(cls, input):
+    def five_number(cls, input: Union[np.ndarray, List]) -> dict:
         """Five number summary.
 
         This methods generates five number summary of a given input.
@@ -83,7 +85,7 @@ class Diagnostics():
         standard deviation, and maximum. This is a class method.
 
         Parameters:
-            input (array_like): An array like object.
+            input (numpy.typing.ArrayLike): An array like object.
 
         Returns:
             summary (dict): A dictionary of five number results.
@@ -98,7 +100,7 @@ class Diagnostics():
 
         return(summary)
 
-    def run_diagnostics(self):
+    def run_diagnostics(self) -> None:
         """Run the diagnostics of the predictions.
 
         This methods generate diagnostics of the predictions,
@@ -112,7 +114,7 @@ class Diagnostics():
         self.diagnostics["Five_num"] = self.five_number(self.predictions)
         self.diagnostics["Predictions"] = self.predictions
 
-    def to_file(self, path):
+    def to_file(self, path: str) -> None:
         """Saves diagnostics and predictions to a file.
 
         This methods saves the results to a csv or generates a
@@ -146,7 +148,7 @@ class Diagnostics():
                 raise e
 
 
-    def to_csv(self, path):
+    def to_csv(self, path: str) -> None:
         """Saves predictions and sentences to a csv file.
 
         This methods saves the results to a csv file. For a
@@ -175,7 +177,7 @@ class Diagnostics():
 
 
 
-    def generate_report(self):
+    def generate_report(self) -> str:
         """Generates the diagnostics report in string.
 
         This methods generates a diagnostics report as a string,
