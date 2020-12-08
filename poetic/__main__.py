@@ -62,10 +62,9 @@ def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None)
     launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
 
     if args["GUI"] or launch_GUI:
-        gui.GUI(new_pred, _test=_test)
-        
         if _test:           
             print("Test GUI launch")
+        gui.GUI(new_pred, _test=_test)
                    
 
 if __name__ == "__main__":
