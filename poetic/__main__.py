@@ -39,8 +39,8 @@ def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None)
     if args["GUI"] or launch_GUI:
         if _test:           
             print("Test GUI launch")
-        else:
-            gui.GUI(new_pred)
+            
+        gui.GUI(new_pred, _test=_test)
                    
 
 
