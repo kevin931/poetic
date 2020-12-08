@@ -1,12 +1,37 @@
 """Module for package utility.
 
 This module includes the necessary functionalities to load and
-download assets for other module in the package and provide basic
-information for the current build and version of the package.
+download assets for other modules in the package and provide basic
+information for the current build and version as needed.
 
-Classes:
-    Info(): Provides the basic information of the package.
-    Initializer(): Initializes core components of the package.
+Examples:
+    To get the build and version information of the package:
+    
+    .. code-block:: python
+    
+        poetic.Info.version()
+        poetic.Info.build_status()
+        
+    Under normal circumstances, the methods in the Initializer class is not needed
+    as part of the prediction workflow. One of the most common usage of a first-time
+    user is to download the assets:
+    
+    .. code-block:: python
+    
+        poetic.util.Initializer.download_assets()
+        
+    The tensorflow model and gensim models can also be loaded and returned if they 
+    theselves are useful (the Predictor class loads the model automatically):
+    
+    .. code-block:: python
+    
+        poetic.util.Initializer.load_dict()
+        poetic.util.Initializer.load_model()
+        
+    Both download_assets() and load_model() methods have the force_download parameter
+    which controls whether to download the models without taking commandline inputs
+    when the model is missing. It is default to False so that it does not take up 
+    bandwidth unintendedly, but it can also be set to True in cases necessary. 
 
 """
 
@@ -28,12 +53,10 @@ from typing import Optional, List, Dict, Union
 
 class Info():
     """
-    Provides the basic information of the package.
+    Info class provides the basic information of the package.
 
-    Methods:
-        version(): Returns the current version of the package.
-        build_status(): Returns the current build status.
     """
+
 
     @staticmethod
     def version() -> str:
@@ -41,7 +64,7 @@ class Info():
         A single method to return the version of the package.
 
         Returns:
-            VERSION (str): The current version of the package.
+            str: The current version of the package.
         """
 
         VERSION = "1.0.0b1"
@@ -54,7 +77,7 @@ class Info():
         Get the build status of the current version.
 
         Returns:
-            BUILD (str): The build status of the current version.
+            str: The build status of the current version.
         """
 
         BUILD = "Dev"
@@ -69,15 +92,6 @@ class Initializer():
     facilitates the command line mode by interacting with
     the _Arguments class.
 
-    Methods:
-        initialize():
-            Initializes the package with all necessities.
-        load_dict():
-            Loads the gensim disctionary.
-        load_model():
-            Loads the Keras model and its weights.
-        download_assets():
-            Download the Keras model and its weights.
     """
 
     # Package data directory
@@ -99,12 +113,9 @@ class Initializer():
         Keras model with its weights.
 
         Returns:
-            arguments (dict):
-                A dictionary of commandline arguments.
-            model (tensorflow.python.keras.engine.training.Model, optional):
-                A pre-trained Keras model with its weights loaded.
-            word_dictionary (gensim.corpora.dictionary.Dictionary):
-                A gensim dictionary.
+            dict: A dictionary of commandline arguments.
+            tensorflow.keras.Model: A pre-trained Keras model with its weights loaded.
+            gensim.corpora.dictionary.Dictionary: A gensim dictionary.
 
         """
         
@@ -122,8 +133,7 @@ class Initializer():
         """Loads gensim dictionary.
 
         Returns:
-            word_dictionary (gensim.corpora.dictionary.Dictionary):
-                A gensim dictionary.
+            gensim.corpora.dictionary.Dictionary: A gensim dictionary.
 
         """
         
@@ -151,7 +161,7 @@ class Initializer():
                 without asking if the models do not exist.
 
         Returns:
-            model (tensorflow.python.keras.engine.training.Model): Pretrained Keras model
+            tensorflow.python.keras.engine.training.Model: Pretrained Keras model
 
         """
         
@@ -182,7 +192,7 @@ class Initializer():
         as part of the package requirement.
 
         Returns:
-            status (dict): the status of the assets as a dictionary.
+            dict: the status of the assets as a dictionary.
 
         """
 
@@ -226,9 +236,6 @@ class Initializer():
             force_download (bool, optional):
                 A boolean indicating whether assets should be downloaded
                 regardless of their existence and user inputs.
-
-        Returns:
-            None
 
         """
 

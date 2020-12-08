@@ -1,13 +1,25 @@
-"""Module for poetry predictions.
+""" Making poetic predictions using models.
 
-This module provides interfaces for poetry predictions with
+The predictor module provides interfaces for poetry predictions with
 the Predictor class. To make prediction, an instance of the
 Predictor is needed with the necessary model and gensim
 dictionary is needed.
 
-Classes:
-    Predictor(model, dict): 
-        Class for making predictions and as the central class of the package.
+Examples:
+    The most common use case for the predictor module is with its default settings.
+    To make a prediction with string, below is an example:
+    
+    .. code-block:: python
+    
+        pred = poetic.Predictor()
+        result = pred.predict("This is an example.")
+        
+    To make a prediction with a text file, use the following codes:
+    
+    .. code-block:: python
+    
+        pred = poetic.Predictor()
+        result = pred.predict_file("<PATH>")
 """
 
 from tensorflow import keras
@@ -26,24 +38,18 @@ class Predictor():
     """
     The Predictor() class processes and predicts inputs for poetic scores. It can be used
     as the single interface of the package with other modules built as helpers. 
+    
+    Args:
+        model (tensorflow.keras.Model, optional): The pre-trained keras model.
+        dict (gensim.corpora.dictionary.Dictionary, optional): Gensim dictionary for word IDs.
+        force_download_assets (bool, optional): Wheher to download assets without asking.
+
 
     Attributes:
-        model (tensorflow.python.keras.engine.training.Model, optional):
-            The pre-trained keras model.
-        dict (gensim.corpora.dictionary.Dictionary, optional):
-            Gensim dictionary for word IDs.
+        model (tensorflow.keras.Model): The pre-trained keras model.
+        dict (gensim.corpora.dictionary.Dictionary): Gensim dictionary for word IDs.
+        force_download_assets (bool): Wheher to download assets without asking.
 
-    Methods:
-        predict(input)
-            Predicts the poetic score of the given input.
-        predict_file(file)
-            Predicts the poetic score from a text file.
-        preprocess(input)
-            Preprocesses (tokenize, lower case, and pad) the given input.
-        tokenize(input)
-            Word-tokenizes the given input.
-        word_id(input)
-            Converts words from tokenized input to indices.
     """
 
 
@@ -51,18 +57,6 @@ class Predictor():
                  model: Model=None, 
                  dict: Dictionary=None, 
                  force_download_assets:bool=False) -> None:
-        """
-        Parameters:
-            model (tensorflow.python.keras.engine.training.Model, optional):
-                The pre-trained Keras model used to predict poetic scores.
-            dict (gensim.corpora.dictionary.Dictionary, optional):
-                The dictionary used to convert words to indices.
-            force_download_assets (bool, optional):
-                A boolean value on whether the util module's load_model()
-                funtion will download the assets for the model without
-                asking. If the model parameter is supplied, this parameter
-                is effectively ignored.
-        """
 
         self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
         self.dict = dict if dict is not None else Initializer.load_dict()
@@ -77,8 +71,11 @@ class Predictor():
             input (str): Text content to be predicted.
 
         Returns:
-            score (Predictions): 
+            Predictions: 
                 A Predictions object with predicted scores of the given input.
+                
+        Raises:
+            exceptions.InputLengthError: Error for processing input length of zero.
         """
 
         input = self.preprocess(input)
@@ -100,8 +97,11 @@ class Predictor():
             path (str): The path to the text file.
 
         Returns:
-            score (Predictions): 
-                A Predictions object with predicted scores of the given input.
+            Predictions: A Predictions object with predicted scores of the given input.
+            
+        Raises:
+            exceptions.InputLengthError: Error for processing empty file, resulting in input
+                length of zero.
         """
 
         input = self._file_load(path)
@@ -119,7 +119,10 @@ class Predictor():
                 Text either in a single string or a list of strings.
 
         Returns:
-            sent_test (np.ndarray): A 2-d numpy array of processed inputs.
+            np.ndarray: A 2-d numpy array of processed inputs.
+            
+        Raises:
+            exceptions.InputLengthError: Error for processing input length of zero.
         """
 
         sent_token = self.tokenize(input)
@@ -151,10 +154,10 @@ class Predictor():
         Tokenize text input into sentences and then words.
 
         Parameters:
-            input (str): A string or list of strings of text.
+            input (str, list(str)): A string or list of strings of text.
 
         Returns:
-            tokens (list): A 2-d list of tokenized words.
+            list(str): A 2-d list of tokenized words.
         """
 
         # Sentence tokenization
@@ -177,7 +180,7 @@ class Predictor():
             input (list): A 2-d list of tokenized words.
 
         Returns:
-            id_input (list): A 2-d list of word ids.
+            list: A 2-d list of word ids.
         """
 
         id_input = []

@@ -5,7 +5,9 @@ Tkinter GUI. As an internal interface, this is not intended or
 recommended for being used as an import. To run the GUI, execute
 on the command line the following command:
 
-    $python -m poetic
+.. code-block:: python
+
+    python -m poetic
 """
 
 from tkinter import Tk, Entry, Label, Button, Frame, ttk
