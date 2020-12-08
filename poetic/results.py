@@ -66,7 +66,6 @@ class Diagnostics():
         self.diagnostics = None
 
 
-    # String representation
     def __str__(self) -> str:
         general_message = "Diagnostics object for the following predictions: "
         predictions = str(self.predictions)
@@ -75,7 +74,6 @@ class Diagnostics():
         return general_message + predictions
 
 
-    # String Representation
     def __repr__(self) -> str:
         repr = {"Predictions": self.predictions, 
                 "Sentences": self.sentences,

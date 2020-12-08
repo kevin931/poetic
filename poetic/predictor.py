@@ -198,7 +198,6 @@ class Predictor():
 
 
     def _check_requirement(self,input: List[List[str]]) -> None:
-        #Check empty input
         if len(input)==0:
             message = "Input length out of bound: must be between 1 and 465"
             raise exceptions.InputLengthError(message)
