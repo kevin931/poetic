@@ -6,7 +6,6 @@ interface.
 
 """
 
-
 from typing import Optional
 
 class InputLengthError(Exception):

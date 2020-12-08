@@ -20,6 +20,7 @@ from poetic.util import Info
 # Set up a threadpool
 thread_pool = futures.ThreadPoolExecutor(max_workers=1)
 
+
 class GUI():
     """
     Launches the GUI, which is equivalent to launching
@@ -167,6 +168,7 @@ class GUI():
             message = "This is poetic!" if score >=0.5 else "This is not so poetic!"
             self.result3.config(text=message)
 
+
     def _select_file(self) -> None:
         # Method that selects file.
 
@@ -175,14 +177,17 @@ class GUI():
         self.file_input_path.config(text=file_name,
                                     font =("Times", 15))
 
+
     def _select_directory(self) -> None:
         # Ask for save directory
         self.savedir = filedialog.askdirectory(initialdir=".", title="Select your save directory.")
         dir_name = re.split("/", self.savedir)[-1]
         self.file_output_dir.config(text=dir_name, font =("Times", 15))
 
+
     def _submit_file(self) -> None:
         thread_pool.submit(self._run_file)
+
 
     def _run_file(self) -> None:
         # Method for submitting the file to run.
@@ -212,9 +217,11 @@ class GUI():
             results.to_file(file_path)
             self.root.after(0, self._update_status, "Done!")
 
+
     def _update_status(self, status) -> None:
         # Method for updating the status
         self.status_message.config(text="Status: "+status, font=("Times",15))
+
 
 # For UI developing purposes only
 if __name__ == "__main__":
