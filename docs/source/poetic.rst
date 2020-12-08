@@ -1,4 +1,4 @@
-Modules and Classes Doccumentation
+Full Documentation
 ===================================
 
 *****************
