@@ -7,3 +7,5 @@ Welcome to Poetic's documentation!
    usage/Installation
    usage/Quickstart
    poetic
+   Changelog
+   License
