@@ -8,4 +8,5 @@ Welcome to Poetic's documentation!
    usage/Quickstart
    poetic
    Changelog
+   Contributing
    License
