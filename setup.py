@@ -25,16 +25,18 @@
 #
 import setuptools
 
-description = "For documentation and detials, "
-description += "please refer to http://github.com/kevin931/poetic"
+description = "For current development details and quick guides, "
+description += "please refer to http://github.com/kevin931/poetic\n"
+description += "For detailed documentation, please visit"
+description += "https://poetic.readthedocs.io/"
 
 setuptools.setup(
     name = "poetic-py",
-    version = "1.0.0b1",
+    version = "1.0.0",
     url = "https://github.com/kevin931/poetic",
     author = "Kevin Wang",
     author_email = "bridgemarian@gmail.com",
-    description = "Predicts how poetic sentences are.",
+    description = "Let Us Be More poetic: A Poetry Prediction and Processing Package.",
     long_description = description,
     packages=["poetic"],
     python_requires=">=3.6, <=3.8",
@@ -46,6 +48,7 @@ setuptools.setup(
     package_data={"poetic":["./data/word_dictionary_complete.txt"]},
     classifiers = [
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 3 :: Only"
+        "Programming Language :: Python :: 3 :: Only",
+        "Natural Language :: English"
     ]
 )
