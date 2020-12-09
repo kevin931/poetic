@@ -25,9 +25,13 @@
 #
 import setuptools
 
-description = "For current development details and quick guides, "
-description += "please refer to http://github.com/kevin931/poetic\n"
-description += "For detailed documentation, please visit"
+description = "Poetic (poetic-py on PyPi) is a Python package "
+description += "based on Natural Language Processing and deep learning models to predict how "
+description += "poetic the English language is. It also provides a toolchain for processing "
+description += "poetry in English. "
+description += "For current development details and guides, "
+description += "please refer to http://github.com/kevin931/poetic. "
+description += "For detailed documentation, please visit "
 description += "https://poetic.readthedocs.io/"
 
 setuptools.setup(
@@ -41,7 +45,7 @@ setuptools.setup(
     packages=["poetic"],
     python_requires=">=3.6, <=3.8",
     install_requires=["tensorflow>=2",
-                      "gensim>=3.8",
+                      "gensim>=3.8, <4",
                       "nltk>=3.4"
     ],
     install_package_data=True,
