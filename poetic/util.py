@@ -92,7 +92,7 @@ class Info():
             str: The current version of the package.
         """
 
-        VERSION = "1.0.0b1"
+        VERSION = "1.0.0"
         return VERSION
 
 
@@ -105,7 +105,7 @@ class Info():
             str: The build status of the current version.
         """
 
-        BUILD = "Dev"
+        BUILD = "Stable"
         return BUILD
 
 
@@ -122,7 +122,7 @@ class Initializer():
     # Package data directory
     _data_dir = pkg_resources.resource_filename("poetic", "data/")
     if _data_dir[-1] != "\\" and _data_dir[-1] != "/":
-        _data_dir += "/"
+        _data_dir += "/" # pragma: no cover
 
     # Model Path
     _weights_dir = _data_dir+"sent_model.h5"
