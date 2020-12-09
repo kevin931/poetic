@@ -4,19 +4,14 @@
 
 > A machine-learning package to gauge your poetic madness.
 
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
-[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-
 [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/for-you.svg)](https://forthebadge.com)
 
 | Branch | Release | Build Status | Docs | Coverage |
 | --- | --- | --- | --- | --- |
-| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
-| master | ![Badge1](https://img.shields.io/badge/Version-1.0.0b1-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=master)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=master)](https://coveralls.io/github/kevin931/poetic?branch=master) |
-
-
+| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.0-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
+| master | ![Badge1](https://img.shields.io/badge/Version-1.0.0-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=master)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=master)](https://coveralls.io/github/kevin931/poetic?branch=master) |
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -36,9 +31,9 @@
     - [Make a file prediction](#make-a-file-prediction)
     - [Save results to csv or text](#save-results-to-csv-or-text)
   - [As a Python Package](#as-a-python-package)
-- [Version](#version)
-- [Known issues (To be fixed before official release):](#known-issues-to-be-fixed-before-official-release)
-- [Future Update Roadmap:](#future-update-roadmap)
+- [Documentation](#documentation)
+- [Versions and Updates](#versions-and-updates)
+- [Roadmap](#roadmap)
 - [Collaboration](#collaboration)
 - [License](#license)
 
@@ -51,10 +46,9 @@ Poetic (formerly **Poetry Predictor**) is a Python package and application based
 This initiative is originally part of the Robert Mayer Undergraduate Research Fellowship but now an independent, open-source project.
 
 #### Why should you care?
-
 - Are you ever in awe that a random phrase seems so **sexily poetic**?
-- Do you ever wonder whether your love letter is up to the standards of famous poets or are compliments you get merely compliments?
-- Can you imagine a software that helps define poetry in the digital age?
+- Have you ever looked for a poetry prediction tool or a toolchain to work in digital humaninities?
+- Would you like to explore the possibilities of letting machine learning models to help define poetry in the digital age?
 
 Look no further. You have found poetic.
 
@@ -64,28 +58,39 @@ Look no further. You have found poetic.
 **Have fun!!**
 
 ## Installation
-Python 3 and pip are required for Poetic to work. There is currently no support for Conda, which will be a consideration on the roadmap. The package itself is named as "poetic" after installation.
+Python 3 and pip are required for Poetic to work. There is currently no official build for Conda (although it will work with correct setup documented below), which will be a consideration on the roadmap. The package itself is named as "poetic" after installation.
 
 To install from pypi:
+
 ```shell
   pip install poetic-py
-
 ```
 
-Pypi should be able to handle all the dependencies. More testing on version compatibility is on the way.
+Pypi should be able to handle all the dependencies. If pip caching becomes an issue or there are issues with dependencies, try the following:
+
+```shell
+  python -m pip install -upgrade pip
+  pip install --no-cache-dir poetic-py
+```
 
 #### Dependencies
-* tensorflow == 2.0
+* tensorflow >= 2
 * nltk >= 3.4
-* gensim >= 3.8
+* gensim >= 3.8, <=4
 
-Poetic theoretically supports later versions of TensorFlow, but due to a TensorFlow bug regarding scipy version and installation, [setup.py](/setup.py) specifies only TensorFlow 2.0. If you wish to use other versions (1.x may also work), **install poetic using pip first and then make necessary changes!** Otherwise, pip will throw an error.
+If you have encountered an issue with installation or dependencies, please open an issue so that I can help you out!
 
 #### Conda
-I love Conda (and that is what I use on my development machine)! At this time, poetic is not yet hosted on conda or conda-forge. More works to make that happen are on the way.
+I love Conda (and that is what I use on my development machine)! At this time, poetic itself is not yet hosted on conda or conda-forge. More works to make that happen are on the way. To make sure that everything plays nicely withe each other, install the dependencies first (provided that you already have a conda environment set up):
 
-If you wish to use dependencies from conda channel, which is recommended with conda environments, install these dependencies **first**! For more information on conda environments, [this is a good guide.](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+```shell
+  conda install tensorflow
+  conda install gensim
+  conda install nltk
+  pip install poetic-py
+```
 
+ For more information on conda environments, [this is a good guide.](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 
 ## Usage
 Poetic supports both command-line mode and be used as a standard Python package.
@@ -113,21 +118,20 @@ A single command is sufficient without need of a python script.
 
 #### Make a file prediction
 ```shell
-  python -m poetic -f "PATH_TO_FILE"
+  python -m poetic -f "<PATH_TO_FILE>"
 ```
 
 #### Save results to csv or text
 ```shell
-  python -m poetic -f "PATH_TO_FILE" -o "PATH.txt"
-  python -m poetic -f "PATH_TO_FILE" -o "PATH.csv"
-  python -m poetic -s "I am poetic. Are you?" -o "PATH.txt"
+  python -m poetic -f "<PATH_TO_FILE>" -o "<PATH>.txt"
+  python -m poetic -f "<PATH_TO_FILE>" -o "<PATH>.csv"
+  python -m poetic -s "I am poetic. Are you?" -o "<PATH>.txt"
 ```
 
 ### As a Python Package
+Poetic contains two major classes: Predictor and Diagnostics. Predictor makes predictions and returns a predictions object inherited from the Diagnostics. For detailed methods and usage, check the [documentation](https://poetic.readthedocs.io/en/latest/index.html). The util module provides metadata, functionalities for loading and downloading necessary data, and initializing.
 
-Poetic contains two major classes: Predictor and Diagnostics. Predictor makes predictions, which in turn are inherited from the Diagnostics. For detailed methods and usage, check the docstrings of each class and method, more documentation is on the way. The util module provides metadata, functionalities for loading and downloading necessary data, and initializing.
-
-Below are some common use cases:
+Below is the most common usecase:
 
 ```python
   import poetic
@@ -143,53 +147,41 @@ Below are some common use cases:
 
 ```
 
+## Documentation
+Poetic's official documentation page is live! To read about new details, please head to poetic.readthedocs.io/en/latest/ for the latest official release.
 
-## Version
-* v.1.0.0b1
-  - **Now on [pypi](https://pypi.org/project/poetic-py/)**
+To visit the documentation for the dev branch (which may include broken builds or incomplete documentation), you can use [this link](https://poetic.readthedocs.io/en/dev/). 
+
+## Versions and Updates
+* v.1.0.0
+  - **FIRST MAJOR RELEASE Now on [pypi](https://pypi.org/project/poetic-py/)**
   - Support for command-line mode.
   - Support for processing text file.
   - Added docstring documentation.
+  - Added official [documentation](https://poetic.readthedocs.io/en/latest/index.html)
   - Revemped Github repo without LFS.
+  - Added the “exceptions” internal module
+  - Added support for directly running the package using “python -m poetic”
   - Data now hosted on [poetic-models](https://github.com/kevin931/poetic-models)
+  - Tons of internal optimization
 
-* v.0.1.2
-  - Fixed a bug displaying score without entering anything
-  - Optimized error handling in Predictor class
-  - Further optimized the directory tree
+* All older changes available in our [documentation](https://poetic.readthedocs.io/en/latest/Changelog.html)
 
-* v.0.1.1
-  - Optimized directory structure
-  - Revamped README with detailed guides
-  - Added launcher script
-  - Easier installation
+## Roadmap
+* Major milestones:
+  - Support for poetic meter: both parsing and predicting
+  - Support for custom models other than the ones provided
 
-* v.0.1.0
-  - Added GUI for better user experience
-  - Executable for Windows without need for installation
-  - Updated code structure
-  - Updated Project Structure
+* Tentative milestones:
+  - Backwards compatibility with Python 3.5 (No older versions support planned).
+  - A better GUI
+  - Package-level optimization
 
-* v.0.0.1
-  - Project initialization on GitHub.
-  - Improved interface.
-  - Updated model.
-  - LFS support for GitHub.
-
-## Known issues (To be fixed before official release):
-- Current lack of progress bar or warning messages in util.Initializer.download_assets().
-- Version compatibility checking and testing.
-- Lack of working tests for CI/CD.  
-
-## Future Update Roadmap:
-- Support poetic meter
-- Support for other and custom Keras models
-- More tests and dedicated documentation
 
 ## Collaboration
-Collaborations welcomed for bug fixing, general improvements, future roadmap implementations, etc. You get the point: help, fork, or whatever you want.
+Collaborations are welcomed for bug fixing, general improvements, future roadmap implementations, etc. Feel free to open an issue if there is something concrete or head to discussions to present new ideas. You get the point: help, fix, pull request, fork, or whatever you want.
 
 ## License
-
+- [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
 - **[MIT license](/LICENSE.txt)**
 - Copyright 2020 © Kevin Wang
