@@ -32,12 +32,6 @@ AUTHOR = "Kevin Wang"
 
 def main():
     
-    # for  file in find_files():
-    #     if file is None:
-    #         print(None)
-    #     else:
-    #         print("Not none")
-    
     all_files = find_files()
     
     if len(all_files) > 0:
