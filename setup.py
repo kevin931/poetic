@@ -47,7 +47,8 @@ setuptools.setup(
     install_requires=["tensorflow>=2",
                       "gensim>=3.8, <4",
                       "nltk>=3.4",
-                      "tkinter"
+                      "tkinter",
+                      "numpy"
     ],
     install_package_data=True,
     package_data={"poetic":["./data/word_dictionary_complete.txt"]},
