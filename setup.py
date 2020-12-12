@@ -47,7 +47,6 @@ setuptools.setup(
     install_requires=["tensorflow>=2",
                       "gensim>=3.8, <4",
                       "nltk>=3.4",
-                      "tkinter",
                       "numpy"
     ],
     install_package_data=True,

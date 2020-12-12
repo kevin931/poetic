@@ -1,5 +1,4 @@
 tensorflow
 gensim
 nltk
-tkinter
 numpy
