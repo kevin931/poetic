@@ -10,7 +10,7 @@ as intended or if there are any other bugs, please do let us know!
      1. Check poetic's Github `issue tracker <https://github.com/kevin931/poetic/issues>`_
      2. If there is already the same issue, feel free to comment or help out! 
      3. If not, please open an issue with as much details as possible.
-     4. Information to include:
+     4. Information to include (Do use a template if that works for you):
 
         * Platform
         * OS
@@ -44,8 +44,8 @@ Feature Request
 
 If there is something that you think will make this better, please let us know!
 
-    1. Look through the Issue Tracker and, if appropriate, submit an issue for suggestion. 
-    2. If the feature deviates from the roadmap significant, it will not be implemented. Otherwise, it will be considered based on the following factors:
+    1. Look through the Issue Tracker and, if appropriate, submit an issue for suggestion (There is a template to follow as well!). 
+    2. If the feature deviates from the roadmap significantly, it will not be implemented. Otherwise, it will be considered based on the following factors:
 
         * Feature relevance
         * Current project development and timeline
