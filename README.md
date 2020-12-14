@@ -64,33 +64,27 @@ To install from pypi:
 
 ```shell
   pip install poetic-py
+  python -c "import nltk; nltk.download('punkt')"
 ```
 
-Pypi should be able to handle all the dependencies. If pip caching becomes an issue or there are issues with dependencies, try the following:
+#### Conda (Recommended)
+
 
 ```shell
-  python -m pip install -upgrade pip
-  pip install --no-cache-dir poetic-py
+  conda install -c kevin931 poetic-py
+  python -c "import nltk; nltk.download('punkt')"
 ```
 
-#### Dependencies
+ For more information on conda environments, [this is a good guide.](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+
+
+ #### Dependencies
+* python 3.6, 3.7
 * tensorflow >= 2
 * nltk >= 3.4
 * gensim >= 3.8, <=4
 
-If you have encountered an issue with installation or dependencies, please open an issue so that I can help you out!
-
-#### Conda
-I love Conda (and that is what I use on my development machine)! At this time, poetic itself is not yet hosted on conda or conda-forge. More works to make that happen are on the way. To make sure that everything plays nicely withe each other, install the dependencies first (provided that you already have a conda environment set up):
-
-```shell
-  conda install tensorflow
-  conda install gensim
-  conda install nltk
-  pip install poetic-py
-```
-
- For more information on conda environments, [this is a good guide.](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
+If you have encountered an issue with installation or dependencies, please open head to [the documentation](https://poetic.readthedocs.io/en/latest/usage/Installation.html#Troubleshooting) or open an issue so that I can help you out!
 
 ## Usage
 Poetic supports both command-line mode and be used as a standard Python package.
