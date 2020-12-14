@@ -3,12 +3,18 @@
 *__pycache__
 *_cache
 
+## Build files
+*.tar.bz2
+*.egg
+*.tar.gz
+
 ## Local models
 poetic/data/*_model.h5
 poetic/data/*_model.json
 
 ## build
 dist/
+dist_conda/
 poetic_py.egg-info/
 build/
 
