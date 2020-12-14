@@ -17,25 +17,28 @@ System-wide installation:
 
 The usage of virtualenv is also recommended over system-wide installation.
 
-*****
-Conda
-*****
+********************
+Conda (Recommended)
+********************
 
 Or, using Conda (which I recommend):
 
 .. code-block:: bash
 
-    conda create --name poetic python=3.8
-    conda install tensorflow
-    conda install nltk
-    conda install gensim
-    pip install poetic-py
-
+    conda install -c kevin931 poetic-py
     python -c "import nltk; nltk.download('punkt')"
 
-Note: I love Conda (and that is what I use on my development machine)! 
-At this time, poetic is not yet hosted on conda or conda-forge. More works to 
-make that happen are on the way.
+A few notes on Conda:
+
+If you need documentation on how to get this conda working/set up, 
+
+There is a potential bug with tensorflow on Conda for Windows because of maximum path length 
+limitation. If you are unable to install tensorflow from conda, please open 
+`an issue <https://github.com/kevin931/poetic/issues>`_ or refer
+to tensorflow's github Issue Tracker for support. For reference, you can also refer to
+`Microsoft's guide <https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation>`_
+. (Caution: Editing registry can potentially have consequences. Please proceed with caution and
+be sure to know the issue.) 
 
 **************************
 Supported Package Versions
@@ -54,3 +57,37 @@ Dependencies
 * tensorflow >= 2
 * nltk >= 3.4
 * gensim >= 3.8
+
+
+**************************
+Troubleshooting
+**************************
+
+Pip Dependency Issues
+----------------------
+
+If dependencies become an issue, try installing them separately from poetic:
+
+.. code-block:: bash
+
+    pip install tensorflow
+    pip install gensim
+    pip install nltk
+    
+    pip install poetic-py --no-deps 
+    python -c "import nltk; nltk.download('punkt')"
+
+
+If this does not solve the problem or there is any other unforeseeable problems, please head
+to our `Issue Tracker <https://github.com/kevin931/poetic/issues>`_ and hopefully I can help you
+out!
+
+
+Pip Caching
+------------
+Pip, by default, caches downloads, which may result in downloading previously installed versions and
+leading to failure to upgrade. To address this, use the flag:
+
+.. code-block:: bash
+
+    pip install --no-cache-dir poetic-py
