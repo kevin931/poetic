@@ -77,36 +77,73 @@ from typing import Optional, List, Dict, Union
 
 
 class Info():
-    """
-    Info class provides the basic information of the package.
+    """Basic information for the package.
+    
+    Info class provides the basic information of the package: its version and build status.
+    This class, by design, is a singleton and has no public interface. 
 
     """
-
-
-    @staticmethod
-    def version() -> str:
+    
+    __INSTANCE = None
+    __VERSION = "1.0.0"
+    __BUILD_STATUS = "Dev"
+    
+    
+    def __init__(self, _test: bool = False) -> None:
+        
+        if Info.__INSTANCE is not None:
+            message = "Info is a singleton class. Use Info.get_instance() instead."
+            raise exceptions.SingletonError(message)
+        
+        else:
+            self.__TEST = _test
+            Info.__INSTANCE = self
+            
+            
+    @classmethod           
+    def get_instance(cls, _test = False) -> "poetic.util.Info":
+        """The method to access the singleton Info class. 
+        
+        The use of this method is recommended over using the constructor
+        because the constructor will throw an exception if an instance already exists.
+        
+        Returns:
+            poetic.util.Info: The singleton Info class
+        
         """
-        A single method to return the version of the package.
+        
+        if Info.__INSTANCE is None:
+            Info(_test= _test)
+        
+        return cls.__INSTANCE
+
+
+    @classmethod
+    def version(cls) -> str:
+        """
+        A getter method to return the version of the package.
 
         Returns:
             str: The current version of the package.
         """
+                
+        return cls.__VERSION
 
-        VERSION = "1.0.0"
-        return VERSION
 
-
-    @staticmethod
-    def build_status() -> str:
+    @classmethod
+    def build_status(cls) -> str:
         """
-        Get the build status of the current version.
+        A getter method to return build status of the current version.
 
         Returns:
             str: The build status of the current version.
         """
 
-        BUILD = "Stable"
-        return BUILD
+        return cls.__BUILD_STATUS
+
+
+    def _test(self) -> bool:     
+        return self.__TEST
 
 
 class Initializer():
