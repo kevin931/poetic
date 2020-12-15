@@ -38,6 +38,29 @@ from tensorflow import keras
 
 class TestInfo():
     
+    @classmethod
+    def setup_class(cls):
+        Info(_test=True)
+        
+    
+    def test_info_singleton(self):
+        try:
+            Info(_test=True)
+        except Exception as e:
+            assert isinstance(e, poetic.exceptions.SingletonError)
+        else:
+            assert False
+            
+            
+    def test_info_test_parameter(self):
+        assert Info.get_instance()._test() is True
+    
+    
+    def test_get_instance(self):
+        info_instance = Info.get_instance()
+        assert isinstance(info_instance, Info)
+            
+    
     def test_build_type(self):
         status = Info.build_status()
         assert isinstance(status, str)
