@@ -67,3 +67,25 @@ class UnsupportedConfigError(Exception):
         if message is None:
             message = "Unsupported configuration: Please refer to docummentation."
         super().__init__(message)
+        
+        
+class SingletonError(Exception):
+    
+    """ Raises exception for instantiating Singleton class already in existence.
+    
+    This exception is used for any singleton class in the package. When the singleton
+    class already has an instance and the constructor is explicitly called, this exception
+    will be thrown. To avoid this exception, use the get_instance() method instead of
+    instantiating the class.
+    
+    Args:
+        message(str): The error message to display.
+    
+    """
+    
+    def __init__(self, message: Optional[str]=None) -> None:
+        if message is None:
+            message = "This class is a singleton: unable to instantiate."
+            super().__init__(message)
+    
+    
