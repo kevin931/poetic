@@ -69,3 +69,36 @@ class TestExceptions():
             assert isinstance(e, Exception)
         else:
             assert False
+            
+            
+    def test_singleton_error_inheritance(self):
+        try:
+            raise exceptions.SingletonError()
+        except exceptions.SingletonError as e:
+            assert isinstance(e, Exception)
+        else:
+            assert False
+            
+            
+    def test_single_error_default_message(self):
+        try:
+            raise exceptions.SingletonError()
+        except exceptions.SingletonError as e:
+            message = str(e)
+        else:
+            assert False
+            
+        expected = "This class is a singleton: unable to instantiate."
+        assert message == expected
+        
+    
+    def test_single_error_custom_message(self):
+        try:
+            raise exceptions.SingletonError("Test custom message.")
+        except exceptions.SingletonError as e:
+            message = str(e)
+        else:
+            assert False
+            
+        expected = "Test custom message."
+        assert message == expected
