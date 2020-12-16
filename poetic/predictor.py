@@ -100,7 +100,7 @@ class Predictor():
                 A Predictions object with predicted scores of the given input.
                 
         Raises:
-            exceptions.InputLengthError: Error for processing input length of zero.
+            poetic.exceptions.InputLengthError: Error for processing input length of zero.
         """
 
         input = self.preprocess(input)
@@ -125,7 +125,7 @@ class Predictor():
             Predictions: A Predictions object with predicted scores of the given input.
             
         Raises:
-            exceptions.InputLengthError: Error for processing empty file, resulting in input
+            poetic.exceptions.InputLengthError: Error for processing empty file, resulting in input
                 length of zero.
         """
 
@@ -144,10 +144,10 @@ class Predictor():
                 Text either in a single string or a list of strings.
 
         Returns:
-            np.ndarray: A 2-d numpy array of processed inputs.
+            numpy.ndarray: A 2-d numpy array of processed inputs.
             
         Raises:
-            exceptions.InputLengthError: Error for processing input length of zero.
+            poetic.exceptions.InputLengthError: Error for processing input length of zero.
         """
 
         sent_token = self.tokenize(input)
