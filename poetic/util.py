@@ -81,7 +81,11 @@ class Info():
     
     Info class provides the basic information of the package: its version and build status.
     This class, by design, is a singleton and has no public interface. 
-
+    
+    Raises:
+        poetic.exceptions.SingletonError: This exception is raised when an instance of the Info
+            class already exists while calling the constructor.
+            
     """
     
     __INSTANCE = None
@@ -89,7 +93,7 @@ class Info():
     __BUILD_STATUS = "Dev"
     
     
-    def __init__(self, _test: bool = False) -> None:
+    def __init__(self, _test: Optional[bool] = False) -> None:
         
         if Info.__INSTANCE is not None:
             message = "Info is a singleton class. Use Info.get_instance() instead."
@@ -101,7 +105,7 @@ class Info():
             
             
     @classmethod           
-    def get_instance(cls, _test = False) -> "poetic.util.Info":
+    def get_instance(cls, _test: Optional[bool] = False) -> "poetic.util.Info":
         """The method to access the singleton Info class. 
         
         The use of this method is recommended over using the constructor
