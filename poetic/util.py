@@ -171,7 +171,7 @@ class Initializer():
 
 
     @classmethod
-    def initialize(cls, *, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None):
+    def initialize(cls, *, _test_args: Optional[Union[List[str], str]]=None):
         """Initializes the package.
 
         This methods checks for any command line arguments,
@@ -188,7 +188,7 @@ class Initializer():
         arguments = _Arguments()
         arguments = arguments.parse(_test_args)
 
-        model = cls.load_model(_test=_test)
+        model = cls.load_model()
         word_dictionary = cls.load_dict()
 
         return arguments, model, word_dictionary
@@ -210,9 +210,7 @@ class Initializer():
 
     @classmethod
     def load_model(cls, 
-                   force_download: bool=False, 
-                   *, 
-                   _test: bool=False) -> keras.Model: # pylint: disable=no-member
+                   force_download: bool=False) -> keras.Model: # pylint: disable=no-member
         """Load Keras models.
 
         This method uses Keras interface to load the previously
@@ -230,6 +228,8 @@ class Initializer():
             tensorflow.keras.Model: Pretrained Keras model
 
         """
+        
+        _test = Info.get_instance()._test()
         
         # Check model assets status
         assets = cls.check_assets()
@@ -276,9 +276,8 @@ class Initializer():
     @classmethod
     def download_assets(cls, 
                         assets_status: Optional[Dict[str,bool]]=None, 
-                        force_download: bool=False, 
-                        *, 
-                        _test: bool=False, 
+                        force_download: bool=False,
+                        *,
                         _test_input: Optional[str]=None) -> None:
         
         """Method to download models.
@@ -304,6 +303,7 @@ class Initializer():
                 regardless of their existence and user inputs.
 
         """
+        _test = Info.get_instance()._test()
 
         url = "https://github.com/kevin931/poetic-models/releases/download/v0.1-alpha/sent_model.zip"
 
