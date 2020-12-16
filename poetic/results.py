@@ -92,6 +92,16 @@ class Diagnostics():
 
 
     def __str__(self) -> str:
+        """ String representation for str(). 
+        
+        This string representation returns a summary of of the object. It will truncate
+        results if there are more than 15 prediction entries. To get a string representation
+        of all the results in a dictionary cast into string, use repr() method.
+        
+        Returns:
+            str: String representation of the object.    
+        """
+        
         general_message = "Diagnostics object for the following predictions: "
         predictions = str(self.predictions)
         if len(predictions) > 15:
@@ -100,6 +110,15 @@ class Diagnostics():
 
 
     def __repr__(self) -> str:
+        """ String representation for repr().
+        
+        This string representation returns a dictionary cast into a string with three
+        attributes of this class: predictions, sentences, and diagnostics. 
+        
+        Returns:
+            str: String representation of the object.
+        """
+        
         repr = {"Predictions": self.predictions, 
                 "Sentences": self.sentences,
                 "Diagnostics": self.diagnostics}
