@@ -186,7 +186,7 @@ class Initializer():
                 without asking if the models do not exist.
 
         Returns:
-            tensorflow.python.keras.engine.training.Model: Pretrained Keras model
+            tensorflow.keras.Model: Pretrained Keras model
 
         """
         
