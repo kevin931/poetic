@@ -103,7 +103,7 @@ class Info():
             self.__TEST = _test
             Info.__INSTANCE = self
             
-            
+           
     @classmethod           
     def get_instance(cls, _test: Optional[bool] = False) -> "poetic.util.Info":
         """The method to access the singleton Info class. 
@@ -148,6 +148,11 @@ class Info():
 
     def _test(self) -> bool:     
         return self.__TEST
+    
+    
+    def _destructor(self) -> None:
+        del Info.__INSTANCE
+        Info.__INSTANCE = None
 
 
 class Initializer():
