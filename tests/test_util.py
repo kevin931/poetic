@@ -52,6 +52,18 @@ class TestInfo():
             assert False
             
             
+    def test_info_singleton_error_message(self):
+        try:
+            Info(_test=True)
+        except poetic.exceptions.SingletonError as e:
+            message = str(e)
+        else:
+            assert False
+            
+        expected = "Info is a singleton class. Use Info.get_instance() instead."
+        assert message == expected
+            
+            
     def test_info_test_parameter(self):
         assert Info.get_instance()._test() is True
     
