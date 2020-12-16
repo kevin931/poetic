@@ -95,14 +95,22 @@ class TestInfo():
         matched = re.match(pattern, version)
         assert matched is not None
         
+    
+    @classmethod
+    def teardown_class(cls):
+        info_instance = Info.get_instance()
+        info_instance._destructor()
+        del info_instance
+        
         
 class TestInitializer():
     
     @classmethod
     def setup_class(cls):
+        Info.get_instance(_test=True)
         # File paths
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        cls.initialize_return =  Initializer.initialize(_test=True, _test_args="")
+        cls.initialize_return =  Initializer.initialize(_test_args="")
         cls.assets_status = Initializer.check_assets()
         
         
@@ -129,7 +137,7 @@ class TestInitializer():
         
         
     def test_load_model(self):
-        model = Initializer.load_model(_test=True)
+        model = Initializer.load_model()
         assert isinstance(model, keras.Model)
         
        
@@ -167,13 +175,13 @@ class TestInitializer():
         
         
     def test_download_assets_check_assets_return_none(self):
-        result = Initializer.download_assets(_test=True)
+        result = Initializer.download_assets()
         assert result is None
         
         
     def test_download_assets_input_n_return_none(self):
         self.assets_status["all_exist"] = False
-        result = Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input="n")
+        result = Initializer.download_assets(assets_status=self.assets_status, _test_input="n")
         assert result is None
         
         
@@ -184,7 +192,7 @@ class TestInitializer():
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input="n")
+        Initializer.download_assets(assets_status=self.assets_status, _test_input="n")
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
@@ -204,7 +212,7 @@ class TestInitializer():
         sys.stdout = string_stdout
         
         input, = input
-        Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input=input)
+        Initializer.download_assets(assets_status=self.assets_status, _test_input=input)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
@@ -219,7 +227,7 @@ class TestInitializer():
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test=True, _test_input=input)
+        Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test_input=input)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
@@ -231,7 +239,7 @@ class TestInitializer():
         self.assets_status["all_exist"] = False
         
         try:
-            Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test=True)
+            Initializer.download_assets(assets_status=self.assets_status, force_download=True)
         except:
             assert False
         else:
@@ -242,12 +250,19 @@ class TestInitializer():
         self.assets_status["all_exist"] = False
         
         try:
-            contents = Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test=True)
+            contents = Initializer.download_assets(assets_status=self.assets_status, force_download=True)
         except:
             assert False
         else:
             print(type(contents))
             assert isinstance(contents, http.client.HTTPResponse)
+            
+            
+    @classmethod
+    def teardown_class(cls):
+        info_instance = Info.get_instance()
+        info_instance._destructor()
+        del info_instance
    
         
 class Test_Arguments():
