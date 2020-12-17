@@ -34,8 +34,8 @@ Examples:
     
     .. code-block:: python
     
-        poetic.Info.version()
-        poetic.Info.build_status()
+        poetic.util.Info.version()
+        poetic.util.Info.build_status()
         
     Under normal circumstances, the methods in the Initializer class is not needed
     as part of the prediction workflow. One of the most common usage of a first-time
