@@ -238,8 +238,7 @@ class Initializer():
                         force_download: Optional[bool]=False, 
                         *, 
                         _test: Optional[bool]=False, 
-                        _test_input: Optional[str]=None, 
-                        _test_url: Optional[bool]=False) -> None:
+                        _test_input: Optional[str]=None) -> None:
         
         """Method to download models.
 
