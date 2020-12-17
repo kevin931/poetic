@@ -37,9 +37,9 @@ please visit: poetic.readthedocs.io or github.com/kevin931/poetic
 from poetic import gui, predictor, util, results
 from typing import List, Union, Optional
 
-def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None) -> None:
+def main(*, _test_args: Optional[Union[List[str], str]]=None) -> None:
     
-    args, model, dictionary = util.Initializer.initialize(_test=_test, _test_args=_test_args)
+    args, model, dictionary = util.Initializer.initialize(_test_args=_test_args)
     new_pred = predictor.Predictor(model, dictionary)
 
    
@@ -62,9 +62,9 @@ def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None)
     launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
 
     if args["GUI"] or launch_GUI:
-        if _test:           
+        if util.Info.get_instance()._test():           
             print("Test GUI launch")
-        gui.GUI(new_pred, _test=_test)
+        gui.GUI(new_pred)
                    
 
 if __name__ == "__main__":

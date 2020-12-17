@@ -23,18 +23,30 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #
-from poetic import gui
+from poetic import gui, util
 from _tkinter import TclError
 
 class TestGUI():
     
+    @classmethod
+    def setup_class(cls):
+        print("setting up")
+        util.Info(_test=True)
+
+    
     def test_gui_constructor(self):
         try:
-            gui.GUI(_test=True)
+            gui.GUI()
         except TclError:
             assert True
         except:
             assert False
         else:
             assert True
-        
+            
+    
+    @classmethod
+    def teardown_class(cls):
+        info_instance = util.Info.get_instance()
+        info_instance._destructor()
+        del info_instance

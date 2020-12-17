@@ -57,7 +57,7 @@ class GUI():
             object, the GUI will have no predicting functionality.
     """
 
-    def __init__(self, predictor=None, *, _test=False) -> None:
+    def __init__(self, predictor=None) -> None:
         self.predictor = predictor
         # GUI parameters
         self.root = Tk()
@@ -161,7 +161,7 @@ class GUI():
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
         self.status_message.grid(row=13, pady=3)
 
-        if not _test:
+        if not Info.get_instance()._test():
             self.root.mainloop() # End
 
 

@@ -24,6 +24,7 @@
 # DEALINGS IN THE SOFTWARE.
 #
 from poetic.__main__ import main
+from poetic.util import Info
 
 import pytest
 from io import StringIO
@@ -34,12 +35,13 @@ class TestMain():
     
     @classmethod
     def setup_class(cls):
+        Info(_test=True)   
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
         os.mkdir(cls.script_path + "/data/temp")
 
     
     def test_main_return_none(self):
-        result = main(_test=True, _test_args="") #pylint: disable=assignment-from-no-return
+        result = main(_test_args="") #pylint: disable=assignment-from-no-return
         assert result is None
         
     
@@ -56,7 +58,7 @@ class TestMain():
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        main(_test=True, _test_args=arguments)
+        main(_test_args=arguments)
             
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
@@ -70,12 +72,16 @@ class TestMain():
                             )    
     def test_main_cli_parameters_save_file(self, arguments):
         arguments, = arguments
-        main(_test=True, _test_args=arguments)
+        main(_test_args=arguments)
         assert os.path.exists(arguments[3])
         
     
     @classmethod
     def teardown_class(cls):
+        info_instance = Info.get_instance()
+        info_instance._destructor()
+        del info_instance
+        
         files = os.listdir(cls.script_path + "/data/temp/")
         for file in files:
             os.remove(cls.script_path + "/data/temp/" + file)
