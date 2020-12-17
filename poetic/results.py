@@ -252,22 +252,22 @@ class Diagnostics():
 
         # Program Information
         r = "\nPoetic\n"
-        r += f"Version: {version}\n"
+        r += "Version: {}\n".format(version)
         r += 'For latest updates: www.github.com/kevin931/Poetic\n\n'
         # General Information
         r += "Diagnostics Report\n\n"
         r += "Model: Lexical Model\n"
-        r += f"Number of Sentences: {self.diagnostics['Sentence_count']}\n\n"
+        r += "Number of Sentences: {}\n\n".format(self.diagnostics['Sentence_count'])
         # Five Number Summary
         r += "~~~Five Number Summary~~~\n"
-        r += f"Minimum: {self.diagnostics['Five_num']['Min']}\n"
-        r += f"Mean: {self.diagnostics['Five_num']['Mean']}\n"
-        r += f"Median: {self.diagnostics['Five_num']['Median']}\n"
-        r += f"Maximum: {self.diagnostics['Five_num']['Max']}\n"
-        r += f"Standard Deviation: {self.diagnostics['Five_num']['Stdev']}\n\n"
+        r += "Minimum: {}\n".format(self.diagnostics['Five_num']['Min'])
+        r += "Mean: {}\n".format(self.diagnostics['Five_num']['Mean'])
+        r += "Median: {}\n".format(self.diagnostics['Five_num']['Median'])
+        r += "Maximum: {}\n".format(self.diagnostics['Five_num']['Max'])
+        r += "Standard Deviation: {}\n\n".format(self.diagnostics['Five_num']['Stdev'])
         # Score of each sentence
         r = r + "~~~All Scores~~~\n"
         for i in range(0, self.diagnostics["Sentence_count"]):
-            r = r + f"Sentence #{i+1}: {self.predictions[i]}\n"
+            r = r + "Sentence #{}: {}\n".format(i+1, self.predictions[i])
 
         return r
