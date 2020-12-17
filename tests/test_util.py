@@ -184,40 +184,26 @@ class TestInitializer():
         result = Initializer.download_assets(assets_status=self.assets_status, _test_input="n")
         assert result is None
         
-        
-    def test_download_assets_input_n_prompt(self):
-        self.assets_status["all_exist"] = False
-        
-        screen_stdout = sys.stdout
-        string_stdout = StringIO()
-        sys.stdout = string_stdout
-        
-        Initializer.download_assets(assets_status=self.assets_status, _test_input="n")
-        
-        output = string_stdout.getvalue()
-        sys.stdout = screen_stdout
-        
-        assert "You have declined to download the assets." in output
-        
     
-    @pytest.mark.parametrize("input,",
-                             [("Y",),
-                             ("y",)]
+    @pytest.mark.parametrize("input_value, expected",
+                             [("Y", "Download in progress..."),
+                             ("y", "Download in progress..."),
+                             ("n", "You have declined to download the assets."),
+                             ("N", "You have declined to download the assets.")]
                              )     
-    def test_download_assets_input_y_output(self, input):
+    def test_download_assets_input_printout(self, input_value, expected):
         self.assets_status["all_exist"] = False
         
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        input, = input
-        Initializer.download_assets(assets_status=self.assets_status, _test_input=input)
+        Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input=input_value)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
         
-        assert "Download in progress..." in output
+        assert expected in output
         
         
     def test_download_assets_force_download(self):
@@ -233,29 +219,6 @@ class TestInitializer():
         sys.stdout = screen_stdout
         
         assert "Download in progress..." in output
-        
-        
-    def test_download_assets_url(self):
-        self.assets_status["all_exist"] = False
-        
-        try:
-            Initializer.download_assets(assets_status=self.assets_status, force_download=True)
-        except:
-            assert False
-        else:
-            assert True
-            
-            
-    def test_download_assets_return_type(self):
-        self.assets_status["all_exist"] = False
-        
-        try:
-            contents = Initializer.download_assets(assets_status=self.assets_status, force_download=True)
-        except:
-            assert False
-        else:
-            print(type(contents))
-            assert isinstance(contents, http.client.HTTPResponse)
             
             
     @classmethod
