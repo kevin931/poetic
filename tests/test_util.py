@@ -198,7 +198,7 @@ class TestInitializer():
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        Initializer.download_assets(assets_status=self.assets_status, _test=True, _test_input=input_value)
+        Initializer.download_assets(assets_status=self.assets_status, _test_input=input_value)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
