@@ -238,7 +238,8 @@ class Initializer():
                         force_download: Optional[bool]=False, 
                         *, 
                         _test: Optional[bool]=False, 
-                        _test_input: Optional[str]=None) -> None:
+                        _test_input: Optional[str]=None, 
+                        _test_url: Optional[bool]=False) -> None:
         
         """Method to download models.
 
@@ -302,8 +303,9 @@ class Initializer():
         message_3 += "go grab a coffee and be poetic.\n"
         print(message_3)
         
+        if _test: return None
+        
         with urlopen(url) as contents: # pragma: no cover
-            if _test: return contents
             contents = contents.read()
             with ZipFile(BytesIO(contents)) as file:
                 file.extractall(cls._data_dir)
