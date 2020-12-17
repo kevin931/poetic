@@ -63,7 +63,7 @@ import numpy as np
 import csv
 from poetic.util import Info
 
-from typing import Optional, List, Sequence, Union
+from typing import Optional, List, Sequence, Union, Dict
 
 
 class Diagnostics():
@@ -135,7 +135,7 @@ class Diagnostics():
 
 
     @classmethod
-    def five_number(cls, input: Union[np.ndarray, List]) -> dict:
+    def five_number(cls, input: Union["numpy.ndarray", List[float]]) -> Dict[str, float]:
         """Five number summary.
 
         This methods generates five number summary of a given input.

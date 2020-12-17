@@ -34,8 +34,8 @@ Examples:
     
     .. code-block:: python
     
-        poetic.Info.version()
-        poetic.Info.build_status()
+        poetic.util.Info.version()
+        poetic.util.Info.build_status()
         
     Under normal circumstances, the methods in the Initializer class is not needed
     as part of the prediction workflow. One of the most common usage of a first-time
@@ -214,8 +214,7 @@ class Initializer():
 
 
     @classmethod
-    def load_model(cls, 
-                   force_download: bool=False) -> keras.Model: # pylint: disable=no-member
+    def load_model(cls, force_download: Optional[bool]=False) -> keras.Model: # pylint: disable=no-member
         """Load Keras models.
 
         This method uses Keras interface to load the previously
@@ -281,8 +280,7 @@ class Initializer():
     @classmethod
     def download_assets(cls, 
                         assets_status: Optional[Dict[str,bool]]=None, 
-                        force_download: bool=False,
-                        *,
+                        force_download: Optional[bool]=False,
                         _test_input: Optional[str]=None) -> None:
         
         """Method to download models.
@@ -385,7 +383,7 @@ class _Arguments():
         self.parser.add_argument("--version", action="version", version=self.version())
 
 
-    def parse(self, args=None) -> Dict[str, Optional[str]]:
+    def parse(self, args: Optional[List[str]] =None) -> Dict[str, Optional[str]]:
         # Parse arguments
 
         arguments = self.parser.parse_args(args)

@@ -79,9 +79,9 @@ class Predictor():
 
 
     def __init__(self, 
-                 model: Model=None, 
-                 dict: Dictionary=None, 
-                 force_download_assets:bool=False) -> None:
+                 model: Optional["tensorflow.keras.Model"]=None, 
+                 dict: Optional["gensim.corpora.dictionary.Dictionary"]=None, 
+                 force_download_assets: Optional[bool]=False) -> None:
 
         self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
         self.dict = dict if dict is not None else Initializer.load_dict()

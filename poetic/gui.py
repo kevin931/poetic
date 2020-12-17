@@ -40,7 +40,10 @@ from tkinter import filedialog, Radiobutton, IntVar
 import re
 import os
 from concurrent import futures
+
 from poetic.util import Info
+
+from typing import Optional
 
 # Set up a threadpool
 thread_pool = futures.ThreadPoolExecutor(max_workers=1)
@@ -57,7 +60,7 @@ class GUI():
             object, the GUI will have no predicting functionality.
     """
 
-    def __init__(self, predictor=None) -> None:
+    def __init__(self, predictor: Optional["poetic.Predictor.predictor"] =None) -> None:
         self.predictor = predictor
         # GUI parameters
         self.root = Tk()
