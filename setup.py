@@ -43,7 +43,7 @@ setuptools.setup(
     description = "Let Us Be More poetic: A Poetry Prediction and Processing Package.",
     long_description = description,
     packages=["poetic"],
-    python_requires=">=3.6, <3.9",
+    python_requires=">=3.5, <3.9",
     install_requires=["tensorflow>=2",
                       "gensim>=3.8, <4",
                       "nltk>=3.4",
