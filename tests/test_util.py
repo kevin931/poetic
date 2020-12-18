@@ -179,9 +179,10 @@ class TestInitializer():
         assert result is None
         
         
-    def test_download_assets_input_n_return_none(self):
+    def test_download_assets_input_n_return_none(self, mocker):
         self.assets_status["all_exist"] = False
-        result = Initializer.download_assets(assets_status=self.assets_status, _test_input="n")
+        mocker.patch("builtins.input", return_value="n")
+        result = Initializer.download_assets(assets_status=self.assets_status)
         assert result is None
         
     
@@ -191,14 +192,15 @@ class TestInitializer():
                              ("n", "You have declined to download the assets."),
                              ("N", "You have declined to download the assets.")]
                              )     
-    def test_download_assets_input_printout(self, input_value, expected):
+    def test_download_assets_input_printout(self, mocker, input_value, expected):
         self.assets_status["all_exist"] = False
         
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        Initializer.download_assets(assets_status=self.assets_status, _test_input=input_value)
+        mocker.patch("builtins.input", return_value=input_value)
+        Initializer.download_assets(assets_status=self.assets_status)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
@@ -206,14 +208,14 @@ class TestInitializer():
         assert expected in output
         
         
-    def test_download_assets_force_download(self):
+    def test_download_assets_force_download(self, mocker):
         self.assets_status["all_exist"] = False
          
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        Initializer.download_assets(assets_status=self.assets_status, force_download=True, _test_input=input)
+        Initializer.download_assets(assets_status=self.assets_status, force_download=True)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
