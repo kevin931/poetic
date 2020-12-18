@@ -280,8 +280,7 @@ class Initializer():
     @classmethod
     def download_assets(cls, 
                         assets_status: Optional[Dict[str,bool]]=None, 
-                        force_download: Optional[bool]=False,
-                        _test_input: Optional[str]=None) -> None:
+                        force_download: Optional[bool]=False) -> None:
         
         """Method to download models.
 
@@ -312,7 +311,7 @@ class Initializer():
 
         if assets_status is None:
             assets_status = cls.check_assets()
-            if _test and _test_input is None: assets_status["all_exist"] = True
+            if _test: assets_status["all_exist"] = True
         
         if assets_status["all_exist"]:
             return None
@@ -326,8 +325,8 @@ class Initializer():
         print(message)
 
         if not force_download:
-            value = input("Would you like to download? [y/n]") if _test_input is None else _test_input
-            # Anything other than "y"
+            value = input("Would you like to download? [y/n]")
+            
             if value.lower() != "y":
                 message_2 = "\nYou have declined to download the assets.\n"
                 message_2 += "To download in the future, call Predictor()\n"
