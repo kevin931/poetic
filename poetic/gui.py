@@ -42,6 +42,7 @@ import os
 from concurrent import futures
 
 from poetic.util import Info
+from poetic import exceptions
 
 from typing import Optional
 
@@ -175,7 +176,7 @@ class GUI():
         try:
             score =self.predictor.predict(input)
         # Input Length Error
-        except self.predictor._InputLengthError as e:
+        except exceptions.InputLengthError as e:
             print(e)
             self.result2.config(text = "Nothing entered. Please try again.")
             self.result3.config(text="Please type in your sentence and submit!")
