@@ -103,13 +103,9 @@ class TestGUI():
         label_mock.assert_called()
 
         
-    @pytest.mark.parametrize("file_type,",
-                            [(1, ),
-                            (2, )]
-                            )    
+    @pytest.mark.parametrize("file_type", [1, 2])    
     def test_run_file(self, mocker, file_type):
         predict_results = self.new_predictor.predict_file("./tests/data/file_test.txt")
-        file_type, = file_type
         
         to_file_mock = mocker.MagicMock()
         mocker.patch("poetic.gui.Tk.mainloop")
@@ -126,13 +122,9 @@ class TestGUI():
         to_file_mock.assert_called()
         
         
-    @pytest.mark.parametrize("file_type,",
-                            [(1, ),
-                            (2, )]
-                            )    
+    @pytest.mark.parametrize("file_type", [1, 2])
     def test_run_file_file_exist(self, mocker, file_type):
         predict_results = self.new_predictor.predict_file("./tests/data/file_test.txt")
-        file_type, = file_type
         
         to_file_mock = mocker.MagicMock()
         mocker.patch("poetic.gui.Tk.mainloop")

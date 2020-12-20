@@ -68,9 +68,9 @@ class TestMain():
         assert expected in output
         
     
-    @pytest.mark.parametrize("arguments,",
-                            [(["-s", "This is just a test", "-o", "./tests/data/temp/test_s.txt"], ),
-                            (["-f", "./tests/data/file_test.txt", "-o", "./tests/data/temp/test_s_f.txt"], )]
+    @pytest.mark.parametrize("arguments",
+                            [["-s", "This is just a test", "-o", "./tests/data/temp/test_s.txt"],
+                            ["-f", "./tests/data/file_test.txt", "-o", "./tests/data/temp/test_s_f.txt"]]
                             )    
     def test_main_cli_parameters_save_file(self, mocker, arguments):
         arguments, = arguments

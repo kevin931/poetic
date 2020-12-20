@@ -299,12 +299,11 @@ class Test_Arguments():
         assert arguments_keys == expected
         
         
-    @pytest.mark.parametrize("input,",
-                             [(["-s", ".", "-f", "."],),
-                             (["--Sentence", ".", "--File", "."],)]
+    @pytest.mark.parametrize("input",
+                             [["-s", ".", "-f", "."],
+                             ["--Sentence", ".", "--File", "."]]
                              )
     def test_unsupported_config_error(self, input):
-        input, = input
         try:
             self.parser.parse(input)
         except Exception as e:
