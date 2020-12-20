@@ -45,14 +45,13 @@ class TestDiagnostics():
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
         
     
-    def test_str_type(self):
-        output = str(self.results)
-        assert isinstance(output, str)
-        
-    
-    def test_str_return(self):
-        output = str(self.results)
-        expected = "Diagnostics object for the following predictions: [1, 0, 1, 0]"
+    @pytest.mark.parametrize("func, expected",
+                             [(repr, "{'Predictions': [1, 0, 1, 0], 'Sentences': None, 'Diagnostics': None}"),
+                              (str, "Diagnostics object for the following predictions: [1, 0, 1, 0]"), 
+                              (len, 4)]
+                             )  
+    def test_str_repr_len_return(self, func, expected):
+        output = func(self.results)
         assert output == expected
         
         
@@ -63,26 +62,15 @@ class TestDiagnostics():
         output = output[len(output)-3:]
         assert output == "..."
         
-                
-    def test_repr_type(self):
-        output = repr(self.results)
-        assert isinstance(output, str)
-        
     
-    def test_repr_return(self):
-        output = repr(self.results)
-        expected = "{'Predictions': [1, 0, 1, 0], 'Sentences': None, 'Diagnostics': None}"
-        assert output == expected
-        
-        
-    def test_len_type(self):
-        length = len(self.results)
-        assert isinstance(length, int)
-        
-        
-    def test_len_return(self):
-        length = len(self.results)
-        assert length == 4
+    @pytest.mark.parametrize("func, type",
+                             [(repr, str), 
+                              (str, str),
+                              (len, int)]
+                             )         
+    def test_repr_str_len_return_type(self, func, type):
+        output = func(self.results)
+        assert isinstance(output, type)
         
         
     def test_five_number_type(self):
@@ -100,8 +88,8 @@ class TestDiagnostics():
         result = self.five_num[key]
         assert isclose(result, expected)
         
-        
-    def test_run_diagnostics_type(self):
+
+    def test_run_diagnostics_generate_report_return_type(self):
         self.results.run_diagnostics()
         assert isinstance(self.results.diagnostics, dict)
         
@@ -121,33 +109,27 @@ class TestDiagnostics():
         stats = self.results.diagnostics
         assert stats[key] == expected
         
-        
-    def test_to_csv(self):
-        path = self.script_path + "/data/csv_test_temp.csv"
-        self.results.to_csv(path)       
-        assert os.path.exists(path)
-        
-        
-    def test_to_file(self):
-        path = self.script_path + "/data/txt_test_temp.txt"
-        self.results.to_file(path)       
-        assert os.path.exists(path)
-        
-        
-    def test_to_file_csv_parse(self):
-        path = self.script_path + "/data/csv_test_via_txt_temp.csv"
-        self.results.to_file(path)       
+    
+    @pytest.mark.parametrize("file_path, method",
+                            [("/data/csv_test_temp.csv", "to_csv"),
+                            ("/data/txt_test_temp.txt", "to_file"),
+                            ("/data/csv_test_via_txt_temp.csv", "to_file")]
+                            )    
+    def test_to_csv_to_file(self, file_path, method):
+        path = self.script_path + file_path
+        getattr(self.results, method)(path)     
         assert os.path.exists(path)
         
 
-    def test_to_csv_error_message(self):
+    @pytest.mark.parametrize("method", ["to_csv", "to_file"])
+    def test_to_csv_and_file_error_message(self, method):
         nonexistant_path = "./nonexistant/a.txt"
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
         try:
-            self.results.to_csv(nonexistant_path)
+            getattr(self.results, method)(nonexistant_path)
         except:
             output = string_stdout.getvalue()
         finally:
@@ -156,38 +138,12 @@ class TestDiagnostics():
         expected = "Warning: Unable to open file at designated path."
         assert expected in output
         
-        
-    def test_to_file_error_message(self):
-        nonexistant_path = "./nonexistant/a.txt"
-        screen_stdout = sys.stdout
-        string_stdout = StringIO()
-        sys.stdout = string_stdout
-        
-        try:
-            self.results.to_file(nonexistant_path)
-        except:
-            output = string_stdout.getvalue()
-        finally:
-            sys.stdout = screen_stdout
-            
-        expected = "Warning: Unable to open file at designated path."
-        assert expected in output
-        
-        
-    def test_to_csv_exception_handling(self):       
+    
+    @pytest.mark.parametrize("method", ["to_csv", "to_file"])    
+    def test_to_csv_and_file_exception_handling(self, method):
         nonexistant_path = "./nonexistant/a.txt"
         try:
-            self.results.to_csv(nonexistant_path)
-        except Exception as e:
-            assert isinstance(e, Exception)
-        else:
-            assert False
-            
-            
-    def test_to_file_exception_handling(self):      
-        nonexistant_path = "./nonexistant/a.txt"
-        try:
-            self.results.to_file(nonexistant_path)
+            getattr(self.results, method)(nonexistant_path)
         except Exception as e:
             assert isinstance(e, Exception)
         else:
