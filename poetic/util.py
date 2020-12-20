@@ -167,8 +167,6 @@ class Initializer():
 
     # Package data directory
     _data_dir = pkg_resources.resource_filename("poetic", "data/")
-    if _data_dir[-1] != "\\" and _data_dir[-1] != "/":
-        _data_dir += "/" # pragma: no cover
 
     # Model Path
     _weights_dir = _data_dir+"sent_model.h5"
