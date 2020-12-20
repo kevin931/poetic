@@ -164,24 +164,24 @@ class GUI():
         self.run_button.grid(row=12)
         self.status_message = Label(self.tab2, text = "Status: Not yet run.", font=("Times",15))
         self.status_message.grid(row=13, pady=3)
+        
+        # Other variables needed
+        self.savedir = None
+        self.filepath = None
 
-        if not Info.get_instance()._test():
-            self.root.mainloop() # End
+        self.root.mainloop()
 
 
     def _submit_sentence(self) -> None:
-        # Predict with sentence in interactive mode
-
-        input = self.sentence_input.get()
+        sentence_input = self.sentence_input.get()
         try:
-            score =self.predictor.predict(input)
-        # Input Length Error
+            score =self.predictor.predict(sentence_input)
+
         except exceptions.InputLengthError as e:
             print(e)
             self.result2.config(text = "Nothing entered. Please try again.")
             self.result3.config(text="Please type in your sentence and submit!")
 
-        # All other exceptions
         except Exception as e:
             self.result2.config(text = "An error has occurred. Please try again.")
             self.result3.config(text="Please type in your sentence and submit!")
@@ -199,16 +199,12 @@ class GUI():
 
 
     def _select_file(self) -> None:
-        # Method that selects file.
-
         self.filepath = filedialog.askopenfilename(initialdir=".", title="Select your file.")
         file_name = re.split("/", self.filepath)[-1] # Get file name
-        self.file_input_path.config(text=file_name,
-                                    font =("Times", 15))
+        self.file_input_path.config(text=file_name, font =("Times", 15))
 
 
     def _select_directory(self) -> None:
-        # Ask for save directory
         self.savedir = filedialog.askdirectory(initialdir=".", title="Select your save directory.")
         dir_name = re.split("/", self.savedir)[-1]
         self.file_output_dir.config(text=dir_name, font =("Times", 15))
@@ -219,8 +215,6 @@ class GUI():
 
 
     def _run_file(self) -> None:
-        # Method for submitting the file to run.
-
         # Update status
         self.root.after(0, self._update_status, "Running")
         # Run the results
@@ -237,21 +231,18 @@ class GUI():
         elif file_type ==2:
             file_path += ".csv"
 
-        # Check if the file already exists to prevent overwriting
+        # To prevent overwriting
         if os.path.exists(file_path):
             error_msg = "Error: "+file_name+" already exists."
             self.root.after(0, self._update_status, error_msg)
         else:
-            # Save results and update status
             results.to_file(file_path)
             self.root.after(0, self._update_status, "Done!")
 
 
     def _update_status(self, status) -> None:
-        # Method for updating the status
         self.status_message.config(text="Status: "+status, font=("Times",15))
 
 
-# For UI developing purposes only
 if __name__ == "__main__":
     GUI()
