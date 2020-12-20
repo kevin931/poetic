@@ -12,6 +12,7 @@ install:
   - pip install pytest
   - pip install pytest-cov
   - pip install coveralls
+  - pip install pytest-mock
 
 script: 
   - pytest --cov=poetic/
