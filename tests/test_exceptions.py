@@ -24,78 +24,50 @@
 # DEALINGS IN THE SOFTWARE.
 #
 from poetic import exceptions
+import pytest
 
 
 class TestExceptions():
     
-    def test_input_length_error_default_message(self):      
+    @pytest.mark.parametrize("error_class, expected",
+                            [(exceptions.InputLengthError, "The current length is unsupported or out of bound."), 
+                             (exceptions.UnsupportedConfigError, "Unsupported configuration: Please refer to docummentation."), 
+                             (exceptions.SingletonError, "This class is a singleton: unable to instantiate.")]
+                            ) 
+    def test_error_default_message(self, error_class, expected):      
         try:
-            raise exceptions.InputLengthError()
-        except exceptions.InputLengthError as e:
+            raise error_class()
+        except error_class as e:
             message = str(e)
         else:
             assert False
             
-        expected = "The current length is unsupported or out of bound."
         assert expected in message
+
         
-        
-    def test_input_length_errror_inheritance(self):
+    @pytest.mark.parametrize("error_class",
+                            [exceptions.InputLengthError, 
+                             exceptions.UnsupportedConfigError, 
+                             exceptions.SingletonError]
+                            )      
+    def test_errror_inheritance(self, error_class):
         try:
-            raise exceptions.InputLengthError()
-        except exceptions.InputLengthError as e:
+            raise error_class()
+        except error_class as e:
             assert isinstance(e, Exception)
         else:
             assert False
-            
-              
-    def test_unsupported_config_message(self):
-        
-        try:
-            raise exceptions.UnsupportedConfigError()
-        except exceptions.UnsupportedConfigError as e:
-            message = str(e)
-        else:
-            assert False
-            
-        expected = "Unsupported configuration: Please refer to docummentation."
-        assert expected in message
         
     
-    def test_unsupported_config_inheritance(self):
+    @pytest.mark.parametrize("error_class",
+                            [exceptions.InputLengthError, 
+                             exceptions.UnsupportedConfigError, 
+                             exceptions.SingletonError]
+                            )
+    def test_single_error_custom_message(self, error_class):
         try:
-            raise exceptions.UnsupportedConfigError()
-        except exceptions.UnsupportedConfigError as e:
-            assert isinstance(e, Exception)
-        else:
-            assert False
-            
-            
-    def test_singleton_error_inheritance(self):
-        try:
-            raise exceptions.SingletonError()
-        except exceptions.SingletonError as e:
-            assert isinstance(e, Exception)
-        else:
-            assert False
-            
-            
-    def test_single_error_default_message(self):
-        try:
-            raise exceptions.SingletonError()
-        except exceptions.SingletonError as e:
-            message = str(e)
-        else:
-            assert False
-            
-        expected = "This class is a singleton: unable to instantiate."
-        assert message == expected
-        
-    
-    def test_single_error_custom_message(self):
-        try:
-            raise exceptions.SingletonError("Test custom message.")
-        except exceptions.SingletonError as e:
+            raise error_class("Test custom message.")
+        except error_class as e:
             message = str(e)
         else:
             assert False
