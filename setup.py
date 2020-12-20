@@ -48,7 +48,11 @@ setuptools.setup(
                       "gensim>=3.8, <4",
                       "nltk>=3.4",
                       "numpy"
-    ],
+                      ],
+    test_requires=["pytest",
+                   "pytest-cov",
+                   "pytest-mock",
+                   "coverage"],
     install_package_data=True,
     package_data={"poetic":["./data/word_dictionary_complete.txt"]},
     classifiers = [
