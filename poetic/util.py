@@ -345,10 +345,10 @@ class Initializer():
         
         if _test: return None
         
-        with urlopen(url) as contents: # pragma: no cover
-            contents = contents.read()
-            with ZipFile(BytesIO(contents)) as file:
-                file.extractall(cls._data_dir)
+        contents = urlopen(url)
+        contents = contents.read()
+        zip_file = ZipFile(BytesIO(contents))
+        zip_file.extractall(cls._data_dir)
                 
     
     @classmethod
