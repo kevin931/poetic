@@ -40,7 +40,8 @@ class TestMain():
         os.mkdir(cls.script_path + "/data/temp")
 
     
-    def test_main_return_none(self):
+    def test_main_return_none(self, mocker):
+        mocker.patch("poetic.gui.Tk.mainloop")
         result = main(_test_args="") #pylint: disable=assignment-from-no-return
         assert result is None
         
@@ -53,11 +54,12 @@ class TestMain():
                              (["--GUI"], "Test GUI launch"),
                              ("", "Test GUI launch")]
                              )
-    def test_main_cli_parameters_sentence_file_gui(self, arguments, expected):
+    def test_main_cli_parameters_sentence_file_gui(self, mocker, arguments, expected):
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
+        mocker.patch("poetic.gui.Tk.mainloop")
         main(_test_args=arguments)
             
         output = string_stdout.getvalue()
@@ -70,8 +72,9 @@ class TestMain():
                             [(["-s", "This is just a test", "-o", "./tests/data/temp/test_s.txt"], ),
                             (["-f", "./tests/data/file_test.txt", "-o", "./tests/data/temp/test_s_f.txt"], )]
                             )    
-    def test_main_cli_parameters_save_file(self, arguments):
+    def test_main_cli_parameters_save_file(self, mocker, arguments):
         arguments, = arguments
+        mocker.patch("poetic.gui.Tk.mainloop")
         main(_test_args=arguments)
         assert os.path.exists(arguments[3])
         
