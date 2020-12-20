@@ -221,6 +221,42 @@ class TestInitializer():
         sys.stdout = screen_stdout
         
         assert "Download in progress..." in output
+        
+        
+    def test_download_assets_url_download_mock(self, mocker):
+        contents_mock = mocker.MagicMock()
+        contents_mock.read.return_value = b"This is a test."
+        
+        zip_mock = mocker.MagicMock()
+        zip_mock.extractall.return_value = None
+        
+        mocker.patch("poetic.util.urlopen", return_value = contents_mock)
+        mocker.patch("poetic.util.ZipFile", return_value = zip_mock)
+        mocker.patch("poetic.util.Info._test", return_value = False)
+        
+        self.assets_status["all_exist"] = False
+        
+        Initializer.download_assets(assets_status=self.assets_status, force_download=True)
+        
+        contents_mock.read.assert_called()
+        
+        
+    def test_download_assets_zip_extract_mock(self, mocker):
+        contents_mock = mocker.MagicMock()
+        contents_mock.read.return_value = b"This is a test."
+        
+        zip_mock = mocker.MagicMock()
+        zip_mock.extractall.return_value = None
+        
+        mocker.patch("poetic.util.urlopen", return_value = contents_mock)
+        mocker.patch("poetic.util.ZipFile", return_value = zip_mock)
+        mocker.patch("poetic.util.Info._test", return_value = False)
+        
+        self.assets_status["all_exist"] = False
+        
+        Initializer.download_assets(assets_status=self.assets_status, force_download=True)
+        
+        zip_mock.extractall.assert_called()
             
             
     @classmethod
