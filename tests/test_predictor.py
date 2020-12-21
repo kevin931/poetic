@@ -29,6 +29,7 @@ import poetic
 from tensorflow import keras
 import numpy as np
 import os
+import pytest
 
 class TestPredictor():
     # Class to test the Predictor Class
@@ -55,14 +56,13 @@ class TestPredictor():
         assert isinstance(id, list)
 
 
-    def test_word_id(self):
-        id = self.pred.word_id([["you"]])
-        assert id[0][0] == 141
-        
-        
-    def test_word_id_non_exist(self):
-        id = self.pred.word_id([["this_is_a_test"]])
-        assert id[0][0] == 0
+    @pytest.mark.parametrize("word, expected_id",
+                             [("you", 141), 
+                              ("this_is_a_test", 0)]
+                             )
+    def test_word_id(self, word, expected_id):
+        word_id = self.pred.word_id([[word]])
+        assert word_id[0][0] == expected_id
 
 
     def test_file_load(self):
@@ -70,15 +70,14 @@ class TestPredictor():
         file = self.pred._file_load(path)
         assert file == "This is just a test."
         
-        
-    def test_predict_type(self):
+    
+    @pytest.mark.parametrize("return_type",
+                             [poetic.predictor.Predictions, 
+                              poetic.results.Diagnostics]
+                             )
+    def test_predict_type(self, return_type):
         score = self.pred.predict("This is a test.")
-        assert isinstance(score, poetic.predictor.Predictions)
- 
-        
-    def test_predict_type_inheritance(self):
-        score = self.pred.predict("This is a test.")
-        assert isinstance(score, poetic.results.Diagnostics)
+        assert isinstance(score, return_type)
 
 
     def test_file_predict(self):
@@ -91,18 +90,15 @@ class TestPredictor():
         score = self.pred.predict("This is just a test.")
         score = score.predictions[0]
         assert score >= 0 and score <= 1
+
       
-        
-    def test_input_length_check(self):
+    @pytest.mark.parametrize("method, param",
+                             [("predict", ""),
+                              ("_check_requirement", [])]
+                             )    
+    def test_input_length_error_check(self, method, param):
         try:
-            self.pred.predict("")
-        except Exception as e:
-            assert isinstance(e, poetic.exceptions.InputLengthError)
-       
-            
-    def test_check_requirement(self):
-        try:
-            self.pred._check_requirement([])
+            getattr(self.pred, method)(param)
         except Exception as e:
             assert isinstance(e, poetic.exceptions.InputLengthError)
     
@@ -112,15 +108,14 @@ class TestPredictor():
         expected = [["This", "is", "just", "a", "test", "."], ["Hi", "."]]
         assert tokens == expected
    
-        
-    def test_tokenize_type(self):
+    
+    @pytest.mark.parametrize("method, return_type",
+                             [("tokenize", list), 
+                              ("preprocess", np.ndarray)]
+                             )   
+    def test_tokenize_preprocess_return_type(self, method, return_type):
         tokens = self.pred.tokenize("This is just a test.")
         assert isinstance(tokens, list)
-        
-        
-    def test_preprocess_type(self):
-        processed = self.pred.preprocess("This is just a test.")
-        assert isinstance(processed, np.ndarray)
         
         
     def test_preprocess_length(self):

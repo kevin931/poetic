@@ -68,25 +68,20 @@ class TestInfo():
         assert Info.get_instance()._test() is True
     
     
-    def test_get_instance(self):
-        info_instance = Info.get_instance()
-        assert isinstance(info_instance, Info)
-            
-    
-    def test_build_type(self):
-        status = Info.build_status()
-        assert isinstance(status, str)
+    @pytest.mark.parametrize("method, return_type",
+                             [("get_instance", Info),
+                             ("build_status", str),
+                             ("version", str)]
+                             )
+    def test_method_return_type(self, method, return_type):
+        return_object = getattr(Info, method)()
+        assert isinstance(return_object, return_type)
         
         
     def test_build_status(self):
         status = Info.build_status()
         expected = ["Stable", "Dev", "Beta", "Alpha", "Release Candidate"]
         assert status in expected
-        
-        
-    def test_version_type(self):
-        version = Info.version()
-        assert isinstance(version, str)
         
         
     def test_version_numbering(self):
@@ -129,20 +124,16 @@ class TestInitializer():
                              )   
     def test_initialize_return_tuple_contents_type(self, index, return_type):    
         assert isinstance(self.initialize_return[index], return_type)
+        
     
-        
-    def test_load_dict(self):
-        gensim_dict = Initializer.load_dict()
-        assert isinstance(gensim_dict, gensim.corpora.dictionary.Dictionary)
-        
-        
-    def test_load_model(self):
-        model = Initializer.load_model()
-        assert isinstance(model, keras.Model)
-        
-       
-    def test_check_assets_type(self):
-        assert isinstance(self.assets_status, dict)
+    @pytest.mark.parametrize("method, return_type",
+                             [("load_dict", gensim.corpora.dictionary.Dictionary),
+                             ("load_model", keras.Model),
+                             ("check_assets", dict)]
+                             )    
+    def test_dict_model_assets_return_type(self, method, return_type):
+        load_return = getattr(Initializer, method)()
+        assert isinstance(load_return, return_type)
         
         
     def test_check_assets_contents_type(self):
@@ -186,13 +177,14 @@ class TestInitializer():
         assert result is None
         
     
-    @pytest.mark.parametrize("input_value, expected",
-                             [("Y", "Download in progress..."),
-                             ("y", "Download in progress..."),
-                             ("n", "You have declined to download the assets."),
-                             ("N", "You have declined to download the assets.")]
+    @pytest.mark.parametrize("input_value, expected, force",
+                             [("Y", "Download in progress...", False),
+                             ("y", "Download in progress...", False),
+                             ("n", "You have declined to download the assets.", False),
+                             ("N", "You have declined to download the assets.", False),
+                             (None, "Download in progress...", True)]
                              )     
-    def test_download_assets_input_printout(self, mocker, input_value, expected):
+    def test_download_assets_force_and_input_printout(self, mocker, input_value, expected, force):
         self.assets_status["all_exist"] = False
         
         screen_stdout = sys.stdout
@@ -200,7 +192,7 @@ class TestInitializer():
         sys.stdout = string_stdout
         
         mocker.patch("builtins.input", return_value=input_value)
-        Initializer.download_assets(assets_status=self.assets_status)
+        Initializer.download_assets(assets_status=self.assets_status, force_download=force)
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
@@ -208,22 +200,7 @@ class TestInitializer():
         assert expected in output
         
         
-    def test_download_assets_force_download(self, mocker):
-        self.assets_status["all_exist"] = False
-         
-        screen_stdout = sys.stdout
-        string_stdout = StringIO()
-        sys.stdout = string_stdout
-        
-        Initializer.download_assets(assets_status=self.assets_status, force_download=True)
-        
-        output = string_stdout.getvalue()
-        sys.stdout = screen_stdout
-        
-        assert "Download in progress..." in output
-        
-        
-    def test_download_assets_url_download_mock(self, mocker):
+    def test_download_assets_url_download_extract_mock(self, mocker):
         contents_mock = mocker.MagicMock()
         contents_mock.read.return_value = b"This is a test."
         
@@ -239,23 +216,6 @@ class TestInitializer():
         Initializer.download_assets(assets_status=self.assets_status, force_download=True)
         
         contents_mock.read.assert_called()
-        
-        
-    def test_download_assets_zip_extract_mock(self, mocker):
-        contents_mock = mocker.MagicMock()
-        contents_mock.read.return_value = b"This is a test."
-        
-        zip_mock = mocker.MagicMock()
-        zip_mock.extractall.return_value = None
-        
-        mocker.patch("poetic.util.urlopen", return_value = contents_mock)
-        mocker.patch("poetic.util.ZipFile", return_value = zip_mock)
-        mocker.patch("poetic.util.Info._test", return_value = False)
-        
-        self.assets_status["all_exist"] = False
-        
-        Initializer.download_assets(assets_status=self.assets_status, force_download=True)
-        
         zip_mock.extractall.assert_called()
             
             
