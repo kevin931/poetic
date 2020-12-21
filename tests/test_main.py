@@ -88,7 +88,6 @@ class TestMain():
             
         arguments[3] = self.script_path + arguments[3]
         
-        mocker.patch("poetic.gui.Tk.mainloop")
         main(_test_args=arguments)
         assert os.path.exists(arguments[3])
         
