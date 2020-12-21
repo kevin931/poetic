@@ -73,7 +73,6 @@ class TestMain():
                             ["-f", "./tests/data/file_test.txt", "-o", "./tests/data/temp/test_s_f.txt"]]
                             )    
     def test_main_cli_parameters_save_file(self, mocker, arguments):
-        arguments, = arguments
         mocker.patch("poetic.gui.Tk.mainloop")
         main(_test_args=arguments)
         assert os.path.exists(arguments[3])
