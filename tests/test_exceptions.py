@@ -32,7 +32,8 @@ class TestExceptions():
     @pytest.mark.parametrize("error_class, expected",
                             [(exceptions.InputLengthError, "The current length is unsupported or out of bound."), 
                              (exceptions.UnsupportedConfigError, "Unsupported configuration: Please refer to docummentation."), 
-                             (exceptions.SingletonError, "This class is a singleton: unable to instantiate.")]
+                             (exceptions.SingletonError, "This class is a singleton: unable to instantiate."),
+                             (exceptions.ModelShapeError, "The model's shape is unsupported. Please check documentation.")]
                             ) 
     def test_error_default_message(self, error_class, expected):      
         try:
@@ -48,7 +49,8 @@ class TestExceptions():
     @pytest.mark.parametrize("error_class",
                             [exceptions.InputLengthError, 
                              exceptions.UnsupportedConfigError, 
-                             exceptions.SingletonError]
+                             exceptions.SingletonError,
+                             exceptions.ModelShapeError]
                             )      
     def test_errror_inheritance(self, error_class):
         try:
@@ -62,7 +64,8 @@ class TestExceptions():
     @pytest.mark.parametrize("error_class",
                             [exceptions.InputLengthError, 
                              exceptions.UnsupportedConfigError, 
-                             exceptions.SingletonError]
+                             exceptions.SingletonError,
+                             exceptions.ModelShapeError]
                             )
     def test_single_error_custom_message(self, error_class):
         try:
