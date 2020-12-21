@@ -87,5 +87,24 @@ class SingletonError(Exception):
         if message is None:
             message = "This class is a singleton: unable to instantiate."
             super().__init__(message)
+            
+            
+class ModelShapeError(Exception):
+    """ Raises exception for unsupported keras model.
+    
+    This exception is used for when the custom keras model is incompatible
+    with the package's toolchains. Currently, preprocess() method of the Predictor
+    class raises this exception. To avoid this error, use default settings or check
+    documentation for supported models.
+    
+    Args:
+        message(str): The error message to display.
+    
+    """
+    
+    def __init__(self, message: Optional[str]=None) -> None:
+        if message is None:
+            message = "The model's shape is unsupported. Please check documentation."
+            super().__init__(message)
     
     
