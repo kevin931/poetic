@@ -30,6 +30,7 @@ import pytest
 from io import StringIO
 import sys
 import os
+import shutil
 
 class TestMain():
     
@@ -37,7 +38,12 @@ class TestMain():
     def setup_class(cls):
         Info(_test=True)   
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        os.mkdir(cls.script_path + "/data/temp")
+        temp_dir_path = cls.script_path + "/data/temp"
+        
+        if os.path.exists(temp_dir_path):
+            shutil.rmtree(temp_dir_path)
+        
+        os.mkdir(temp_dir_path)
 
     
     def test_main_return_none(self, mocker):
@@ -48,8 +54,8 @@ class TestMain():
     
     @pytest.mark.parametrize("arguments,expected",
                              [(["-s", "This is just a test"], "Diagnostics Report"),
-                             (["-f", "./tests/data/file_test.txt"], "Diagnostics Report"),
-                             (["-f", "./tests/data/file_test.txt", "--GUI"], "Test GUI launch"),
+                             (["-f", "/data/file_test.txt"], "Diagnostics Report"),
+                             (["-f", "/data/file_test.txt", "--GUI"], "Test GUI launch"),
                              (["-s", "This is just a test", "--GUI"], "Test GUI launch"),
                              (["--GUI"], "Test GUI launch"),
                              ("", "Test GUI launch")]
@@ -58,6 +64,10 @@ class TestMain():
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
+        
+        if len(arguments) > 0:
+            if arguments[0] == "-f":
+                arguments[1] = self.script_path + arguments[1]
         
         mocker.patch("poetic.gui.Tk.mainloop")
         main(_test_args=arguments)
@@ -69,10 +79,15 @@ class TestMain():
         
     
     @pytest.mark.parametrize("arguments",
-                            [["-s", "This is just a test", "-o", "./tests/data/temp/test_s.txt"],
-                            ["-f", "./tests/data/file_test.txt", "-o", "./tests/data/temp/test_s_f.txt"]]
+                            [["-s", "This is just a test", "-o", "/data/temp/test_s.txt"],
+                            ["-f", "/data/file_test.txt", "-o", "/data/temp/test_s_f.txt"]]
                             )    
     def test_main_cli_parameters_save_file(self, mocker, arguments):
+        if arguments[0] == "-f":
+            arguments[1] = self.script_path + arguments[1]
+            
+        arguments[3] = self.script_path + arguments[3]
+        
         mocker.patch("poetic.gui.Tk.mainloop")
         main(_test_args=arguments)
         assert os.path.exists(arguments[3])
@@ -84,7 +99,4 @@ class TestMain():
         info_instance._destructor()
         del info_instance
         
-        files = os.listdir(cls.script_path + "/data/temp/")
-        for file in files:
-            os.remove(cls.script_path + "/data/temp/" + file)
-        os.rmdir("./tests/data/temp")
+        shutil.rmtree(cls.script_path + "/data/temp")
