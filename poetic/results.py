@@ -189,19 +189,17 @@ class Diagnostics():
 
         """
 
-
         # Check for csv
         path_len = len(path)
         if (path[(path_len-4):path_len]==".csv"):
             self.to_csv(path)
         else:
-            # Plain Text report
             contents = self.generate_report()
 
             try:
                 f = open(path, "w", encoding='utf-8')
                 f.write(contents)
-                f.close() # Close File
+                f.close()
 
             except Exception as e:
                 print(contents)
