@@ -36,20 +36,11 @@ class TestPredictor():
 
     @classmethod
     def setup_class(cls):
-        # File paths
+        poetic.util.Info(_test=True)
+        
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        model_dir = cls.script_path + "/data/lexical_model_dummy.json"
-        weights_dir = cls.script_path + "/data/lexical_model_dummy.h5"
-        # Load model and weights
-        json_file = open(model_dir, 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        model = keras.models.model_from_json(loaded_model_json)
-        model.load_weights(weights_dir)
-
-        # Initiate Predictor
-        cls.pred = Predictor(model=model)
-
+        cls.pred = Predictor()
+        
 
     def test_word_id_type(self):
         id = self.pred.word_id([["you"]])
@@ -118,8 +109,38 @@ class TestPredictor():
         assert isinstance(tokens, list)
         
         
-    def test_preprocess_length(self):
+    def test_preprocess_default_length(self):
         processed = self.pred.preprocess("This is just a test. Hi.")
         processed = [len(processed), len(processed[0])]
         expected = [2, 456]
         assert processed == expected
+        
+        
+    def test_preprocess_custom_length(self, mocker):
+        mocker.patch("poetic.predictor.keras.Model.input_shape", (None, 300))
+        processed = self.pred.preprocess("This is just a test. Hi.")
+        processed = [len(processed), len(processed[0])]
+        expected = [2, 300]
+        assert processed == expected
+        
+    
+    @pytest.mark.parametrize("input_shape",
+                             [(1,2), (1, 2, 3)]
+                             )
+    def test_unsupported_model_error_handling(self, mocker, input_shape):
+        mocker.patch("poetic.predictor.keras.Model.input_shape", input_shape)
+        try:
+            Predictor()
+        except poetic.exceptions.ModelShapeError:
+            assert True
+        except Exception:
+            assert False
+        else:
+            assert False
+            
+            
+    @classmethod
+    def teardown_class(cls):
+        info_instance = poetic.util.Info.get_instance()
+        info_instance._destructor()
+        del info_instance

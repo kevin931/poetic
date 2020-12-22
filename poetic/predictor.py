@@ -60,20 +60,26 @@ import numpy
 
 
 class Predictor():
-    """
-    The Predictor() class processes and predicts inputs for poetic scores. It can be used
-    as the single interface of the package with other modules built as helpers. 
+    """Class to preprocess inputs and to predict poetic score.
+    
+    The Predictor class processes and predicts inputs for poetic scores. It can be used
+    as the single interface of the poetic package with other modules built as helpers. 
     
     Args:
-        model (tensorflow.keras.Model, optional): The pre-trained keras model.
+        model (tensorflow.keras.Model, optional): A pre-trained keras model. To use the default
+            model, no argument is needed. For custom models, only models with the input shape of
+            (None, int) are supported by the preprocessing toolchain. 
         dict (gensim.corpora.dictionary.Dictionary, optional): Gensim dictionary for word IDs.
         force_download_assets (bool, optional): Wheher to download assets without asking.
-
 
     Attributes:
         model (tensorflow.keras.Model): The pre-trained keras model.
         dict (gensim.corpora.dictionary.Dictionary): Gensim dictionary for word IDs.
         force_download_assets (bool): Wheher to download assets without asking.
+        
+    Raises:
+        poetic.exceptions.ModelShapeError: Error for incompatible model input shape.
+        poetic.exceptions.InputLengthError: Error for processing input length of zero.
 
     """
 
@@ -86,6 +92,12 @@ class Predictor():
         self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
         self.dict = dict if dict is not None else Initializer.load_dict()
         self._sentences = None
+        
+        if len(self.model.input_shape) != 2 or self.model.input_shape[0] is not None:
+            message = "The supplied model is unsupported. "
+            message += "Now, Predictor supports only models with the input "
+            message += "shape of (None, int)"
+            raise exceptions.ModelShapeError(message)
 
 
     def predict(self, input: str) -> "Predictions":
@@ -157,16 +169,17 @@ class Predictor():
         for sentence in sent_token:
             word_lower = [word.lower() for word in sentence]
             sent_lower.append(word_lower)
+            
+        model_input_shape = self.model.input_shape
+        preprocess_length = model_input_shape[1]
 
         id_sent = self.word_id(sent_lower)
-        sent_test = keras.preprocessing.sequence.pad_sequences(id_sent, maxlen=456)
+        sent_processed = keras.preprocessing.sequence.pad_sequences(id_sent, maxlen=preprocess_length)
 
-        return sent_test
+        return sent_processed
 
 
     def _file_load(self, path: str) -> str:
-        # Open a specified file.
-        # Method used for accepting file input.
 
         file = open(path, "r", encoding='utf-8')
         file = file.read()
@@ -226,7 +239,6 @@ class Predictor():
         if len(input)==0:
             message = "Input length out of bound: must be between 1 and 465"
             raise exceptions.InputLengthError(message)
-
 
 
 class Predictions(Diagnostics):
