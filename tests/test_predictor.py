@@ -115,20 +115,15 @@ class TestPredictor():
         expected = [2, 456]
         assert processed == expected
         
-        
-    def test_preprocess_custom_length(self, mocker):
-        mocker.patch("tensorflow.keras.Model.input_shape", (None, 300))
-        processed = self.pred.preprocess("This is just a test. Hi.")
-        processed = [len(processed), len(processed[0])]
-        expected = [2, 300]
-        assert processed == expected
-        
     
     @pytest.mark.parametrize("input_shape",
                              [(1,2), (1, 2, 3)]
                              )
     def test_unsupported_model_error_handling(self, mocker, input_shape):
-        mocker.patch("tensorflow.keras.Model.input_shape", input_shape)
+        model_mock = mocker.MagicMock()
+        model_mock.input_shape = input_shape
+        mocker.patch("poetic.predictor.Initializer.load_model", return_value = model_mock)
+        
         try:
             Predictor()
         except poetic.exceptions.ModelShapeError:
