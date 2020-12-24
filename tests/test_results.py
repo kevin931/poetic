@@ -32,6 +32,7 @@ import os
 from io import StringIO
 import sys
 import csv
+import warnings
 
 
 class TestDiagnostics():
@@ -190,6 +191,36 @@ class TestDiagnostics():
                 assert False
                 
         assert True
+
+        
+    def test_five_number_deprecation_warning(self):
+        
+        screen_stderr = sys.stderr
+        string_stderr = StringIO()
+        sys.stderr = string_stderr
+        
+        Diagnostics.five_number(input = [1, 0, 1, 0])
+        output = string_stderr.getvalue()
+
+        sys.stderr = screen_stderr
+        
+        expected = "The 'input' parameter is deprecated"
+        assert expected in output
+        
+        
+    def test_five_number_type_error(self):
+        try:
+            Diagnostics.five_number()
+        except Exception as e:
+            isinstance(e, TypeError)
+        else:
+            assert False
+        
+        
+    def test_five_number_deprecated_input(self):
+        result = Diagnostics.five_number(input = [1, 0, 1, 0])
+        expected = {"Min": 0, "Mean": 0.5, "Median": 0.5, "Stdev": 0.5, "Max": 1}
+        assert result == expected
         
            
     @classmethod   

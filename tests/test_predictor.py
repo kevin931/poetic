@@ -30,6 +30,8 @@ from tensorflow import keras
 import numpy as np
 import os
 import pytest
+import sys
+from io import StringIO
 
 class TestPredictor():
     # Class to test the Predictor Class
@@ -132,8 +134,51 @@ class TestPredictor():
             assert False
         else:
             assert False
+
             
+    @pytest.mark.parametrize("method", ["predict", "preprocess", "tokenize", "word_id"])        
+    def test_lexical_input_none_type_error(self, method):
+        try:
+            getattr(self.pred, method)()
+        except Exception as e:
+            assert isinstance(e, TypeError)
+        else:
+            assert False
             
+    
+    @pytest.mark.parametrize("method, parameter", 
+                             [("predict", "This is a test."), 
+                              ("preprocess", "This is a test."), 
+                              ("tokenize", "This is a test."), 
+                              ("word_id", [["this", "is"]])])  
+    def test_input_deprecation_warning(self, method, parameter):
+        screen_stderr = sys.stderr
+        string_stderr = StringIO()
+        sys.stderr = string_stderr
+        
+        getattr(self.pred, method)(input=parameter)
+        output = string_stderr.getvalue()
+        sys.stderr = screen_stderr
+        
+        expected = "The 'input' parameter is deprecated"
+        assert expected in output
+        
+        
+    def test_constructor_(self):
+        screen_stderr = sys.stderr
+        string_stderr = StringIO()
+        sys.stderr = string_stderr
+        
+        dictionary = poetic.util.Initializer.load_dict()
+        Predictor(dict=dictionary)
+        
+        output = string_stderr.getvalue()
+        sys.stderr = screen_stderr
+        
+        expected = "The 'dict' parameter is deprecated"
+        assert expected in output
+    
+    
     @classmethod
     def teardown_class(cls):
         info_instance = poetic.util.Info.get_instance()
