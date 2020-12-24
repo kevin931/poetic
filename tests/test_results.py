@@ -193,19 +193,12 @@ class TestDiagnostics():
         assert True
 
         
-    def test_five_number_deprecation_warning(self):
+    def test_five_number_deprecation_warning(self, mocker):
         
-        screen_stderr = sys.stderr
-        string_stderr = StringIO()
-        sys.stderr = string_stderr
-        
+        warn_mocker = mocker.MagicMock()
+        mocker.patch("poetic.results.warnings.warn", warn_mocker)
         Diagnostics.five_number(input = [1, 0, 1, 0])
-        output = string_stderr.getvalue()
-
-        sys.stderr = screen_stderr
-        
-        expected = "The 'input' parameter is deprecated"
-        assert expected in output
+        warn_mocker.assert_called()
         
         
     def test_five_number_type_error(self):

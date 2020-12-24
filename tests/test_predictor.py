@@ -151,32 +151,21 @@ class TestPredictor():
                               ("preprocess", "This is a test."), 
                               ("tokenize", "This is a test."), 
                               ("word_id", [["this", "is"]])])  
-    def test_input_deprecation_warning(self, method, parameter):
-        screen_stderr = sys.stderr
-        string_stderr = StringIO()
-        sys.stderr = string_stderr
-        
+    def test_input_deprecation_warning(self, mocker, method, parameter):
+
+        warn_mocker = mocker.MagicMock()
+        mocker.patch("poetic.results.warnings.warn", warn_mocker)
         getattr(self.pred, method)(input=parameter)
-        output = string_stderr.getvalue()
-        sys.stderr = screen_stderr
-        
-        expected = "The 'input' parameter is deprecated"
-        assert expected in output
+        warn_mocker.assert_called()
         
         
-    def test_constructor_(self):
-        screen_stderr = sys.stderr
-        string_stderr = StringIO()
-        sys.stderr = string_stderr
+    def test_constructor_(self, mocker):
         
+        warn_mocker = mocker.MagicMock()
+        mocker.patch("poetic.results.warnings.warn", warn_mocker)
         dictionary = poetic.util.Initializer.load_dict()
         Predictor(dict=dictionary)
-        
-        output = string_stderr.getvalue()
-        sys.stderr = screen_stderr
-        
-        expected = "The 'dict' parameter is deprecated"
-        assert expected in output
+        warn_mocker.assert_called()
     
     
     @classmethod
