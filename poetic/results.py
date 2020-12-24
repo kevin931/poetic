@@ -64,6 +64,7 @@ import csv
 from poetic.util import Info
 
 from typing import Optional, List, Sequence, Union, Dict
+import warnings
 
 
 class Diagnostics():
@@ -85,7 +86,6 @@ class Diagnostics():
     """
 
     def __init__(self, predictions: List[float], sentences: Optional[List[str]]=None) -> None:
-
         self.predictions = predictions
         self.sentences = sentences
         self.diagnostics = None
@@ -135,7 +135,9 @@ class Diagnostics():
 
 
     @classmethod
-    def five_number(cls, input: Union["numpy.ndarray", List[float]]) -> Dict[str, float]:
+    def five_number(cls, 
+                    numeric_input: Union["numpy.ndarray", List[float]]=None, 
+                    **kwargs) -> Dict[str, float]:
         """Five number summary.
 
         This methods generates five number summary of a given input.
@@ -143,18 +145,31 @@ class Diagnostics():
         standard deviation, and maximum. This is a class method.
 
         Parameters:
-            input (numpy.ndarrau, list): An array like object.
+            numeric_input (numpy.ndarrau, list): An array like object.
 
         Returns:
             dict(str, float): A dictionary of five number results.
         """
+        
+        if "input" in kwargs:
+            numeric_input = kwargs["input"]
+            
+            warning_message = ("The 'input' parameter is deprecated and will be removed"
+                               "in the next major release. Use the 'numeric_input' parameter "
+                               "instead. No positional args impacted.")
+            warnings.warn(warning_message, FutureWarning)
+            
+        elif numeric_input is None:
+            message = ("The numeric_input variable is required. The default NoneType maintains"
+                       "backwards compatibility and will be removed in the next major release.")
+            raise TypeError(message)
 
         summary = {}
-        summary["Min"] = np.min(input)
-        summary["Mean"] = np.mean(input)
-        summary["Median"] = np.median(input)
-        summary["Stdev"] = np.std(input)
-        summary["Max"] = np.max(input)
+        summary["Min"] = np.min(numeric_input)
+        summary["Mean"] = np.mean(numeric_input)
+        summary["Median"] = np.median(numeric_input)
+        summary["Stdev"] = np.std(numeric_input)
+        summary["Max"] = np.max(numeric_input)
 
         return(summary)
 

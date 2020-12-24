@@ -51,12 +51,13 @@ from tensorflow import keras
 from gensim.corpora.dictionary import Dictionary
 from tensorflow.python.keras.engine.training import Model # pylint: disable=no-name-in-module, import-error
 from nltk.tokenize import word_tokenize, sent_tokenize
+
 from poetic.results import Diagnostics
 from poetic.util import Initializer
 from poetic import exceptions
 
 from typing import Optional, Union, List
-import numpy
+import warnings
 
 
 class Predictor():
@@ -69,12 +70,12 @@ class Predictor():
         model (tensorflow.keras.Model, optional): A pre-trained keras model. To use the default
             model, no argument is needed. For custom models, only models with the input shape of
             (None, int) are supported by the preprocessing toolchain. 
-        dict (gensim.corpora.dictionary.Dictionary, optional): Gensim dictionary for word IDs.
+        dictionary (gensim.corpora.dictionary.Dictionary, optional): Gensim dictionary for word IDs.
         force_download_assets (bool, optional): Wheher to download assets without asking.
 
     Attributes:
         model (tensorflow.keras.Model): The pre-trained keras model.
-        dict (gensim.corpora.dictionary.Dictionary): Gensim dictionary for word IDs.
+        dictionary (gensim.corpora.dictionary.Dictionary): Gensim dictionary for word IDs.
         force_download_assets (bool): Wheher to download assets without asking.
         
     Raises:
@@ -86,11 +87,19 @@ class Predictor():
 
     def __init__(self, 
                  model: Optional["tensorflow.keras.Model"]=None, 
-                 dict: Optional["gensim.corpora.dictionary.Dictionary"]=None, 
-                 force_download_assets: Optional[bool]=False) -> None:
+                 dictionary: Optional["gensim.corpora.dictionary.Dictionary"]=None, 
+                 force_download_assets: Optional[bool]=False,
+                 **kwargs) -> None:
+        
+        if "dict" in kwargs:
+            dictionary = kwargs["dict"]
+            
+            warning_message = "The 'dict' parameter is deprecated and will be removed in the next major release. "
+            warning_message += "Use the 'dictionary' parameter instead. No positional args impacted."
+            warnings.warn(warning_message, FutureWarning)
 
         self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
-        self.dict = dict if dict is not None else Initializer.load_dict()
+        self.dictionary = dictionary if dictionary is not None else Initializer.load_dict()
         self._sentences = None
         
         if len(self.model.input_shape) != 2 or self.model.input_shape[0] is not None:
@@ -100,23 +109,34 @@ class Predictor():
             raise exceptions.ModelShapeError(message)
 
 
-    def predict(self, input: str) -> "Predictions":
+    def predict(self, lexical_input: str=None, **kwargs) -> "Predictions":
         """
         Predict poetic score from string.
 
         Parameters:
-            input (str): Text content to be predicted.
+            lexical_input (str): Text content to be predicted.
 
         Returns:
-            Predictions: 
-                A Predictions object with predicted scores of the given input.
+            Predictions: A Predictions object with predicted scores of the given input.
                 
         Raises:
             poetic.exceptions.InputLengthError: Error for processing input length of zero.
         """
+        
+        if "input" in kwargs:
+            lexical_input = kwargs["input"]
+            
+            warning_message = "The 'input' parameter is deprecated and will be removed in the next major release. "
+            warning_message += "Use the 'lexical_input' parameter instead. No positional args impacted."
+            warnings.warn(warning_message, FutureWarning)
+            
+        elif lexical_input is None:
+            message = ("The lexical_input variable is required. The default NoneType " 
+                       "maintains backwards compatibility and will be removed in the next major release.")
+            raise TypeError(message)
 
-        input = self.preprocess(input)
-        results = self.model.predict(input)
+        lexical_input = self.preprocess(lexical_input)
+        results = self.model.predict(lexical_input)
         results = results.tolist()
         score = Predictions(results, self._sentences)
 
@@ -141,19 +161,20 @@ class Predictor():
                 length of zero.
         """
 
-        input = self._file_load(path)
-        score = self.predict(input)
+        file_input = self._file_load(path)
+        score = self.predict(file_input)
 
         return score
 
 
-    def preprocess(self, input: Union[str, List[str]]) -> numpy.ndarray:
-        """
-        Preprocess inputs: tokenize, to lower, and padding.
+    def preprocess(self, lexical_input: Union[str, List[str]]=None, **kwargs) -> "numpy.ndarray":
+        """Preprocess inputs.
+        
+        The preprocess method tokenizes input using sentence and then word tokenize. It also 
+        converts inputs to all lowercase and pads them for Keras model prediction.
 
         Parameters:
-            input (str):
-                Text either in a single string or a list of strings.
+            lexical_input (str): Text either in a single string or a list of strings.
 
         Returns:
             numpy.ndarray: A 2-d numpy array of processed inputs.
@@ -161,8 +182,20 @@ class Predictor():
         Raises:
             poetic.exceptions.InputLengthError: Error for processing input length of zero.
         """
+        
+        if "input" in kwargs:
+            lexical_input = kwargs["input"]
+            
+            warning_message = "The 'input' parameter is deprecated and will be removed in the next major release. "
+            warning_message += "Use the 'lexical_input' parameter instead. No positional args impacted."
+            warnings.warn(warning_message, FutureWarning)
+            
+        elif lexical_input is None:
+            message = ("The lexical_input variable is required. The default NoneType " 
+                       "maintains backwards compatibility and will be removed in the next major release.")
+            raise TypeError(message)
 
-        sent_token = self.tokenize(input)
+        sent_token = self.tokenize(lexical_input)
         self._check_requirement(sent_token)
 
         sent_lower = []
@@ -187,19 +220,35 @@ class Predictor():
         return file
 
 
-    def tokenize(self, input: Union[str, List[str]]) -> List[List[str]]:
-        """
-        Tokenize text input into sentences and then words.
+    def tokenize(self, 
+                 lexical_input: Union[str, List[str]]=None,
+                 **kwargs) -> List[List[str]]:
+        """Tokenizes text inputs. 
+        
+        The tokenize method uses Nltk's sent_tokenize and word_tokenize for tokenization
+        as part of the preprocessing toolchain.
 
         Parameters:
-            input (str, list(str)): A string or list of strings of text.
+            lexical_input (str, list(str)): A string or list of strings of text.
 
         Returns:
             list(str): A 2-d list of tokenized words.
         """
+        
+        if "input" in kwargs:
+            lexical_input = kwargs["input"]
+            
+            warning_message = "The 'input' parameter is deprecated and will be removed in the next major release. "
+            warning_message += "Use the 'lexical_input' parameter instead. No positional args impacted."
+            warnings.warn(warning_message, FutureWarning)
+            
+        elif lexical_input is None:
+            message = ("The lexical_input variable is required. The default NoneType " 
+                       "maintains backwards compatibility and will be removed in the next major release.")
+            raise TypeError(message)
 
         # Sentence tokenization
-        sentences = sent_tokenize(input)
+        sentences = sent_tokenize(lexical_input)
         self._sentences = sentences
 
         # Word tokenize
@@ -210,24 +259,38 @@ class Predictor():
         return tokens
 
 
-    def word_id(self, input: List[List[str]]) -> List[List[int]]:
+    def word_id(self,
+                lexical_input: List[List[str]]=None,
+                **kwargs) -> List[List[int]]:
         """
         Convert tokenized words to word IDs using a gensim dictionary.
 
         Parameters:
-            input (list): A 2-d list of tokenized words.
+            lexical_input (list): A 2-d list of tokenized words.
 
         Returns:
             list: A 2-d list of word ids.
         """
+        
+        if "input" in kwargs:
+            lexical_input = kwargs["input"]
+            
+            warning_message = "The 'input' parameter is deprecated and will be removed in the next major release. "
+            warning_message += "Use the 'lexical_input' parameter instead. No positional args impacted."
+            warnings.warn(warning_message, FutureWarning)
+        
+        elif lexical_input is None:
+            message = ("The lexical_input variable is required. The default NoneType " 
+                       "maintains backwards compatibility and will be removed in the next major release.")
+            raise TypeError(message)
 
         id_input = []
-        for sentence in input:
+        for sentence in lexical_input:
             id_sent = []
             for word in sentence:
                 try:
-                    self.dict.token2id.get(word) > 0
-                    id_sent.append(self.dict.token2id.get(word))
+                    self.dictionary.token2id.get(word) > 0
+                    id_sent.append(self.dictionary.token2id.get(word))
                 except:
                     id_sent.append(0)
             id_input.append(id_sent)
@@ -235,8 +298,8 @@ class Predictor():
         return(id_input)
 
 
-    def _check_requirement(self,input: List[List[str]]) -> None:
-        if len(input)==0:
+    def _check_requirement(self, _input: List[List[str]]) -> None:
+        if len(_input)==0:
             message = "Input length out of bound: must be between 1 and 465"
             raise exceptions.InputLengthError(message)
 
