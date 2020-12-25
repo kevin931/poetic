@@ -25,15 +25,6 @@
 #
 import setuptools
 
-description = "Poetic (poetic-py on PyPi) is a Python package "
-description += "based on Natural Language Processing and deep learning models to predict how "
-description += "poetic the English language is. It also provides a toolchain for processing "
-description += "poetry in English. "
-description += "For current development details and guides, "
-description += "please refer to http://github.com/kevin931/poetic. "
-description += "For detailed documentation, please visit "
-description += "https://poetic.readthedocs.io/"
-
 setuptools.setup(
     name = "poetic-py",
     version = "1.0.0",
@@ -41,7 +32,7 @@ setuptools.setup(
     author = "Kevin Wang",
     author_email = "bridgemarian@gmail.com",
     description = "Let Us Be More poetic: A Poetry Prediction and Processing Package.",
-    long_description = description,
+    long_description = open("README.md").read(),
     packages=["poetic"],
     python_requires=">=3.5, <3.9",
     install_requires=["tensorflow>=2",
