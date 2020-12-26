@@ -1,6 +1,6 @@
 ![Logo](/assets/Logo.png)
 
-# Poetic (poetic-py on pypi)
+# Poetic (poetic-py on PyPi)
 
 > A machine-learning package to gauge your poetic madness.
 
@@ -60,13 +60,13 @@ Look no further. You have found poetic.
 ## Installation
 Python 3 and pip are required for Poetic to work. There is currently no official build for Conda (although it will work with correct setup documented below), which will be a consideration on the roadmap. The package itself is named as "poetic" after installation.
 
-To install from pypi:
+To install from PyPi:
 
 ```shell
   pip install poetic-py
 ```
 
-Pypi should be able to handle all the dependencies. If pip caching becomes an issue or there are issues with dependencies, try the following:
+PyPi should be able to handle all the dependencies. If pip caching becomes an issue or there are issues with dependencies, try the following:
 
 ```shell
   python -m pip install -upgrade pip
@@ -153,17 +153,12 @@ Poetic's official documentation page is live! To read about new details, please 
 To visit the documentation for the dev branch (which may include broken builds or incomplete documentation), you can use [this link](https://poetic.readthedocs.io/en/dev/). 
 
 ## Versions and Updates
-* v.1.0.0
-  - **FIRST MAJOR RELEASE Now on [pypi](https://pypi.org/project/poetic-py/)**
-  - Support for command-line mode.
-  - Support for processing text file.
-  - Added docstring documentation.
-  - Added official [documentation](https://poetic.readthedocs.io/en/latest/index.html)
-  - Revemped Github repo without LFS.
-  - Added the “exceptions” internal module
-  - Added support for directly running the package using “python -m poetic”
-  - Data now hosted on [poetic-models](https://github.com/kevin931/poetic-models)
-  - Tons of internal optimization
+* v.1.0.1
+  - Now on **conda** as poetic-py
+  - Updated documentation for roadmap
+  - Fixed type-hinting errors
+  - Updated docstring
+  - Automated package build process
 
 * All older changes available in our [documentation](https://poetic.readthedocs.io/en/latest/Changelog.html)
 
