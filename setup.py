@@ -120,11 +120,11 @@ class CondaCommand():
 
 setuptools.setup(
     name = "poetic-py",
-    version = "1.0.0",
+    version = util.Info.version(),
     url = "https://github.com/kevin931/poetic",
     author = "Kevin Wang",
     author_email = "bridgemarian@gmail.com",
-    description = "Let Us Be More poetic: A Poetry Prediction and Processing Package.",
+    description = "A poetry predictor and toolkit.",
     long_description = description,
     packages=["poetic"],
     python_requires=">=3.6, <3.9",
