@@ -1,9 +1,16 @@
 Changelog and Versions
 =======================
 
+v.1.0.1 (Latest)
+-----------------
+    - Now on **conda** as poetic-py
+    - Updated documentation for roadmap
+    - Fixed type-hinting errors
+    - Updated docstring
+    - Automated package build process
 
-v.1.0.0 (Latest)
-----------------
+v.1.0.0
+------- 
     - **FIRST MAJOR RELEASE**
     - Now on `PyPi <https://pypi.org/project/poetic-py/>`_
     - Support for command-line mode.

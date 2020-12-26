@@ -153,17 +153,12 @@ Poetic's official documentation page is live! To read about new details, please 
 To visit the documentation for the dev branch (which may include broken builds or incomplete documentation), you can use [this link](https://poetic.readthedocs.io/en/dev/). 
 
 ## Versions and Updates
-* v.1.0.0
-  - **FIRST MAJOR RELEASE Now on [PyPi](https://pypi.org/project/poetic-py/)**
-  - Support for command-line mode.
-  - Support for processing text file.
-  - Added docstring documentation.
-  - Added official [documentation](https://poetic.readthedocs.io/en/latest/index.html)
-  - Revemped Github repo without LFS.
-  - Added the “exceptions” internal module
-  - Added support for directly running the package using “python -m poetic”
-  - Data now hosted on [poetic-models](https://github.com/kevin931/poetic-models)
-  - Tons of internal optimization
+* v.1.0.1
+  - Now on **conda** as poetic-py
+  - Updated documentation for roadmap
+  - Fixed type-hinting errors
+  - Updated docstring
+  - Automated package build process
 
 * All older changes available in our [documentation](https://poetic.readthedocs.io/en/latest/Changelog.html)
 
