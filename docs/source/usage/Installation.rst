@@ -30,7 +30,7 @@ Or, using Conda (which I recommend):
 
 A few notes on Conda:
 
-If you need documentation on how to get this conda working/set up, 
+If you need documentation on how to get conda working/set up, 
 `this is a good guide. <https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html>`_
 
 There is a potential bug with tensorflow on Conda for Windows because of maximum path length 
