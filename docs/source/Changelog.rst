@@ -5,7 +5,7 @@ Changelog and Versions
 v.1.0.0 (Latest)
 ----------------
     - **FIRST MAJOR RELEASE**
-    - Now on `pypi <https://pypi.org/project/poetic-py/>`_
+    - Now on `PyPi <https://pypi.org/project/poetic-py/>`_
     - Support for command-line mode.
     - Support for processing text file.
     - Added docstring documentation.

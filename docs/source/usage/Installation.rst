@@ -2,7 +2,7 @@
 Installation Guide
 ===================
 
-Welcome to Poetic (poetic-py on Pypi). Please see below for installation details. 
+Welcome to Poetic (poetic-py on PyPi). Please see below for installation details. 
 
 ****
 Pip
