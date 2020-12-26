@@ -24,6 +24,11 @@
 # DEALINGS IN THE SOFTWARE.
 #
 import setuptools
+import os
+import sys
+import shutil
+
+from poetic import util
 
 description = "Poetic (poetic-py on PyPi) is a Python package "
 description += "based on Natural Language Processing and deep learning models to predict how "
@@ -33,6 +38,85 @@ description += "For current development details and guides, "
 description += "please refer to http://github.com/kevin931/poetic. "
 description += "For detailed documentation, please visit "
 description += "https://poetic.readthedocs.io/"
+
+
+class LicenseCommand():
+    description = "Add and check license for source files."
+    
+    def initialize_options(self):
+        pass
+    
+    
+    def finalize_options(self):
+        pass
+    
+    
+    def run(self):
+        os.system("{} ./utility/source_header.py".format(sys.executable))
+        
+
+class PypiCommand():
+    
+    description = "Build and upload for PyPi."
+    
+    def initialize_options(self):
+        pass
+    
+    
+    def finalize_options(self):
+        pass
+    
+    
+    def run(self):
+        shutil.rmtree("dist/")
+        
+        wheel_file = "poetic_py-{}-py3-none-any.whl".format(util.Info.version())
+        tar_file = "poetic-py-{}.tar.gz".format(util.Info.version())
+        
+        os.system("{} setup.py sdist bdist_wheel".format(sys.executable))
+        os.system("twine upload dist/{} dist/{}").format(wheel_file, tar_file)
+    
+    
+class CondaCommand():
+    
+    description = "Build and upload for conda."
+    
+    @staticmethod
+    def build_arch():
+        directories = os.listdir("./dist_conda/")
+        for arch in ["win-64", "linux-64", "osx-64," "osx-arm64", "linux-armv7l"]:
+            if arch in directories:
+                return arch
+        
+    
+    def initialize_options(self):
+        pass
+    
+    
+    def finalize_options(self):
+        pass
+    
+    
+    def run(self):
+
+        shutil.rmtree("dist_conda/")
+        os.system("conda build . --output-folder dist_conda/")
+        
+        current_arch = self.build_arch()
+        os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(current_arch, util.Info.version()))
+        
+        for platform in ["win-64", "linux-64", "osx-64," "osx-arm64", "linux-armv7l"]:
+            
+            if platform == current_arch:
+                continue
+            
+            command = ("conda convert" 
+                       "dist_conda/{}/poetic-py-{}-py37_0.tar.bz2"
+                       "-p {} -o dist_conda/".format(current_arch, util.Info.version(), platform)
+                       )
+            os.system(command)
+            os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(platform, util.Info.version()))     
+        
 
 setuptools.setup(
     name = "poetic-py",
@@ -55,5 +139,9 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3 :: Only",
         "Natural Language :: English"
-    ]
+    ],
+    cmdclass = {"license": LicenseCommand,
+                "pypi": PypiCommand,
+                "conda": CondaCommand
+                }
 )
