@@ -145,6 +145,26 @@ class TestInitializer():
         assert status_bool
         
         
+    def test_check_assets_model_rename(self, mocker):
+        mocker.patch("poetic.util.Initializer._weights_dir", "./non_existent.file")
+        mocker.patch("poetic.util.Initializer._model_dir", "./non_existent.file")
+        mocker.patch("poetic.util.Initializer._weights_dir_legacy", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir_legacy", "./tests/data/lexical_model_dummy.json")
+        
+        rename_method_mock = mocker.MagicMock()
+        mocker.patch("poetic.util.Initializer._rename_legacy_assets", rename_method_mock)
+        
+        Initializer.check_assets()
+        assert rename_method_mock.call_count == 2
+            
+        
+    def test_rename_legacy_assets(self, mocker):
+        remove_mock = mocker.MagicMock()
+        mocker.patch("poetic.util.os.rename", remove_mock)
+        Initializer._rename_legacy_assets("sent_model.h5", "lexical_model.h5")
+        remove_mock.assert_called()
+        
+        
     def test_download_assets_all_exist(self):
         self.assets_status["all_exist"] = True
         

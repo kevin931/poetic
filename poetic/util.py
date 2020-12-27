@@ -67,7 +67,7 @@ from zipfile import ZipFile
 from urllib.request import urlopen
 from io import BytesIO
 
-from os import path
+import os
 import argparse
 import pkg_resources
 
@@ -169,8 +169,11 @@ class Initializer():
     _data_dir = pkg_resources.resource_filename("poetic", "data/")
 
     # Model Path
-    _weights_dir = _data_dir+"sent_model.h5"
-    _model_dir = _data_dir+"sent_model.json"
+    _weights_dir = _data_dir+"lexical_model.h5"
+    _model_dir = _data_dir+"lexical_model.json"
+    
+    _weights_dir_legacy = _data_dir + "sent_model.h5"
+    _model_dir_legacy = _data_dir + "sent_model.json"
 
 
     @classmethod
@@ -233,7 +236,6 @@ class Initializer():
         
         _test = Info.get_instance()._test()
         
-        # Check model assets status
         assets = cls.check_assets()
         if not assets["all_exist"]:
             assets["all_exist"] = True if _test else False
@@ -245,9 +247,10 @@ class Initializer():
         json_file = open(model_dir, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
+        
         model = keras.models.model_from_json(loaded_model_json)
-        # load weights into new model
         model.load_weights(weights_dir)
+        
         return model
 
 
@@ -264,8 +267,20 @@ class Initializer():
 
         """
 
-        model_status = path.exists(cls._model_dir)
-        weights_status = path.exists(cls._weights_dir)
+        model_status = os.path.exists(cls._model_dir)
+        weights_status = os.path.exists(cls._weights_dir)
+        
+        if not model_status:
+            model_status = os.path.exists(cls._model_dir_legacy)
+            
+            if model_status:
+                cls._rename_legacy_assets("sent_model.json", "lexical_model.json")
+            
+        if not weights_status:
+            weights_status = os.path.exists(cls._weights_dir_legacy)
+            
+            if weights_status:
+                cls._rename_legacy_assets("sent_model.h5", "lexical_model.h5")
 
         status = {}
         status["all_exist"] = True if model_status and weights_status else False
@@ -305,7 +320,7 @@ class Initializer():
         """
         _test = Info.get_instance()._test()
 
-        url = "https://github.com/kevin931/poetic-models/releases/download/v0.1-alpha/sent_model.zip"
+        url = "https://github.com/kevin931/poetic-models/releases/download/v1.0.0/lexical_model.zip"
 
         if assets_status is None:
             assets_status = cls.check_assets()
@@ -355,12 +370,19 @@ class Initializer():
     def _test_variables(cls) -> Dict[str, str]:
         # Test models for unit testing
         
-        module_path = path.dirname(path.realpath(__file__))
+        module_path = os.path.dirname(os.path.realpath(__file__))
         test_model_path = module_path + "/../tests/data/lexical_model_dummy.json"
         test_weights_path = module_path + "/../tests/data/lexical_model_dummy.h5"
         
         return_dict = {"model": test_model_path, "weights": test_weights_path}
         return return_dict
+    
+    
+    @classmethod
+    def _rename_legacy_assets(cls, old_name: str, new_name: str) -> None:
+        old_path = cls._data_dir + old_name
+        new_path = cls._data_dir + new_name
+        os.rename(old_path, new_path)
 
 
 class _Arguments():
