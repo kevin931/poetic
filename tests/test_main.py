@@ -47,7 +47,10 @@ class TestMain():
 
     
     def test_main_return_none(self, mocker):
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
         mocker.patch("poetic.gui.Tk.mainloop")
+        
         result = main(_test_args="") #pylint: disable=assignment-from-no-return
         assert result is None
         
@@ -69,7 +72,10 @@ class TestMain():
             if arguments[0] == "-f":
                 arguments[1] = self.script_path + arguments[1]
         
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
         mocker.patch("poetic.gui.Tk.mainloop")
+        
         main(_test_args=arguments)
             
         output = string_stdout.getvalue()
@@ -87,6 +93,9 @@ class TestMain():
             arguments[1] = self.script_path + arguments[1]
             
         arguments[3] = self.script_path + arguments[3]
+        
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
         
         main(_test_args=arguments)
         assert os.path.exists(arguments[3])

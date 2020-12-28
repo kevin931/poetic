@@ -105,16 +105,24 @@ class TestInitializer():
         Info.get_instance(_test=True)
         # File paths
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        cls.initialize_return =  Initializer.initialize(_test_args="")
+        
         cls.assets_status = Initializer.check_assets()
         
         
-    def test_initialize_return_tuple_type(self):
-        assert isinstance(self.initialize_return, tuple)
+    def test_initialize_return_tuple_type(self, mocker):
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
+        
+        initialize_return =  Initializer.initialize(_test_args="")  
+        assert isinstance(initialize_return, tuple)
         
         
-    def test_initialize_return_tuple_length(self):
-        assert len(self.initialize_return) == 3
+    def test_initialize_return_tuple_length(self, mocker):
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
+        
+        initialize_return =  Initializer.initialize(_test_args="")  
+        assert len(initialize_return) == 3
         
         
     @pytest.mark.parametrize("index, return_type",
@@ -122,8 +130,12 @@ class TestInitializer():
                              (1, keras.Model),
                              (2, gensim.corpora.dictionary.Dictionary)]
                              )   
-    def test_initialize_return_tuple_contents_type(self, index, return_type):    
-        assert isinstance(self.initialize_return[index], return_type)
+    def test_initialize_return_tuple_contents_type(self, mocker, index, return_type):
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
+        
+        initialize_return =  Initializer.initialize(_test_args="") 
+        assert isinstance(initialize_return[index], return_type)
         
     
     @pytest.mark.parametrize("method, return_type",
@@ -131,7 +143,10 @@ class TestInitializer():
                              ("load_model", keras.Model),
                              ("check_assets", dict)]
                              )    
-    def test_dict_model_assets_return_type(self, method, return_type):
+    def test_dict_model_assets_return_type(self, mocker, method, return_type):
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
+        
         load_return = getattr(Initializer, method)()
         assert isinstance(load_return, return_type)
         

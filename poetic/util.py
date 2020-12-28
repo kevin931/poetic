@@ -169,8 +169,8 @@ class Initializer():
     _data_dir = pkg_resources.resource_filename("poetic", "data/")
 
     # Model Path
-    _weights_dir = _data_dir+"lexical_model.h5"
-    _model_dir = _data_dir+"lexical_model.json"
+    _weights_dir = _data_dir + "lexical_model.h5"
+    _model_dir = _data_dir + "lexical_model.json"
     
     _weights_dir_legacy = _data_dir + "sent_model.h5"
     _model_dir_legacy = _data_dir + "sent_model.json"
@@ -240,16 +240,13 @@ class Initializer():
         if not assets["all_exist"]:
             assets["all_exist"] = True if _test else False
             cls.download_assets(assets_status=assets, force_download=force_download)
-            
-        model_dir = cls._test_variables()["model"] if _test else cls._model_dir
-        weights_dir = cls._test_variables()["weights"] if _test else cls._weights_dir
 
-        json_file = open(model_dir, 'r')
+        json_file = open(cls._model_dir, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
         
         model = keras.models.model_from_json(loaded_model_json)
-        model.load_weights(weights_dir)
+        model.load_weights(cls._weights_dir)
         
         return model
 
@@ -364,18 +361,6 @@ class Initializer():
         contents = contents.read()
         zip_file = ZipFile(BytesIO(contents))
         zip_file.extractall(cls._data_dir)
-                
-    
-    @classmethod
-    def _test_variables(cls) -> Dict[str, str]:
-        # Test models for unit testing
-        
-        module_path = os.path.dirname(os.path.realpath(__file__))
-        test_model_path = module_path + "/../tests/data/lexical_model_dummy.json"
-        test_weights_path = module_path + "/../tests/data/lexical_model_dummy.h5"
-        
-        return_dict = {"model": test_model_path, "weights": test_weights_path}
-        return return_dict
     
     
     @classmethod
