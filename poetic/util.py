@@ -209,8 +209,8 @@ class Initializer():
 
         """
         
-        dir = cls._data_dir + "word_dictionary_complete.txt"
-        word_dictionary = gensim.corpora.Dictionary.load_from_text(fname=dir)
+        path = cls._data_dir + "word_dictionary_complete.txt"
+        word_dictionary = gensim.corpora.Dictionary.load_from_text(fname=path)
         return word_dictionary
 
 
@@ -329,7 +329,7 @@ class Initializer():
         if assets_status["all_exist"]:
             return None
 
-        # Download Message
+        # Download Information
         message = "\nThe following important assets are missing:\n"
         message += "-- sent_model.json\n" if not assets_status["model"] else ""
         message += "-- sent_model.h5\n" if not assets_status["weights"] else ""
@@ -352,7 +352,7 @@ class Initializer():
 
                 return None
 
-        # All other conditions, which warrants downloading
+        # Download message
         message_3 = "\nDownload in progress...\n"
         message_3 += "This may take quite a while, "
         message_3 += "go grab a coffee and be poetic.\n"
