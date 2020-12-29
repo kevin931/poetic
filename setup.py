@@ -77,7 +77,7 @@ class PypiCommand(distutils.cmd.Command):
         tar_file = "poetic-py-{}.tar.gz".format(util.Info.version())
         
         os.system("{} setup.py sdist bdist_wheel".format(sys.executable))
-        os.system("twine upload dist/{} dist/{}").format(wheel_file, tar_file)
+        os.system("twine upload dist/{} dist/{}".format(wheel_file, tar_file))
     
     
 class CondaCommand(distutils.cmd.Command):
