@@ -46,10 +46,10 @@ class TestPredictor():
         loaded_model_json = json_file.read()
         json_file.close()
         
-        model = keras.models.model_from_json(loaded_model_json)
-        model.load_weights("./tests/data/lexical_model_dummy.h5")
+        cls.model = keras.models.model_from_json(loaded_model_json)
+        cls.model.load_weights("./tests/data/lexical_model_dummy.h5")
         
-        cls.pred = Predictor(model=model)
+        cls.pred = Predictor(model=cls.model)
         
 
     def test_word_id_type(self):
@@ -172,7 +172,7 @@ class TestPredictor():
         warn_mocker = mocker.MagicMock()
         mocker.patch("poetic.results.warnings.warn", warn_mocker)
         dictionary = poetic.util.Initializer.load_dict()
-        Predictor(dict=dictionary)
+        Predictor(model=self.model, dict=dictionary)
         warn_mocker.assert_called()
     
     

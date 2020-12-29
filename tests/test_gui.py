@@ -25,6 +25,8 @@
 #
 from poetic import gui, util, exceptions, predictor
 
+from tensorflow import keras
+
 from io import StringIO
 import sys
 import pytest
@@ -34,7 +36,15 @@ class TestGUI():
     @classmethod
     def setup_class(cls):
         util.Info(_test=True)
-        cls.new_predictor = predictor.Predictor()
+        
+        json_file = open("./tests/data/lexical_model_dummy.json", 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        
+        model = keras.models.model_from_json(loaded_model_json)
+        model.load_weights("./tests/data/lexical_model_dummy.h5")
+        
+        cls.new_predictor = predictor.Predictor(model=model)
 
     
     def test_gui_constructor_with_mock(self, mocker):
