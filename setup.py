@@ -27,6 +27,7 @@ import setuptools
 import os
 import sys
 import shutil
+import distutils
 
 from poetic import util
 
@@ -40,8 +41,9 @@ description += "For detailed documentation, please visit "
 description += "https://poetic.readthedocs.io/"
 
 
-class LicenseCommand():
+class LicenseCommand(distutils.cmd.Command):
     description = "Add and check license for source files."
+    user_options = []
     
     def initialize_options(self):
         pass
@@ -52,12 +54,13 @@ class LicenseCommand():
     
     
     def run(self):
-        os.system("{} ./utility/source_header.py".format(sys.executable))
+        os.system("{} ./utility/source_header.py ./".format(sys.executable))
         
 
-class PypiCommand():
+class PypiCommand(distutils.cmd.Command):
     
     description = "Build and upload for PyPi."
+    user_options = []
     
     def initialize_options(self):
         pass
@@ -77,9 +80,10 @@ class PypiCommand():
         os.system("twine upload dist/{} dist/{}").format(wheel_file, tar_file)
     
     
-class CondaCommand():
+class CondaCommand(distutils.cmd.Command):
     
     description = "Build and upload for conda."
+    user_options = []
     
     @staticmethod
     def build_arch():
