@@ -30,7 +30,7 @@ Or, using Conda (which I recommend):
 
 A few notes on Conda:
 
-If you need documentation on how to get this conda working/set up, 
+If you need documentation on how to get conda working/set up, 
 `this is a good guide. <https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html>`_
 
 There is a potential bug with tensorflow on Conda for Windows because of maximum path length 
@@ -56,8 +56,8 @@ Note: Newer versions depend on dependencies.
 Dependencies
 -------------
 * tensorflow >= 2
-* nltk >= 3.4
-* gensim >= 3.8
+* nltk
+* gensim
 
 
 **************************
@@ -92,3 +92,22 @@ leading to failure to upgrade. To address this, use the flag:
 .. code-block:: bash
 
     pip install --no-cache-dir poetic-py
+
+
+Python 3.8 for Gensim on Conda
+-------------------------------
+
+Current gensim builds from Anaconda's default channel do not work with python 3.8. If you are
+using python 3.8 and are unable to install poetic-py from conda because of this issue, use one
+of the two solutions from below until gensim has been updated:
+
+.. code-block:: bash
+
+    conda install -c kevin931 poetic-py -c conda-forge
+
+Or, this following option will be more specific:
+
+.. code-block:: bash
+
+    conda install -c conda-forge gensim
+    conda install -c kevin931 poetic-py

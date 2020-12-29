@@ -27,12 +27,14 @@ import setuptools
 import os
 import sys
 import shutil
+import distutils
 
 from poetic import util
 
 
-class LicenseCommand():
+class LicenseCommand(distutils.cmd.Command):
     description = "Add and check license for source files."
+    user_options = []
     
     def initialize_options(self):
         pass
@@ -43,12 +45,13 @@ class LicenseCommand():
     
     
     def run(self):
-        os.system("{} ./utility/source_header.py".format(sys.executable))
+        os.system("{} ./utility/source_header.py ./".format(sys.executable))
         
 
-class PypiCommand():
+class PypiCommand(distutils.cmd.Command):
     
     description = "Build and upload for PyPi."
+    user_options = []
     
     def initialize_options(self):
         pass
@@ -65,12 +68,13 @@ class PypiCommand():
         tar_file = "poetic-py-{}.tar.gz".format(util.Info.version())
         
         os.system("{} setup.py sdist bdist_wheel".format(sys.executable))
-        os.system("twine upload dist/{} dist/{}").format(wheel_file, tar_file)
+        os.system("twine upload dist/{} dist/{}".format(wheel_file, tar_file))
     
     
-class CondaCommand():
+class CondaCommand(distutils.cmd.Command):
     
     description = "Build and upload for conda."
+    user_options = []
     
     @staticmethod
     def build_arch():
@@ -120,8 +124,8 @@ setuptools.setup(
     packages=["poetic"],
     python_requires=">=3.5, <3.9",
     install_requires=["tensorflow>=2",
-                      "gensim>=3.8, <4",
-                      "nltk>=3.4",
+                      "gensim",
+                      "nltk",
                       "numpy"
                       ],
     test_requires=["pytest",

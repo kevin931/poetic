@@ -58,7 +58,7 @@ Look no further. You have found poetic.
 **Have fun!!**
 
 ## Installation
-Python 3 and pip are required for Poetic to work. There is currently no official build for Conda (although it will work with correct setup documented below), which will be a consideration on the roadmap. The package itself is named as "poetic" after installation.
+Python (3.6, 3.7, 3.8) and pip (or conda) are required for Poetic to work. Now, poetic officially supports conda as well. Installation from either source will work, but stick to one or the other. 
 
 To install from PyPi:
 
@@ -66,34 +66,24 @@ To install from PyPi:
   pip install poetic-py
 ```
 
-PyPi should be able to handle all the dependencies. If pip caching becomes an issue or there are issues with dependencies, try the following:
+To install from conda: 
 
 ```shell
-  python -m pip install -upgrade pip
-  pip install --no-cache-dir poetic-py
+  conda install -c kevin931 poetic-py
+  python -c "import nltk; nltk.download('punkt')"
 ```
+
+For installation issues and some caveats, take a look [here](https://poetic.readthedocs.io/en/latest/usage/Installation.html) for some common issues. Or, open an [issue](https://github.com/kevin931/poetic/issues) and I will be glad to help!
 
 #### Dependencies
 * tensorflow >= 2
-* nltk >= 3.4
-* gensim >= 3.8, <=4
+* nltk
+* gensim
 
 If you have encountered an issue with installation or dependencies, please open an issue so that I can help you out!
 
-#### Conda
-I love Conda (and that is what I use on my development machine)! At this time, poetic itself is not yet hosted on conda or conda-forge. More works to make that happen are on the way. To make sure that everything plays nicely withe each other, install the dependencies first (provided that you already have a conda environment set up):
-
-```shell
-  conda install tensorflow
-  conda install gensim
-  conda install nltk
-  pip install poetic-py
-```
-
- For more information on conda environments, [this is a good guide.](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
-
 ## Usage
-Poetic supports both command-line mode and be used as a standard Python package.
+Poetic supports three modes: command-line usage, python import, and GUI.
 
 ### Command-line Mode
 A single command is sufficient without need of a python script.
@@ -171,7 +161,7 @@ To visit the documentation for the dev branch (which may include broken builds o
   - Backwards compatibility with Python 3.5 (No older versions support planned).
   - A better GUI
   - Package-level optimization
-
+  - Conda-forge possibility
 
 ## Collaboration
 Collaborations are welcomed for bug fixing, general improvements, future roadmap implementations, etc. Feel free to open an issue if there is something concrete or head to discussions to present new ideas. You get the point: help, fix, pull request, fork, or whatever you want.

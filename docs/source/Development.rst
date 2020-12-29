@@ -14,7 +14,7 @@ Tentative milestones (subject to change):
     * Backwards compatibility with Python 3.5 (No other versions support planned)
     * A better GUI
     * Package-level optimization
-
+    * conda-forge possibility
 
 Future Support and Maintenance
 -------------------------------
