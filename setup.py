@@ -29,7 +29,7 @@ import sys
 import shutil
 import distutils
 
-from poetic import util
+VERSION = "1.0.2"
 
 description = "Poetic (poetic-py on PyPi) is a Python package "
 description += "based on Natural Language Processing and deep learning models to predict how "
@@ -73,8 +73,8 @@ class PypiCommand(distutils.cmd.Command):
     def run(self):
         shutil.rmtree("dist/")
         
-        wheel_file = "poetic_py-{}-py3-none-any.whl".format(util.Info.version())
-        tar_file = "poetic-py-{}.tar.gz".format(util.Info.version())
+        wheel_file = "poetic_py-{}-py3-none-any.whl".format(VERSION)
+        tar_file = "poetic-py-{}.tar.gz".format(VERSION)
         
         os.system("{} setup.py sdist bdist_wheel".format(sys.executable))
         os.system("twine upload dist/{} dist/{}".format(wheel_file, tar_file))
@@ -107,7 +107,7 @@ class CondaCommand(distutils.cmd.Command):
         os.system("conda build . --output-folder dist_conda/")
         
         current_arch = self.build_arch()
-        os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(current_arch, util.Info.version()))
+        os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(current_arch, VERSION))
         
         for platform in ["win-64", "linux-64", "osx-64," "osx-arm64", "linux-armv7l"]:
             
@@ -116,15 +116,15 @@ class CondaCommand(distutils.cmd.Command):
             
             command = ("conda convert" 
                        "dist_conda/{}/poetic-py-{}-py37_0.tar.bz2"
-                       "-p {} -o dist_conda/".format(current_arch, util.Info.version(), platform)
+                       "-p {} -o dist_conda/".format(current_arch, VERSION, platform)
                        )
             os.system(command)
-            os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(platform, util.Info.version()))     
+            os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(platform, VERSION))
         
 
 setuptools.setup(
     name = "poetic-py",
-    version = util.Info.version(),
+    version = VERSION,
     url = "https://github.com/kevin931/poetic",
     author = "Kevin Wang",
     author_email = "bridgemarian@gmail.com",
