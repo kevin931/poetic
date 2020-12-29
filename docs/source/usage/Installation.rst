@@ -56,8 +56,8 @@ Note: Newer versions depend on dependencies.
 Dependencies
 -------------
 * tensorflow >= 2
-* nltk >= 3.4
-* gensim >= 3.8
+* nltk
+* gensim
 
 
 **************************

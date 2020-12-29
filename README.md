@@ -77,8 +77,8 @@ For installation issues and some caveats, take a look [here](https://poetic.read
 
 #### Dependencies
 * tensorflow >= 2
-* nltk >= 3.4
-* gensim >= 3.8, <=4
+* nltk
+* gensim
 
 If you have encountered an issue with installation or dependencies, please open an issue so that I can help you out!
 
