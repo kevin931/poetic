@@ -129,8 +129,8 @@ setuptools.setup(
     packages=["poetic"],
     python_requires=">=3.6, <3.9",
     install_requires=["tensorflow>=2",
-                      "gensim>=3.8, <4",
-                      "nltk>=3.4",
+                      "gensim",
+                      "nltk",
                       "numpy"
     ],
     install_package_data=True,
