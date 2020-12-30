@@ -114,8 +114,8 @@ class CondaCommand(distutils.cmd.Command):
             if platform == current_arch:
                 continue
             
-            command = ("conda convert" 
-                       "dist_conda/{}/poetic-py-{}-py37_0.tar.bz2"
+            command = ("conda convert " 
+                       "dist_conda/{}/poetic-py-{}-py37_0.tar.bz2 "
                        "-p {} -o dist_conda/".format(current_arch, VERSION, platform)
                        )
             os.system(command)
