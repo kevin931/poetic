@@ -1,16 +1,20 @@
-Welcome to Poetic's documentation!
+Welcome to Poetic's Documentation!
 ==============================================
 
-Poetic is a Python package to provide processing and predictions of poetry. This website provides
-documentation and other package information. For the latest deveopment, please visit the github
-page: https://github.com/kevin931/poetic.
+Poetic is a Python package to provide processing and prediction toolchain for poetry and literature
+in general. This website provides documentation and other package information. For the latest deveopment, 
+please visit the github page: https://github.com/kevin931/poetic.
+
+*****************
+Table of Contents
+*****************
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    usage/Installation
    usage/Quickstart
-   poetic
+   documentation/index
    Changelog
    Development
    Contributing

@@ -143,12 +143,9 @@ Poetic's official documentation page is live! To read about new details, please 
 To visit the documentation for the dev branch (which may include broken builds or incomplete documentation), you can use [this link](https://poetic.readthedocs.io/en/dev/). 
 
 ## Versions and Updates
-* v.1.0.1
-  - Now on **conda** as poetic-py
-  - Updated documentation for roadmap
-  - Fixed type-hinting errors
-  - Updated docstring
-  - Automated package build process
+* v.1.0.2
+  - Fixed an issue causing conda build to fail.
+  - Updated module documentation toctree
 
 * All older changes available in our [documentation](https://poetic.readthedocs.io/en/latest/Changelog.html)
 
