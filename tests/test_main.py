@@ -45,36 +45,35 @@ class TestMain():
         
         os.mkdir(temp_dir_path)
 
-    
-    def test_main_return_none(self, mocker):
+
+    @pytest.mark.parametrize("arguments",
+                             [["-f", "./tests/data/file_test.txt", "--GUI"],
+                             ["-s", "This is just a test", "--GUI"],
+                             ["--GUI"],
+                             ""]
+                            )
+    def test_main_launch_gui(self, mocker, arguments):
         mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
         mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
-        mocker.patch("poetic.gui.Tk.mainloop")
         
-        result = main(_test_args="") #pylint: disable=assignment-from-no-return
-        assert result is None
+        gui_mock = mocker.MagicMock()
+        mocker.patch("poetic.gui.GUI", gui_mock)
+        
+        main(_test_args=arguments)
+        gui_mock.assert_called_once()
         
     
     @pytest.mark.parametrize("arguments,expected",
                              [(["-s", "This is just a test"], "Diagnostics Report"),
-                             (["-f", "/data/file_test.txt"], "Diagnostics Report"),
-                             (["-f", "/data/file_test.txt", "--GUI"], "Test GUI launch"),
-                             (["-s", "This is just a test", "--GUI"], "Test GUI launch"),
-                             (["--GUI"], "Test GUI launch"),
-                             ("", "Test GUI launch")]
+                             (["-f", "./tests/data/file_test.txt"], "Diagnostics Report")]
                              )
-    def test_main_cli_parameters_sentence_file_gui(self, mocker, arguments, expected):
+    def test_main_cli_parameters_sentence_file(self, mocker, arguments, expected):
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        if len(arguments) > 0:
-            if arguments[0] == "-f":
-                arguments[1] = self.script_path + arguments[1]
-        
         mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
         mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
-        mocker.patch("poetic.gui.Tk.mainloop")
         
         main(_test_args=arguments)
             
@@ -85,14 +84,10 @@ class TestMain():
         
     
     @pytest.mark.parametrize("arguments",
-                            [["-s", "This is just a test", "-o", "/data/temp/test_s.txt"],
-                            ["-f", "/data/file_test.txt", "-o", "/data/temp/test_s_f.txt"]]
+                            [["-s", "This is just a test", "-o", "./tests/data/temp/test_s.txt"],
+                            ["-f", "./tests/data/file_test.txt", "-o", "./tests/data/temp/test_s_f.txt"]]
                             )    
     def test_main_cli_parameters_save_file(self, mocker, arguments):
-        if arguments[0] == "-f":
-            arguments[1] = self.script_path + arguments[1]
-            
-        arguments[3] = self.script_path + arguments[3]
         
         mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
         mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")

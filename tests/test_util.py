@@ -103,9 +103,8 @@ class TestInitializer():
     @classmethod
     def setup_class(cls):
         Info.get_instance(_test=True)
-        # File paths
+
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        
         cls.assets_status = Initializer.check_assets()
         
         
@@ -179,6 +178,17 @@ class TestInitializer():
         Initializer._rename_legacy_assets("sent_model.h5", "lexical_model.h5")
         remove_mock.assert_called()
         
+    
+    def test_load_model_download_assets(self, mocker):
+        download_assets_mock = mocker.MagicMock()
+        mocker.patch("poetic.util.Initializer.download_assets", download_assets_mock)
+        mocker.patch("poetic.util.Initializer.check_assets", return_value={"all_exist":False})
+        mocker.patch("poetic.util.Initializer._weights_dir", "./tests/data/lexical_model_dummy.h5")
+        mocker.patch("poetic.util.Initializer._model_dir", "./tests/data/lexical_model_dummy.json")
+        
+        Initializer.load_model()
+        download_assets_mock.assert_called_once()
+        
         
     def test_download_assets_all_exist(self):
         self.assets_status["all_exist"] = True
@@ -192,24 +202,14 @@ class TestInitializer():
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout     
         assert output == ""
-
-      
-    def test_download_assets_all_exist_return_none(self):
-        self.assets_status["all_exist"] = True
-        result = Initializer.download_assets(self.assets_status)       
-        assert result is None
         
         
-    def test_download_assets_check_assets_return_none(self):
-        result = Initializer.download_assets()
-        assert result is None
-        
-        
-    def test_download_assets_input_n_return_none(self, mocker):
-        self.assets_status["all_exist"] = False
-        mocker.patch("builtins.input", return_value="n")
-        result = Initializer.download_assets(assets_status=self.assets_status)
-        assert result is None
+    def test_download_assets_check_assets(self, mocker):
+        check_assets_mock = mocker.MagicMock()
+        check_assets_mock.return_value = {"all_exist":True}
+        mocker.patch("poetic.util.Initializer.check_assets", check_assets_mock)
+        Initializer.download_assets()
+        check_assets_mock.assert_called_once()
         
     
     @pytest.mark.parametrize("input_value, expected, force",

@@ -42,7 +42,6 @@ def main(*, _test_args: Optional[Union[List[str], str]]=None) -> None:
     args, model, dictionary = util.Initializer.initialize(_test_args=_test_args)
     new_pred = predictor.Predictor(model, dictionary)
 
-   
     if args["Sentence"] is not None or args["File"] is not None:
 
         if args["Sentence"] is not None:
@@ -62,8 +61,6 @@ def main(*, _test_args: Optional[Union[List[str], str]]=None) -> None:
     launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
 
     if args["GUI"] or launch_GUI:
-        if util.Info.get_instance()._test():           
-            print("Test GUI launch")
         gui.GUI(new_pred)
                    
 

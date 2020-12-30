@@ -234,11 +234,8 @@ class Initializer():
 
         """
         
-        _test = Info.get_instance()._test()
-        
         assets = cls.check_assets()
         if not assets["all_exist"]:
-            assets["all_exist"] = True if _test else False
             cls.download_assets(assets_status=assets, force_download=force_download)
 
         json_file = open(cls._model_dir, 'r')
@@ -315,13 +312,11 @@ class Initializer():
                 regardless of their existence and user inputs.
 
         """
-        _test = Info.get_instance()._test()
 
         url = "https://github.com/kevin931/poetic-models/releases/download/v1.0.0/lexical_model.zip"
 
         if assets_status is None:
             assets_status = cls.check_assets()
-            if _test: assets_status["all_exist"] = True
         
         if assets_status["all_exist"]:
             return None
@@ -355,7 +350,7 @@ class Initializer():
         message_3 += "go grab a coffee and be poetic.\n"
         print(message_3)
         
-        if _test: return None
+        if Info.get_instance()._test(): return None
         
         contents = urlopen(url)
         contents = contents.read()
@@ -388,7 +383,7 @@ class _Arguments():
         self.parser.add_argument("--version", action="version", version=self.version())
 
 
-    def parse(self, args: Optional[List[str]] =None) -> Dict[str, Optional[str]]:
+    def parse(self, args: Optional[List[str]]=None) -> Dict[str, Optional[str]]:
         # Parse arguments
 
         arguments = self.parser.parse_args(args)
