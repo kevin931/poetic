@@ -189,6 +189,46 @@ class TestInitializer():
         Initializer.load_model()
         download_assets_mock.assert_called_once()
         
+    
+    @pytest.mark.parametrize("model_type, method",
+                             [("json", "tensorflow.keras.models.model_from_json"), 
+                              ("yaml", "tensorflow.keras.models.model_from_yaml"), 
+                              ("h5", "tensorflow.keras.models.load_model")]
+                             )
+    def test_load_model_custom_formats(self, mocker, model_type, method):
+        method_mock = mocker.MagicMock()
+        mocker.patch(method, method_mock)
+        
+        open_mock = mocker.MagicMock()
+        open_mock.read.return_value = ""
+        open_mock.close.return_value = None
+        mocker.patch("builtins.open", open_mock)
+        
+        model_path = "dummy_test_path." + model_type
+        weights_path = "dummy_weight_path"
+        Initializer.load_model(model_path=model_path, weights_path=weights_path)
+        method_mock.assert_called_once()
+        
+    
+    @pytest.mark.parametrize("model_path, weights_path",
+                             [(None, "dummy_model_weights.h5"),
+                              ("dummy_model.txt", ""),
+                              ("dummy_model.json", None)]
+                             )    
+    def test_load_model_value_error(self, mocker, model_path, weights_path):
+        open_mock = mocker.MagicMock()
+        open_mock.read.return_value = ""
+        open_mock.close.return_value = None
+        mocker.patch("builtins.open", open_mock)
+        mocker.patch("tensorflow.keras.models.model_from_json")
+        
+        try:
+            Initializer.load_model(model_path=model_path, weights_path=weights_path)
+        except ValueError:
+            assert True
+        else:
+            assert False 
+        
         
     def test_download_assets_all_exist(self):
         self.assets_status["all_exist"] = True

@@ -70,6 +70,7 @@ from io import BytesIO
 import os
 import argparse
 import pkg_resources
+import re
 
 from poetic import exceptions
 
@@ -215,36 +216,78 @@ class Initializer():
 
 
     @classmethod
-    def load_model(cls, force_download: Optional[bool]=False) -> keras.Model: # pylint: disable=no-member
+    def load_model(cls,
+                   force_download: Optional[bool]=False,
+                   *,
+                   model_path: Optional[str]=None,
+                   weights_path: Optional[str]=None) -> "tensorflow.keras.Model": # pylint: disable=no-member
         """Load Keras models.
 
-        This method uses Keras interface to load the previously
+        This method uses the Keras interface to load the previously
         trained models, which are necessary for the Predictor and
-        the GUI. If the model does not exist, the download_assets()
-        method is automatically called for the option to obtain
-        the necessary assets.
+        the GUI. To use the default models, use all default parameters.
+        If the default model does not exist and no custom model is
+        provided, the download_assets() method is automatically called 
+        for the option to obtain the necessary assets. To use custom
+        models, only Keras models saved in .json, .yaml, and .h5 are
+        supported by this method.
 
         Parameters:
             force_download (bool, optional):
-                A boolean value on whether to download the models
-                without asking if the models do not exist.
+                A boolean value on whether to download the default 
+                models without asking if they do not exist. This
+                parameter ignored when model_path is provided.
+            model_path (str, optional):
+                The path to the keras model file in json, yaml, or
+                h5 format. It is optional when default models are
+                intended. When weights_path is provided, model_path
+                is mandatory.
+            weights_path (str, optional):
+                The path to the weights of the model to be loaded.
+                It is optional for loading the default model or
+                customized models saved in h5 format. It is mandatory
+                for json or yaml model files.
 
         Returns:
             tensorflow.keras.Model: Pretrained Keras model
+            
+        Raises:
+            ValueError: Errors for unsupported model_path and weights_path.
 
         """
+            
+        if model_path is None and weights_path is None:
+            
+            assets = cls.check_assets()
+            if not assets["all_exist"]:
+                cls.download_assets(assets_status=assets, force_download=force_download)
+                
+            model_path = cls._model_dir
+            weights_path = cls._weights_dir
+            
+        elif model_path is None:
+            raise ValueError("Parameter 'model_path' has to be provided with 'weights_path'.")
         
-        assets = cls.check_assets()
-        if not assets["all_exist"]:
-            cls.download_assets(assets_status=assets, force_download=force_download)
-
-        json_file = open(cls._model_dir, 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
+        model_file = open(model_path, "r")
+        loaded_model = model_file.read()
+        model_file.close()
         
-        model = keras.models.model_from_json(loaded_model_json)
-        model.load_weights(cls._weights_dir)
+        if re.search("\\.json$", model_path) is not None:
+            model = keras.models.model_from_json(loaded_model)
+            
+        elif re.search("\\.yaml$", model_path) is not None:
+            model = keras.models.model_from_yaml(loaded_model)
+            
+        elif re.search("\\.h5$", model_path) is not None:
+            model = keras.models.load_model(loaded_model)
+            return model
+        else:
+            raise ValueError("The current model format is unsupported: use .json, .yaml, or .h5.")
+            
+        if weights_path is None:
+            raise ValueError("Parameter 'weights_path' has to be provided with json and yaml model files.")
         
+        model.load_weights(weights_path)
         return model
 
 
