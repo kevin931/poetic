@@ -37,13 +37,10 @@ class TestGUI():
     def setup_class(cls):
         util.Info(_test=True)
         
-        json_file = open("./tests/data/lexical_model_dummy.json", 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        
-        model = keras.models.model_from_json(loaded_model_json)
-        model.load_weights("./tests/data/lexical_model_dummy.h5")
-        
+        model = util.Initializer.load_model(
+            model_path="./tests/data/lexical_model_dummy.json",
+            weights_path="./tests/data/lexical_model_dummy.h5"
+        )
         cls.new_predictor = predictor.Predictor(model=model)
 
     

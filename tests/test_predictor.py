@@ -41,14 +41,10 @@ class TestPredictor():
         poetic.util.Info(_test=True)
         
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        
-        json_file = open("./tests/data/lexical_model_dummy.json", 'r')
-        loaded_model_json = json_file.read()
-        json_file.close()
-        
-        cls.model = keras.models.model_from_json(loaded_model_json)
-        cls.model.load_weights("./tests/data/lexical_model_dummy.h5")
-        
+        cls.model = poetic.util.Initializer.load_model(
+            model_path="./tests/data/lexical_model_dummy.json",
+            weights_path="./tests/data/lexical_model_dummy.h5"
+        )
         cls.pred = Predictor(model=cls.model)
         
 
