@@ -202,16 +202,28 @@ class Initializer():
 
 
     @classmethod
-    def load_dict(cls) -> gensim.corpora.dictionary.Dictionary:
+    def load_dict(cls, *, dictionary_path: Optional[str]=None) -> gensim.corpora.dictionary.Dictionary:
         """Loads gensim dictionary.
+        
+        This method loads the gensim dictionary necessary for converting word
+        tokens into ids for preprocessing. When 'dictionary_path' is not provided,
+        the method loads the default dictionary of the package; otherwise, the
+        specified dictionary will be loaded and returned.
+        
+        Parameters:
+            dictionary_path (str, optional):
+                The path to the custom gensim dictionary saved using `save_as_text()`
+                or a text file in the same format. File extension is not enforced.
 
         Returns:
             gensim.corpora.dictionary.Dictionary: A gensim dictionary.
 
         """
         
-        path = cls._data_dir + "word_dictionary_complete.txt"
-        word_dictionary = gensim.corpora.Dictionary.load_from_text(fname=path)
+        if dictionary_path is None:
+            dictionary_path = cls._data_dir + "word_dictionary_complete.txt"
+            
+        word_dictionary = gensim.corpora.Dictionary.load_from_text(fname=dictionary_path)
         return word_dictionary
 
 
@@ -220,7 +232,7 @@ class Initializer():
                    force_download: Optional[bool]=False,
                    *,
                    model_path: Optional[str]=None,
-                   weights_path: Optional[str]=None) -> "tensorflow.keras.Model": # pylint: disable=no-member
+                   weights_path: Optional[str]=None) -> "tensorflow.keras.Model":
         """Load Keras models.
 
         This method uses the Keras interface to load the previously

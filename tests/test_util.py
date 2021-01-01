@@ -178,6 +178,13 @@ class TestInitializer():
         Initializer._rename_legacy_assets("sent_model.h5", "lexical_model.h5")
         remove_mock.assert_called()
         
+        
+    def test_load_dict_custom(self, mocker):
+        gs_load_mock = mocker.MagicMock()
+        mocker.patch("gensim.corpora.Dictionary.load_from_text", gs_load_mock)
+        Initializer.load_dict(dictionary_path="dummy_path")
+        gs_load_mock.assert_called_with(fname = "dummy_path")
+        
     
     def test_load_model_download_assets(self, mocker):
         download_assets_mock = mocker.MagicMock()
