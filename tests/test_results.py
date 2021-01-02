@@ -42,6 +42,7 @@ class TestDiagnostics():
         predictions = [1, 0, 1, 0]
         cls.results = Diagnostics(predictions)
         cls.five_num = cls.results.five_number(cls.results.predictions)
+        cls.results_comparison = Diagnostics([0.7, 0, 0.7, 0])
         
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
         
@@ -72,6 +73,22 @@ class TestDiagnostics():
     def test_repr_str_len_return_type(self, func, type):
         output = func(self.results)
         assert isinstance(output, type)
+        
+        
+    def test_lt_operator(self):
+        assert not self.results < self.results_comparison
+        
+        
+    def test_le_operator(self):
+        assert not self.results <= self.results_comparison
+        
+        
+    def test_gt_operator(self):
+        assert self.results > self.results_comparison
+    
+    
+    def test_ge_operator(self):
+        assert self.results >= self.results_comparison
         
         
     def test_five_number_type(self):

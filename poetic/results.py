@@ -119,10 +119,10 @@ class Diagnostics():
             str: String representation of the object.
         """
         
-        repr = {"Predictions": self.predictions, 
-                "Sentences": self.sentences,
-                "Diagnostics": self.diagnostics}
-        return str(repr)
+        repr_string = {"Predictions": self.predictions, 
+                       "Sentences": self.sentences,
+                       "Diagnostics": self.diagnostics}
+        return str(repr_string)
 
 
     def __len__(self) -> int:
@@ -132,6 +132,60 @@ class Diagnostics():
             int: The length of the predictions attribute
         """
         return len(self.predictions)
+    
+    
+    def __lt__(self, rhs: "Diagnostics") -> bool:
+        """ Method for ``<`` operator.
+        
+        The ``<`` operator relies on the mean predictions of each object 
+        for comparison, and it is suited for normal or normal-like data.
+
+        Returns: 
+            bool: Whether the mean predictions the left-hand-side is smaller.
+        """
+        
+        return np.mean(self.predictions) < np.mean(rhs.predictions)
+    
+    
+    def __gt__(self, rhs: "Diagnostics") -> bool:
+        """ Method for ``>`` operator.
+        
+        The ``>`` operator relies on the mean predictions of each object 
+        for comparison, and it is suited for normal or normal-like data.
+
+        Returns: 
+            bool: Whether the mean predictions the left-hand-side is greator.
+        """
+        
+        return np.mean(self.predictions) > np.mean(rhs.predictions)
+    
+    
+    def __le__(self, rhs: "Diagnostics") -> bool:
+        """ Method for ``>`` operator.
+        
+        The ``<=`` operator relies on the mean predictions of each object 
+        for comparison, and it is suited for normal or normal-like data.
+
+        Returns: 
+            bool: Whether the mean predictions the left-hand-side is smaller
+                or equal.
+        """
+        
+        return np.mean(self.predictions) <= np.mean(rhs.predictions)
+    
+    
+    def __ge__(self, rhs: "Diagnostics") -> bool:
+        """ Method for ``>`` operator.
+        
+        The ``>=`` operator relies on the mean predictions of each object 
+        for comparison, and it is suited for normal or normal-like data.
+
+        Returns: 
+            bool: Whether the mean predictions of the left-hand-side is 
+                greator or equal.
+        """
+        
+        return np.mean(self.predictions) >= np.mean(rhs.predictions)
 
 
     @classmethod
