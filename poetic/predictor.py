@@ -61,13 +61,20 @@ import numpy
 
 class Predictor():
     """
-    The Predictor() class processes and predicts inputs for poetic scores. It can be used
+    The :code:`Predictor()` class processes and predicts inputs for poetic scores. It can be used
     as the single interface of the package with other modules built as helpers. 
     
     Args:
-        model (tensorflow.keras.Model, optional): The pre-trained keras model.
-        dict (gensim.corpora.dictionary.Dictionary, optional): Gensim dictionary for word IDs.
-        force_download_assets (bool, optional): Wheher to download assets without asking.
+        model (tensorflow.keras.Model, optional): 
+            A pre-trained keras model. The default model will be loaded if no model is
+            supplied. If a custom model is supplied, a custom gensim dictionary is recommended
+            for it to work correctly although not strictly enforced.
+        dict (gensim.corpora.dictionary.Dictionary, optional): 
+            Gensim dictionary for word IDs. If nothing is supplied, the default dictionary
+            will be loaded. The default dictionary will be required for the the default
+            model to work correctly although it is not strictly enforced.
+        force_download_assets (bool, optional):
+            Wheher to download assets (the default models) without asking/user input.
 
 
     Attributes:
