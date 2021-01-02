@@ -30,7 +30,7 @@ Tkinter GUI. As an internal interface, this is not intended or
 recommended for being used as an import. To run the GUI, execute
 on the command line the following command:
 
-.. code-block:: python
+.. code-block:: shell
 
     python -m poetic
 """
@@ -56,8 +56,8 @@ class GUI():
     it through the command line.
 
     Attributes:
-        predictor (Predictor, optional): A Predictor object created
-            through the predictor module. If not supplying a Predictor
+        predictor (Predictor, optional): A ``Predictor`` object created
+            through the predictor module. If not supplying a :code:`Predictor`
             object, the GUI will have no predicting functionality.
     """
 
