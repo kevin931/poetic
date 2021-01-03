@@ -34,6 +34,8 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         poetic.util.Info.version()
         poetic.util.Info.build_status()
         
@@ -43,12 +45,16 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         poetic.util.Initializer.download_assets()
         
     The tensorflow model and gensim models can also be loaded and returned if they 
     theselves are useful (the Predictor class loads the model automatically):
     
     .. code-block:: python
+    
+        import poetic
     
         poetic.util.Initializer.load_dict()
         poetic.util.Initializer.load_model()

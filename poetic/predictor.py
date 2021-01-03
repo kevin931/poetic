@@ -36,12 +36,16 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         pred = poetic.Predictor()
         result = pred.predict("This is an example.")
         
     To make a prediction with a text file, use the following codes:
     
     .. code-block:: python
+    
+        import poetic
     
         pred = poetic.Predictor()
         result = pred.predict_file("<PATH>")

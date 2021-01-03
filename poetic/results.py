@@ -38,6 +38,8 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         pred = poetic.Predictor()
         result = pred.predict("This is an example.")
         result.run_diagnostics() # One-stop function
@@ -46,6 +48,8 @@ Examples:
     To use without the Predictor class:
     
     .. code-block:: python
+    
+        import poetic
     
         pred = [0.1, 0.2, 0.3]
         result = Diagnostics(predictions=pred)
