@@ -24,7 +24,7 @@ v.1.0.0
     - Added `official documentation <https://poetic.readthedocs.io/>`_
     - Revemped Github repo without LFS.
     - Data now hosted on `poetic-models <https://github.com/kevin931/poetic-models>`_
-    - Added the "exceptions" internal module
+    - Added the ``exceptions`` internal module
     - Added support for directly running the package using "python -m poetic"
     - Tons of internal optimization
 
