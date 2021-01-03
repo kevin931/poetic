@@ -104,7 +104,45 @@ class Info():
             self.__TEST = _test
             Info.__INSTANCE = self
             
-           
+            
+    def __str__(self):
+        """ String representation for ``str()``.
+        
+        This string representation returns the basic information of the package:
+        name, version, build, and mode. 
+        
+        Returns:
+            str: String representation of the object with str.
+        """
+        
+        string = ("Package: poetic (poetic-py)\n"
+                  "Version: {}\n"
+                  "Build: {}\n"
+                  "Unittest Mode: {}".format(self.__VERSION, self.__BUILD_STATUS, self.__TEST)
+                  )
+        
+        return string
+    
+    
+    def __repr__(self):
+        """ String representation for ``repr()``.
+        
+        This string representation returns a dictionary cast into a string with 
+        the basic information of the package with the following keys: 'Package', 
+        'Version', 'Build', and 'Unittest mode'. 
+        
+        Returns:
+            str: String representation of the object with repr.
+        """
+        
+        repr_dict = {"Package": "poetic",
+                     "Version": self.__VERSION,
+                     "Build": self.__BUILD_STATUS,
+                     "Unittest Mode": self.__TEST}
+        
+        return str(repr_dict)
+
+   
     @classmethod           
     def get_instance(cls, _test: Optional[bool] = False) -> "poetic.util.Info":
         """The method to access the singleton Info class. 

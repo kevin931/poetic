@@ -42,6 +42,14 @@ class TestInfo():
     def setup_class(cls):
         Info(_test=True)
         
+    @pytest.mark.parametrize("func, re_string",
+                             [(str, "Package.*\nVersion.*\nBuild.*\nUnittest Mode.*"),
+                             (repr, "{'Package'.*'Version'.*'Build'.*'Unittest Mode'.*}")]
+                             )
+    def test_str_repr(self, func, re_string):
+        string = func(Info.get_instance())
+        assert re.search(re_string, string) is not None
+        
     
     def test_info_singleton(self):
         try:
