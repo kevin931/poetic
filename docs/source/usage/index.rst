@@ -10,3 +10,5 @@ Below is a list of topics covered:
 
 .. toctree::
    :maxdepth: 1
+
+   cli
