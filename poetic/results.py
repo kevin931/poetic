@@ -225,7 +225,7 @@ class Diagnostics():
 
         """
         try:
-            with open(path, "w", encoding='utf-8') as file:
+            with open(path, "w", encoding='utf-8', newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow(["Sentence_num","Sentence", "Score"])
                 # Loop through each prediction
@@ -256,7 +256,7 @@ class Diagnostics():
         version = Info.version()
 
         # Program Information
-        r = "\nPoetic\n"
+        r = "Poetic\n"
         r += f"Version: {version}\n"
         r += 'For latest updates: www.github.com/kevin931/Poetic\n\n'
         # General Information
