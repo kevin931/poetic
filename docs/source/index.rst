@@ -14,6 +14,7 @@ Table of Contents
 
    usage/Installation
    usage/Quickstart
+   usage/index
    documentation/index
    Changelog
    Development
