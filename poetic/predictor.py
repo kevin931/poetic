@@ -241,14 +241,27 @@ class Predictor():
 
 
 class Predictions(Diagnostics):
-    """
-        Class for prediction results from Predictor class.
+    """Class for prediction results from Predictor class.
 
-        This class inherets from Diagnostics class of the results module,
-        and it is intended for being internally called by the Predictor class.
-        To directly access the Diagnostics class's functionality, use it instead.
+    This class inherets from ``Diagnostics`` class of the ``results`` module,
+    and it is intended for being internally called by the Predictor class.
+    To directly access the Diagnostics class's functionality, use it instead.
+    
+    Args:
+        results (list(list(float))): 
+            The prediction results predicted with Keras models.
+        sentences (list(str), optional): 
+            A list of strings to represent tokenized sentences predicted by the ``Predictor``
+            class.
+
+    Attributes:
+        predictions (list): Predictions of poetic scores.
+        sentences (list): Sentences associated with the predictions.
+        diagnostics(dict): A dictionary of diagnostics statistics,
+            including sentence count, five number summary, and the predictions themselves.
+             
         """
 
-    def __init__(self, results: List[float], sentences: Optional[List[str]]) -> None:
+    def __init__(self, results: List[List[float]], sentences: Optional[List[str]]) -> None:
         results = [prediction[0] for prediction in results]
         super().__init__(predictions=results, sentences=sentences)
