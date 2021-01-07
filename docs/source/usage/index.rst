@@ -12,3 +12,4 @@ Below is a list of topics covered:
    :maxdepth: 1
 
    cli
+   modules
