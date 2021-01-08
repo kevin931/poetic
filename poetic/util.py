@@ -427,10 +427,10 @@ class Initializer():
 
         # Download Information
         message = "\nThe following important assets are missing:\n"
-        message += "-- sent_model.json\n" if not assets_status["model"] else ""
-        message += "-- sent_model.h5\n" if not assets_status["weights"] else ""
+        message += "-- lexical_model.json\n" if not assets_status["model"] else ""
+        message += "-- lexical_model.h5\n" if not assets_status["weights"] else ""
         message += "\nDownloading from: {}\n".format(url)
-        message += "Download size: 835MB.\n\n"
+        message += "Download size: 838MB.\n\n"
         print(message)
 
         if not force_download:
