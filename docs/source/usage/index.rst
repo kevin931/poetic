@@ -13,3 +13,4 @@ Below is a list of topics covered:
 
    cli
    modules
+   model
