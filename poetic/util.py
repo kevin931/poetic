@@ -34,6 +34,8 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         poetic.util.Info.version()
         poetic.util.Info.build_status()
         
@@ -43,12 +45,16 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         poetic.util.Initializer.download_assets()
         
     The tensorflow model and gensim models can also be loaded and returned if they 
     theselves are useful (the Predictor class loads the model automatically):
     
     .. code-block:: python
+    
+        import poetic
     
         poetic.util.Initializer.load_dict()
         poetic.util.Initializer.load_model()
@@ -471,13 +477,13 @@ class _Arguments():
 
         self.parser = argparse.ArgumentParser(description="Poetry Predictor Command Line Mode")
         self.parser.add_argument("-g", "--GUI", action="store_true",
-                                 help="Tag to open GUI anyway. No imput needed.")
+                                 help="Flag to launch GUI. No input needed.")
         self.parser.add_argument("-s", "--Sentence", action="store",
-                                 help="Sentence to be parsed.")
+                                 help="A string to be parsed.")
         self.parser.add_argument("-f", "--File", action="store",
-                                 help="File to be parsed.")
+                                 help="Plain text file to be parsed.")
         self.parser.add_argument("-o", "--Out", action="store",
-                                 help="Path to save results.")
+                                 help="Path to save results (txt or csv).")
         self.parser.add_argument("--version", action="version", version=self.version())
 
 

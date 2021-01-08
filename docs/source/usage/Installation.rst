@@ -15,13 +15,13 @@ System-wide installation:
     pip install poetic-py
     python -c "import nltk; nltk.download('punkt')"
 
-The usage of virtualenv is also recommended over system-wide installation.
+The usage of ``virtualenv`` is also recommended over system-wide installation.
 
 ********************
 Conda (Recommended)
 ********************
 
-Or, using Conda (which I recommend):
+Or, using ``conda`` (which I recommend):
 
 .. code-block:: bash
 
@@ -38,7 +38,7 @@ limitation. If you are unable to install tensorflow from conda, please open
 `an issue <https://github.com/kevin931/poetic/issues>`_ or refer
 to tensorflow's github Issue Tracker for support. For reference, you can also refer to
 `Microsoft's guide <https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation>`_
-. (Caution: Editing registry can potentially have consequences. Please proceed with caution and
+. (Caution: Editing registry can have serious consequences. Please proceed with caution and
 be sure to know the issue.) 
 
 **************************

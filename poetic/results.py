@@ -38,6 +38,8 @@ Examples:
     
     .. code-block:: python
     
+        import poetic
+    
         pred = poetic.Predictor()
         result = pred.predict("This is an example.")
         result.run_diagnostics() # One-stop function
@@ -46,6 +48,8 @@ Examples:
     To use without the Predictor class:
     
     .. code-block:: python
+    
+        import poetic
     
         pred = [0.1, 0.2, 0.3]
         result = Diagnostics(predictions=pred)
@@ -288,7 +292,7 @@ class Diagnostics():
 
         """
         try:
-            with open(path, "w", encoding='utf-8') as file:
+            with open(path, "w", encoding='utf-8', newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow(["Sentence_num","Sentence", "Score"])
                 # Loop through each prediction
@@ -319,7 +323,7 @@ class Diagnostics():
         version = Info.version()
 
         # Program Information
-        r = "\nPoetic\n"
+        r = "Poetic\n"
         r += "Version: {}\n".format(version)
         r += 'For latest updates: www.github.com/kevin931/Poetic\n\n'
         # General Information

@@ -14,9 +14,9 @@ First-time Set Up (Default Behavior)
 All machine learning models are not shipped with the package because of their size (~1GB).
 However, poetic provides a utility to download them upon first use. 
 
-When the models are needed, the package will call the `poetic.util.Initializer.check_assets()`
+When the models are needed, the package will call the ``poetic.util.Initializer.check_assets()``
 method to check for assets and if assets are missing, it then subsequently calls the 
-`poetic.util.Initializer.download_assets()` method which will prompt a command-line input: 
+``poetic.util.Initializer.download_assets()`` method which will prompt a command-line input: 
 
 .. code-block:: bash
 
@@ -28,7 +28,7 @@ method to check for assets and if assets are missing, it then subsequently calls
 
     Would you like to download? [y/n]
 
-This behavior is intended to take bandwidth into consideration.
+This behavior is intended to take bandwidth and user consent into consideration.
 
 
 Download without Asking
@@ -74,7 +74,6 @@ Prediction with Plain Text File Input
 
 Save Results to File
 ----------------------
-
 
 .. code-block:: bash
 

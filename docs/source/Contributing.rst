@@ -17,11 +17,26 @@ as intended or if there are any other bugs, please do let us know!
         * Package/Dependency versions (exporting the environment through pip or conda will be best)
         * Codes to reproduce the error
 
-If you are able to help out with issues: 
 
-    1. Go ahead and comment on the issue with how and in what ways you may resolve it. 
-    2. If you have a pull request ready, submit it and also provide the necessary information to link it to the specific issue.
-    3. I will review the codes, and if the fixes work as intended, I will merge the pull request.
+Pull Requests
+--------------
+
+Any and all help and contrition are welcomed. For consistency and stability, there are a few
+quick, easy guidelines to follow if you would like to contribute:
+
+* What to contribute: 
+    * Refer to our Issue Tracker and dev branch for the latest updates and developments. 
+    * If there is something not already covered, open an issue; otherwise, feel free to comment.
+    * Take a look at the `roadmap <https://poetic.readthedocs.io/en/latest/Development.html>`_. 
+
+* For all changes and source codes:
+    * All functions and methods must be type annotated with ``typing``.
+    * Unittests must be written to ensure new codes work. Existing tests must pass or modified to pass if relevant. Pytest is used for this package.
+    * All public methods, functions, and modules must have a `Google-styled docstring <https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`_. If an interface is modified, docstring must relfect the change accordingly.
+    * Comments are fine and sometimes necesary when codes are obscure, but obvious comments should be avoided. Use of expressive variable names are encouraged.
+    * Commits must have a simple, meaningful title (e.g. 'Added support for csv files'. Not: 'Quick update').
+    * *Breaking changes* and *deprecations* should be implemented with **extreme caution**. Backwards compatibility should be maintained with a deprecation notice unless absolutely impossible.
+    * Additional dependencies should be added with caution since it can have remification for end-users.
 
 
 Feature Request
