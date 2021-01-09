@@ -50,13 +50,12 @@ a quick overview of their functionalities.
 *exceptions*
 ---------------
 
-The ``exceptions`` module contains two classes: ``InputLengthError`` and
-``UnsupportedConfigError``. They both inherit directly from python's base
-``Exception``, and they are raised by various methods and classes in ``poetic``.
+The ``exceptions`` module contains three classes: ``InputLengthError``, ``UnsupportedConfigError``,
+``SingletonError``, and ``ModelShapeError``. They all inherit directly from python's base
+``Exception`` class, and they are raised by various methods and classes in ``poetic``.
 
-Although the module and its classes are not preceded by _, it is mainly
-intended for internal use and its accessibility allows for better and more obvious
-documentation. 
+Although the module and its classes are not preceded by _ to allow for better acceessibility
+and more obvious documentation, it is mainly intended for internal use. 
 
 
 *gui*
@@ -112,8 +111,11 @@ two public classes: ``Info`` and ``Initializer``. The ``_Arguments`` class is in
 for internal use to parse command-line arguments for ``__main__.py``.
 
 
-The ``Info`` class provides basic package information: package vesion and build status. To
-access the information, use methods ``poetic.util.Info.version()`` and ``poetic.util.Info.build()``
+The ``Info`` class is a singleton that provides basic package information: package vesion,
+build status, and a unittest variable as a debug flag. To initialize the ``Info`` class, use
+``poetic.util.Info.get_instance()`` instead of the constructor to avoid a ``SingletonError``.
+The version and build status of the package can be accessed with use methods
+``poetic.util.Info.get_instance().version()`` and ``poetic.util.Info.get_instance().build()``
 respectively.
 
 The ``Initializer`` class initializes assets for the ``Predictor`` class, and it contains 
