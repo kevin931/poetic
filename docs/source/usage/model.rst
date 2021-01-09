@@ -81,8 +81,8 @@ However, there are benefits to loading the keras models directly, as it can expo
 the full keras interface. The ``util`` module provides a few functions to conveiently
 load the default model:
 
-    -``poetic.util.Initializer.initialize()``: This class method returns the command-line arguments, the default keras model, and the gensim dictionary.
-    -``poetic.util.Initializer.load_model()``: This class mothod returns the default keras model.
+    - ``poetic.util.Initializer.initialize()``: This class method returns the command-line arguments, the default keras model, and the gensim dictionary.
+    - ``poetic.util.Initializer.load_model()``: This class mothod returns the default keras model.
 
 The advantage of using these two models is that only one function is necessary to load 
 the model without having to know the data directory. However, to access the paths of the model
