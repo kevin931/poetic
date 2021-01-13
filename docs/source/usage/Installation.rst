@@ -103,7 +103,7 @@ of the two solutions from below until gensim has been updated:
 
 .. code-block:: bash
 
-    conda install -c kevin931 poetic-py -c conda-forge
+    conda install -c kevin931 poetic-py -c anaconda -c conda-forge
 
 Or, this following option will be more specific:
 
