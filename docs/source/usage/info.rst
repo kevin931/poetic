@@ -118,6 +118,24 @@ To get the build status:
 
 All official, stable releases will have a build status of "Stable".
 
+
+Instantiation
+--------------
+
+The ``Info`` class is a singleton mainly for internal purposes to store metadata for testing. 
+The ``version()`` and ``build_status()`` methods are classmethods, which do not need to be
+instantiated. However, if an instance is needed, use the following method:
+
+.. code-block:: python
+
+    import poetic
+
+    info_instance = poetic.util.Info.get_instance()
+
+Directly calling the constructor through ``Info()`` can potentially result in a ``SingletonError``
+if a previous instance already exists. The ``get_instance()`` methods returns the existing
+instance or instantiates the first instance.
+
 --------------------------------------------------------------
 
 ******************
