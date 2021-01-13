@@ -73,8 +73,8 @@ importing ``poetic`` and invoking the ``GUI`` class.
 *predictor*
 ---------------
 
-The ``predictor`` class and its package-level ``Predictor`` class serve as the main
-interface for the class to predict poetic scores using Keras model. The ``Predictor``
+The ``predictor`` module and its package-level ``Predictor`` class serve as the main
+interface for the package to predict poetic scores using Keras models. The ``Predictor``
 class is a one-step solution for making predictions as it can load models and dictionaries
 automatically. To make a prediction, simply follow the following example: 
 
@@ -86,8 +86,8 @@ automatically. To make a prediction, simply follow the following example:
     prediction = pred.predict("Is this poetic?")
 
 The ``Predictions`` class is the return type of the ``predict()`` and ``predict_file()``
-methods of the ``Predictor``, and it inherits directly from ``Diagnostics`` class. It currently
-contains all the same methods as its base class and is mainly intended to be invoked
+methods of the ``Predictor``, and it inherits directly from the ``Diagnostics`` class. It 
+currently contains all the same methods as its base class and is mainly intended to be invoked
 internally. To use its functionalities without the ``Predictor`` class, directly use the
 ``Diagnostics`` class instead.
 
@@ -99,7 +99,7 @@ The ``results`` module contains the ``Diagnostics`` class, which is the base cla
 the ``Predictions`` class. Its main functionality includes running diagnotics for predictions,
 outputing to files, and generating diagnostics report. The ``Diagnostics`` can be used as
 a standalone class for any predictions, and more utility and functionalities are planned 
-for the future to add more common, useful diagnotics.
+for the future to add more cuseful diagnostics and utilities.
 
 
 *util*
@@ -119,6 +119,6 @@ The version and build status of the package can be accessed with use methods
 respectively.
 
 The ``Initializer`` class initializes assets for the ``Predictor`` class, and it contains 
-all class methods without no need of a class instance. The most common use is to load both
+all class methods without no need of a class instance. The most common usage is to load both
 the model and dictionary using the ``poetic.util.Initializer.initialize()`` method which is
 automatically called by the ``Predictor`` by default. 

@@ -176,7 +176,7 @@ class Predictor():
         return score
 
 
-    def preprocess(self, lexical_input: Union[str, List[str]]=None, **kwargs) -> "numpy.ndarray":
+    def preprocess(self, lexical_input: str=None, **kwargs) -> "numpy.ndarray":
         """Preprocess inputs.
         
         The preprocess method tokenizes input using sentence and then word tokenize. It also 
@@ -230,7 +230,7 @@ class Predictor():
 
 
     def tokenize(self, 
-                 lexical_input: Union[str, List[str]]=None,
+                 lexical_input: str=None,
                  **kwargs) -> List[List[str]]:
         """Tokenizes text inputs. 
         
