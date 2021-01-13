@@ -110,13 +110,11 @@ metadata, loading and downloading assets, and parsing commandline arguments. It 
 two public classes: ``Info`` and ``Initializer``. The ``_Arguments`` class is intended strictly
 for internal use to parse command-line arguments for ``__main__.py``.
 
-
 The ``Info`` class is a singleton that provides basic package information: package vesion,
-build status, and a unittest variable as a debug flag. To initialize the ``Info`` class, use
-``poetic.util.Info.get_instance()`` instead of the constructor to avoid a ``SingletonError``.
-The version and build status of the package can be accessed with use methods
-``poetic.util.Info.get_instance().version()`` and ``poetic.util.Info.get_instance().build()``
-respectively.
+build status, and a unittest variable as a debug flag. To obtain the package version and
+build status, use classmethods ``poetic.util.Info.version()`` and ``poetic.util.Info.build_status()``
+directly. No instantiation is needed. For more information on the ``Info`` class, see the
+"**Package Information and Resources**" section.
 
 The ``Initializer`` class initializes assets for the ``Predictor`` class, and it contains 
 all class methods without no need of a class instance. The most common usage is to load both
