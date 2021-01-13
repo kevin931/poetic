@@ -272,3 +272,17 @@ The ``len()`` method returns the length of the ``predictions`` attribute of the 
 which is the number of entries in the predictions list. Since the length of ``predictions``
 and ``sentences`` are intended to match, the returned length logically represents the
 length of the object.
+
+
+Comparison Operators
+~~~~~~~~~~~~~~~~~~~~~~
+
+The ``Diagnostics`` class currently supports the following four operators: ``>``, ``>=``, ``<``, 
+and ``<=``. They compare the **mean** values of the ``predictions`` attribute of the compared
+onjects. 
+
+When the distribution of the predictions are not normally distributed, such as skewed, the mean
+values may not be meaningful. In these cases, manual comparions are necessary. 
+
+Given that the predictions attribute is a list of ``float``, the ``==`` and ``!=`` operators
+are currently not implemented.
