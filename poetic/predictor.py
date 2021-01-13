@@ -146,7 +146,7 @@ class Predictor():
         return score
 
 
-    def preprocess(self, input: Union[str, List[str]]) -> numpy.ndarray:
+    def preprocess(self, input: str) -> numpy.ndarray:
         """
         Preprocess inputs: tokenize, to lower, and padding.
 
@@ -185,12 +185,12 @@ class Predictor():
         return file
 
 
-    def tokenize(self, input: Union[str, List[str]]) -> List[List[str]]:
+    def tokenize(self, input: str) -> List[List[str]]:
         """
         Tokenize text input into sentences and then words.
 
         Parameters:
-            input (str, list(str)): A string or list of strings of text.
+            input (str): A string or list of strings of text.
 
         Returns:
             list(str): A 2-d list of tokenized words.
