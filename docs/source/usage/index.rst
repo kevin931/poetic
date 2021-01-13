@@ -16,5 +16,6 @@ Below is a list of topics covered:
    modules
    model
    dictionary
+   predictor
    results
    further
