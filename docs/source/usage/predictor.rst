@@ -26,17 +26,16 @@ becasue it is a package-level class:
     pred = poetic.Predictor()
 
 In this example, all default parameters are used, and the default lexical model and dictionary
-will be loaded. There is **not yet** official support for custom model and dictionary. However,
-``Predictor`` does accept previously loaded assets using either keras and gensim's API or poetic's
-``Initializer`` class:
+will be loaded. Starting in v.1.1.0, there is support to initialize the ``Predictor`` with custom
+model and dictionary using either keras and gensim's API or poetic's ``Initializer`` class:
 
 .. code-block:: python
 
     import poetic
 
-    model = poetic.util.Initializer.load_model()
-    dictionary = poetic.util.Initializer.load_dict()
-    pred = poetic.Predictor(model=model, dict=dictionary)
+    model = poetic.util.Initializer.load_model(model_path="<PATH>", weights_path="<PATH>")
+    dictionary = poetic.util.Initializer.load_dict(dictionary_path="<PATH>")
+    pred = poetic.Predictor(model=model, dictionary=dictionary)
 
 If the default models have not been downloaded from its GitHub repo, there is an option to
 override the user input prompt: 
@@ -67,9 +66,11 @@ Prediction with Strings
 -------------------------
 
 To predict a string, use the ``predict()`` method of the ``Predictor`` instance. The input
-string can consist of multiple sentences, which are then tokenized by preprocessor. The **longest**
-supported sentence (after sentence tokenization) is **456 tokens**, including words and 
-punctuations. 
+string can consist of multiple sentences, which are then tokenized by the preprocessor. The 
+**longest** supported sentence (after sentence tokenization) depends on the model input shape,
+which the ``Predictor`` recognizes automatically. For the default lexical model, the maximum is
+is **456 tokens**, including words and punctuations, and unsupported length will throw an
+``InputLengthError``. 
 
 As an example of string prediction:
 
@@ -162,9 +163,10 @@ Padding
 --------
 
 Padding is part of the ``preprocess()`` method, and it cannot be called seprately.
-It pads each tokenized input in accordance with the input shape of the default lexical
-model used, which is 456. There is not yet support to adjust the padding length in this 
-release, and this is the reason why custom model support is very limited.
+It pads each tokenized input in accordance with the input shape of the keras model
+supplied or loaded by default during instantiation. The default lexical model pads
+to the length of 456. All custom keras models with the general input shape of
+(None, int) and an embedding layer are fully supported.
 
 Under the hood, the ``tf.keras.preprocessing.sequence.pad_sequences()`` method is called,
 and the default pre-padding is used. Given that the default lexical model uses an LSTM
@@ -176,7 +178,9 @@ Word IDs
 
 All tokens (mostly words, contractions, and punctuations after tokenized) are converted
 into word IDs, which are all postive ``int``. By default, the gensim dictionary shipped
-by the package is used. However, if a custom dictionary is supplied at initialization of
-the ``Predictor``, it will likely  be incomptabile with the default model because models 
-are specifically trained with one set of word IDs. Therefore, it is **not recommended**
-to use a custom dictionary.
+by the package is used. 
+
+If a custom dictionary is supplied at initialization of the ``Predictor``, it is recommended,
+if not necessary to use a custom model even though the constructor does not enforce it.
+Custom dictionaries, which have different word IDs will likely be incomptabile with the 
+default model because models are specifically trained with one set of word IDs.
