@@ -21,9 +21,11 @@ method to check for assets and if assets are missing, it then subsequently calls
 .. code-block:: bash
 
     The following important assets are missing:
+    -- lexical_model.json
+    -- lexical_model.h5
 
-    Downloading from: https://github.com/kevin931/poetic-models/releases/download/v0.1-alpha/sent_model.zip
-    Download size: 835MB.
+    Downloading from: https://github.com/kevin931/poetic-models/releases/download/v1.0.0/lexical_model.zip
+    Download size: 838MB.
 
 
     Would you like to download? [y/n]
