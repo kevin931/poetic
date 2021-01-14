@@ -16,7 +16,7 @@ Table of Contents
    usage/Quickstart
    usage/index
    documentation/index
-   Changelog
+   change/index
    Development
    Contributing
    License
