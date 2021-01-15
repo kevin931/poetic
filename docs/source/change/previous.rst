@@ -1,13 +1,14 @@
-Changelog and Versions
-=======================
+=================
+Older Versions
+=================
 
-v.1.0.2 (Latest)
------------------
-    - Fixed an issue causing conda build to fail.
-    - Updated module documentation toctree
+This page contains a running list of all previous release versions, except for the
+latest supported versions or work in progress changes.
+
+---------------------------------------
 
 v.1.0.1
------------------
+--------
     - Now on **conda** as poetic-py
     - Updated documentation for roadmap
     - Fixed type-hinting errors

@@ -27,12 +27,23 @@
 
 This module includes the class and methods for poetic's desktop
 Tkinter GUI. As an internal interface, this is not intended or
-recommended for being used as an import. To run the GUI, execute
-on the command line the following command:
+recommended for being used as an import. To run the GUI, follow
+the given examples or refer to the documentation.
 
-.. code-block:: shell
+Examples:
 
-    python -m poetic
+    Simply run the GUI: 
+    
+    .. code-block:: shell
+
+        python -m poetic
+        
+    Make prediction and launch GUI by adding the ``-g`` or ``--GUI`` flag:
+    
+    .. code-block:: shell
+
+        python -m poetic -s "This is poetic." -o "<PATH>" -g
+        
 """
 
 from tkinter import Tk, Entry, Label, Button, Frame, ttk

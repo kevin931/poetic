@@ -38,6 +38,13 @@ quick, easy guidelines to follow if you would like to contribute:
     * *Breaking changes* and *deprecations* should be implemented with **extreme caution**. Backwards compatibility should be maintained with a deprecation notice unless absolutely impossible.
     * Additional dependencies should be added with caution since it can have remification for end-users.
 
+* Documentation changes:
+    * For all changes to the public interface, add such changes to the development changelog at "docs/source/change/development.rst".
+        * All new features will go into the next minor release.
+        * Most internal changes, bug fixes, and documentation updates will be included in patches.
+        * If you're not sure how the change will be integrated into releases, mention this in the message in PR or issue.
+    * Updating documentation in general is not mandatory but very much welcomed. Make sure style is consistent.
+
 
 Feature Request
 ----------------

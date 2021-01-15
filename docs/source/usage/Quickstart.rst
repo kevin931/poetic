@@ -18,7 +18,7 @@ When the models are needed, the package will call the ``poetic.util.Initializer.
 method to check for assets and if assets are missing, it then subsequently calls the 
 ``poetic.util.Initializer.download_assets()`` method which will prompt a command-line input: 
 
-.. code-block:: bash
+.. code-block:: text
 
     The following important assets are missing:
     -- lexical_model.json

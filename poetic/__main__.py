@@ -28,9 +28,35 @@
 The __main__.py is intended for the command line usage
 of the package with the command below. Command line arguments
 are parsed accordingly with its associated behaviors. For doccumnentation,
-please visit: poetic.readthedocs.io or github.com/kevin931/poetic
+please visit: poetic.readthedocs.io or github.com/kevin931/poetic.
 
-    $python -m poetic
+Examples:
+
+    Run the GUI:
+    
+    .. code-block:: bash
+    
+        python -m poetic
+        
+    String Input:
+    
+    .. code-block:: bash
+    
+        python -m poetic -s "This is poetic."
+        
+    File Input:
+    
+    .. code-block:: bash
+    
+        python -m poetic -f "<PATH>"
+        
+    Results Output
+    
+    .. code-block:: bash
+    
+        python -m poetic -s "This is poetic." -o "<PATH>"
+    
+
 
 """
 
