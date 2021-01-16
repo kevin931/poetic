@@ -3,7 +3,7 @@ Internal Interfaces
 ********************
 
 *poetic.exceptions* Module
-------------------------
+---------------------------
 
 .. automodule:: poetic.exceptions
    :members:
@@ -12,7 +12,7 @@ Internal Interfaces
 
 
 *poetic.gui* Module
------------------
+---------------------
 
 .. automodule:: poetic.gui
    :members:
@@ -30,7 +30,7 @@ Internal Interfaces
 
 
 *poetic.predictor.Predictions* Class
--------------------------------
+--------------------------------------
 
 .. autoclass:: poetic.predictor.Predictions
    :members:
