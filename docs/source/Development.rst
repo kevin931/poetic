@@ -7,14 +7,14 @@ Project Roadmap and Milestones
 Major milestones:
 
     * Support for poetic meter: both parsing and predicting
-    * Support for custom models other than the ones provided
+    * Support for custom models other than the default model
+    * Support for more default models
 
 Tentative milestones (subject to change):
 
     * Backwards compatibility with Python 3.5 (No other versions support planned)
-    * A better GUI
+    * An improved GUI with better front and back end
     * Package-level optimization
-    * conda-forge possibility
 
 Future Support and Maintenance
 -------------------------------
