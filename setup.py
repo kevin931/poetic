@@ -100,7 +100,7 @@ class CondaCommand(distutils.cmd.Command):
         current_arch = self.build_arch()
         os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(current_arch, VERSION))
         
-        for platform in ["win-64", "linux-64", "osx-64," "osx-arm64", "linux-armv7l"]:
+        for platform in ["win-64", "linux-64", "osx-64", "osx-arm64", "linux-armv7l"]:
             
             if platform == current_arch:
                 continue
