@@ -29,7 +29,7 @@ import sys
 import shutil
 import distutils
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 description = "Poetic (poetic-py on PyPi) is a Python package "
 description += "based on Natural Language Processing and deep learning models to predict how "

@@ -7,6 +7,11 @@ latest supported versions or work in progress changes.
 
 ---------------------------------------
 
+v.1.0.2
+-----------------
+    - Fixed an issue causing conda build to fail.
+    - Updated module documentation toctree
+
 v.1.0.1
 --------
     - Now on **conda** as poetic-py

@@ -16,18 +16,5 @@ changes.
 Planned Updates
 ****************
 
-v1.0.3
----------
-
-Corresonding branch: "maintenance/v1.0.x"
-
-    - Added "**Tutorials and Examples**" section to documentation
-    - Fixed file output spacing issues
-    - Fixed conda channel priority documentation for python 3.8
-    - Fixed documentation code highlighting
-    - Fixed type annotation for the ``Predictor`` and ``Predictions`` class
-    - Fixed docstrings for multiple returns with tuples
-    - Fixed conda platform conversion commands in setup.py
-    - Added in-line code highlighting in documentation
-    - Added import statements to complete examples
-    - Changed CLI help section wording
+Please see the documentation for the ``dev`` branch for the latest updates and changelog.
+This branch is currently up-to-date with the latest release on the ``main``.
