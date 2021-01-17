@@ -10,8 +10,8 @@
 
 | Branch | Release | Build Status | Docs | Coverage |
 | --- | --- | --- | --- | --- |
-| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.2-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
-| main | ![Badge1](https://img.shields.io/badge/Version-1.0.2-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=main)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=main)](https://coveralls.io/github/kevin931/poetic?branch=main) |
+| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
+| main | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=main)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=main)](https://coveralls.io/github/kevin931/poetic?branch=main) |
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -22,7 +22,6 @@
     - [Why should you care?](#why-should-you-care)
 - [Installation](#installation)
     - [Dependencies](#dependencies)
-    - [Conda](#conda)
 - [Usage](#usage)
   - [Command-line Mode](#command-line-mode)
     - [Flags](#flags)
@@ -89,12 +88,12 @@ Poetic supports three modes: command-line usage, python import, and GUI.
 A single command is sufficient without need of a python script.
 
 #### Flags
-- **-s**        Supply a sentence or a string of text as an input.
-- **-f**        Supply the path to a plain text file.
-- **-o**        Provide the path to save outputs
-- **--GUI**     Launch the GUI regardless of the other flags, except for -h.
-- **-h**        Help with flags.
-- **--version** Returns the version of the package.
+- ``-s`` or ``--Sentence``:  Supply a sentence or a string of text as an input.
+- ``-f`` or ``--File``:      Supply the path to a plain text file.
+- ``-o`` or ``--Out``:       Provide the path to save outputs
+- ``-g`` or ``--GUI``:       Launch the GUI regardless of the other flags, except for -h.
+- ``-h`` or ``--help``:      Help with flags.
+- ``--version``:             Returns the version of the package.
 
 #### Standard application with GUI
 ```shell
@@ -119,9 +118,9 @@ A single command is sufficient without need of a python script.
 ```
 
 ### As a Python Package
-Poetic contains two major classes: Predictor and Diagnostics. Predictor makes predictions and returns a predictions object inherited from the Diagnostics. For detailed methods and usage, check the [documentation](https://poetic.readthedocs.io/en/latest/index.html). The util module provides metadata, functionalities for loading and downloading necessary data, and initializing.
+Poetic contains two major classes: Predictor and Diagnostics. Predictor makes predictions and returns a predictions object inherited from the Diagnostics. For detailed methods and usage, check the [documentation](https://poetic.readthedocs.io/en/latest/index.html) and its [Tutorials and Examples](https://poetic.readthedocs.io/en/latest/usage/index.html#) section. The ``util`` module provides metadata, functionalities for loading and downloading necessary data, and initializing.
 
-Below is the most common usecase:
+Below is the most common use-case as part of the IO and prediction toolchain:
 
 ```python
   import poetic
@@ -138,30 +137,44 @@ Below is the most common usecase:
 ```
 
 ## Documentation
-Poetic's official [documentation page](https://poetic.readthedocs.io/en/latest/) is live! For more details, please give refer to the [quickstart guide](https://poetic.readthedocs.io/en/latest/usage/Quickstart.html) or the [detailed documentation](https://poetic.readthedocs.io/en/latest/documentation/index.html) for each module.
+Poetic's official [documentation page](https://poetic.readthedocs.io/en/latest/) is live! For more detailed reference, please see the following for a quick guide or follow the navigation on the main page:
 
-To visit the documentation for the dev branch (which may include broken builds or incomplete documentation), you can use [this link](https://poetic.readthedocs.io/en/dev/). 
+  - [Quickstart guide](https://poetic.readthedocs.io/en/latest/usage/Quickstart.html)
+  - [Tutorials and examples](https://poetic.readthedocs.io/en/latest/usage/index.html#)
+  - [Full documentation](https://poetic.readthedocs.io/en/latest/documentation/index.html)
+
+To visit the documentation for the versions in development or older maintenance versions of ``poetic``, use the version selection at the bottom left of the page for the correct version.
 
 ## Versions and Updates
-* v.1.0.2
-  - Fixed an issue causing conda build to fail.
-  - Updated module documentation toctree
+* v1.0.3
+  - Added "**Tutorials and Examples**" section to documentation
+  - Fixed file output spacing issues
+  - Fixed conda channel priority documentation for python 3.8
+  - Fixed documentation code highlighting
+  - Fixed type annotation for the ``Predictor`` and ``Predictions`` class
+  - Fixed docstrings for multiple returns with tuples
+  - Fixed conda platform conversion commands in setup.py
+  - Added in-line code highlighting in documentation
+  - Added import statements to complete examples
+  - Changed CLI help section wording
 
-* All older changes available in our [documentation](https://poetic.readthedocs.io/en/latest/Changelog.html)
+* All older changes available in our [documentation's changelog and versions section](https://poetic.readthedocs.io/en/latest/change/index.html)
 
 ## Roadmap
-* Major milestones:
+Major milestones:
   - Support for poetic meter: both parsing and predicting
-  - Support for custom models other than the ones provided
+  - Support for custom models other than the default model
+  - Support for more default models
 
-* Tentative milestones:
-  - Backwards compatibility with Python 3.5 (No older versions support planned).
-  - A better GUI
+Tentative milestones (subject to change):
+  - Backwards compatibility with Python 3.5 (No other versions support planned)
+  - An improved GUI with better front and back end
   - Package-level optimization
-  - Conda-forge possibility
 
 ## Collaboration
-Collaborations are welcomed for bug fixing, general improvements, future roadmap implementations, etc. Feel free to open an issue if there is something concrete or head to discussions to present new ideas. You get the point: help, fix, pull request, fork, or whatever you want.
+Collaborations are welcomed for bug fixing, general improvements, future roadmap implementations, etc. Feel free to open an issue if there is something concrete or head to discussions to present new ideas. 
+
+For specific details on how to contribute, see the [Contribution Guideline](https://poetic.readthedocs.io/en/latest/Contributing.html) on our documentation page. BUt you get the point: help, fix, pull request, fork, or whatever you want.
 
 ## License
 - [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](/LICENSE.txt)
