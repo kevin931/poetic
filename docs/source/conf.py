@@ -33,7 +33,7 @@ project = 'Poetic (poetic-py)'
 copyright = '2020, Kevin Wang'
 author = 'Kevin Wang'
 
-release = '1.0.0'
+release = '1.0.3'
 
 extensions = [
     "sphinx_rtd_theme",

@@ -96,7 +96,7 @@ class Info():
     """
     
     __INSTANCE = None
-    __VERSION = "1.0.2"
+    __VERSION = "1.0.3"
     __BUILD_STATUS = "Dev"
     
     
