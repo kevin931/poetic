@@ -90,7 +90,73 @@ class TestDiagnostics():
     def test_ge_operator(self):
         assert self.results >= self.results_comparison
         
+    
+    def test_add_operator_predictions_and_no_diagnostics(self):
+        lhs = Diagnostics(predictions=[0.3])
+        rhs = Diagnostics(predictions=[0.4])
+        result = lhs + rhs
         
+        assert result.diagnostics is None and result.predictions == [0.3, 0.4]
+    
+    
+    @pytest.mark.parametrize("lhs, rhs, expected",
+                             [(Diagnostics([0.3], None), Diagnostics([0.4], None), None),
+                             (Diagnostics([0.3, 0.4], None), Diagnostics([0.4], ["Hi"]), [None, None, "Hi"]),
+                             (Diagnostics([0.3], ["Hi"]), Diagnostics([0.4, 0.3], None), ["Hi", None, None])]
+                             )    
+    def test_add_operator_sentence(self, lhs, rhs, expected):
+        result = lhs + rhs        
+        assert result.sentences == expected
+        
+        
+    @pytest.mark.parametrize("lhs, rhs, diagnostics_object, expected",
+                            [(Diagnostics([0.3]), Diagnostics([0.4]), "lhs", dict),
+                            (Diagnostics([0.3]), Diagnostics([0.4]), "rhs", dict)]
+                            )  
+    def test_add_operator_diagnostics(self, lhs, rhs, diagnostics_object, expected):
+        
+        if diagnostics_object == "lhs":
+            lhs.run_diagnostics()
+        elif diagnostics_object == "rhs":
+            rhs.run_diagnostics()
+        
+        result = lhs + rhs
+        assert isinstance(result.diagnostics, expected)
+    
+
+    def test_iadd_operator_predictions_and_no_diagnostics(self):
+        lhs = Diagnostics(predictions=[0.3])
+        rhs = Diagnostics(predictions=[0.4])
+        lhs += rhs
+        
+        assert lhs.diagnostics is None and lhs.predictions == [0.3, 0.4]
+    
+    
+    @pytest.mark.parametrize("lhs, rhs, expected",
+                             [(Diagnostics([0.3], None), Diagnostics([0.4], None), None),
+                             (Diagnostics([0.3, 0.4], None), Diagnostics([0.4], ["Hi"]), [None, None, "Hi"]),
+                             (Diagnostics([0.3], ["Hi"]), Diagnostics([0.4, 0.3], None), ["Hi", None, None])]
+                             )    
+    def test_iadd_operator_sentence(self, lhs, rhs, expected):
+        lhs += rhs        
+        assert lhs.sentences == expected
+        
+
+    @pytest.mark.parametrize("lhs, rhs, diagnostics_object, expected",
+                             [(Diagnostics([0.3]), Diagnostics([0.4]), "lhs", dict),
+                             (Diagnostics([0.3]), Diagnostics([0.4]), "rhs", dict)]
+                             )  
+    def test_iadd_operator_diagnostics(self, lhs, rhs, diagnostics_object, expected):
+        
+        if diagnostics_object == "lhs":
+            lhs.run_diagnostics()
+        elif diagnostics_object == "rhs":
+            rhs.run_diagnostics()
+        
+        lhs += rhs
+        assert isinstance(lhs.diagnostics, expected)
+    
+    
     def test_five_number_type(self):
         assert isinstance(self.five_num, dict)
         

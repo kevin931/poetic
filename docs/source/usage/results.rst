@@ -286,3 +286,31 @@ values may not be meaningful. In these cases, manual comparions are necessary.
 
 Given that the predictions attribute is a list of ``float``, the ``==`` and ``!=`` operators
 are currently not implemented.
+
+
+Concatenation
+~~~~~~~~~~~~~~
+
+Both ``+`` and ``+=`` operators are supported to concatenate two ``Diagnostics`` objects. The
+implementation of concatenation is to concatenate each attribute when applicable: the
+``Diagnostics.predictions`` attributes are concatenated directly since they are mandetory for
+initialization; the ``Diagnostics.sentences`` and ``Diagnostics.diagnostics`` methods have 
+different behaviors depending whether they are ``None`` for each object. Mathetical addition is
+undefined and nonsensical for either predictions or diagnostics. Therefore, both operators will
+concatenate objects, which will be useful for making multiple predictions and subsequently
+analyzing them together. 
+
+When ``Diagnostics.sentences`` is ``None`` for both objects, the resulting will also be ``None``.
+When both objects have sentences as their attributes, the sentences will simply be concatenated
+as lists. When one object has a list of sentences and the other object's ``sentences`` attribute
+is ``None``, the resulting object will have a list as its ``Diagnostics.sentences`` with either
+the sentences themselves or ``None`` corresponding to each entry of ``Diagnostics.predictions``.
+
+The behavior for ``Diagnostics.diagnostics`` also depends on each object. When both are ``None``,
+the ``run_diagnostics()`` method will not be called on the resulting object. Otherwise, the
+method will automatically call ``run_diagnostics()`` to update the results. The latter strategy
+will help avoid a situation in which the diagnostics and predictions are mismatched, leading
+to unintentionally wrong diagnostics.
+
+The ``+`` operator returns a new onject, which means that it is copy-safe for existing objects.
+The ``+=`` operator modifies the left-hand-side object as intended. 

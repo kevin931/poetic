@@ -190,6 +190,74 @@ class Diagnostics():
         """
         
         return np.mean(self.predictions) >= np.mean(rhs.predictions)
+    
+    
+    def __add__(self, rhs: "Diagnostics") -> "Diagnostics":
+        """ Method for ``+`` operator.
+        
+        The ``+`` operator concatenates two Diagnostics objects by
+        concatenating all its ``predictions`` and ``diagnostics``
+        attributes. If one object's ``diagnostics`` attribute is not
+        ``None``, the ``run_diagnostics()`` method will be called on
+        the returned object as well.
+
+        Returns: 
+            Diagnostics: A new Diagnostics as a concatenated result.
+            
+        Raises:
+            TypeError: Error when concatenating non-Diagnostics objects,
+        """
+        
+        if not isinstance(rhs, Diagnostics):
+            return TypeError("can only concatenate two Diagnostics objects")
+        
+        predictions = self.predictions + rhs.predictions
+        
+        if self.sentences is None and rhs.sentences is None:
+            sentences = None
+        elif self.sentences is None and rhs.sentences is not None:
+            sentences = [None]*len(self.predictions) + rhs.sentences       
+        else:
+            sentences = self.sentences + [None]*len(rhs.predictions)
+    
+        new_object = Diagnostics(predictions=predictions, sentences=sentences)
+        
+        if self.diagnostics is not None or rhs.diagnostics is not None:
+            new_object.run_diagnostics()
+            
+        return new_object
+    
+    
+    def __iadd__(self, rhs: "Diagnostics") -> "Diagnostics":
+        """ Method for ``+=`` operator.
+        
+        The ``+=`` operator concatenates a new Diagnostics objects to
+        the left-hand-side by concatenating ``predictions`` and ``sentences``
+        attributes. If either object's ``diagnostics`` attribute is not
+        ``None``, the ``run_diagnostics()`` method will be called on
+        the original object.
+        
+        Returns: 
+            Diagnostics: The concatenated Diagnostics object.
+            
+        Raises:
+            TypeError: Error when concatenating non-Diagnostics objects,
+        """
+        
+        if not isinstance(rhs, Diagnostics):
+            return TypeError("can only concatenate two Diagnostics objects")
+        
+        if self.sentences is None and rhs.sentences is not None:
+            self.sentences = [None]*len(self.predictions) + rhs.sentences       
+        elif self.sentences is not None and rhs.sentences is None:
+            self.sentences += [None]*len(rhs.predictions)
+            
+        self.predictions += rhs.predictions
+        
+        if self.diagnostics is not None or rhs.diagnostics is not None:
+            self.run_diagnostics()
+            
+        return self
 
 
     @classmethod
