@@ -209,7 +209,7 @@ class Diagnostics():
         """
         
         if not isinstance(rhs, Diagnostics):
-            return TypeError("can only concatenate two Diagnostics objects")
+            raise TypeError("can only concatenate two Diagnostics objects")
         
         predictions = self.predictions + rhs.predictions
         
@@ -245,7 +245,7 @@ class Diagnostics():
         """
         
         if not isinstance(rhs, Diagnostics):
-            return TypeError("can only concatenate two Diagnostics objects")
+            raise TypeError("can only concatenate two Diagnostics objects")
         
         if self.sentences is None and rhs.sentences is not None:
             self.sentences = [None]*len(self.predictions) + rhs.sentences       
