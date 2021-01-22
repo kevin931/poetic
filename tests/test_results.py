@@ -122,6 +122,20 @@ class TestDiagnostics():
         
         result = lhs + rhs
         assert isinstance(result.diagnostics, expected)
+        
+        
+    def test_add_type_error(self):
+        lhs = Diagnostics([0.3])
+        rhs = 1
+    
+        try:
+            lhs + rhs
+        except TypeError:
+            assert True
+        except:
+            assert False            
+        else:
+            assert False
     
 
     def test_iadd_operator_predictions_and_no_diagnostics(self):
@@ -155,6 +169,20 @@ class TestDiagnostics():
         
         lhs += rhs
         assert isinstance(lhs.diagnostics, expected)
+        
+        
+    def test_iadd_type_error(self):
+        lhs = Diagnostics([0.3])
+        rhs = 1
+    
+        try:
+            lhs + rhs
+        except TypeError:
+            assert True
+        except:
+            assert False            
+        else:
+            assert False
     
     
     def test_five_number_type(self):
