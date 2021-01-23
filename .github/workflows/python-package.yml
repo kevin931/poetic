@@ -36,4 +36,4 @@ jobs:
       with:
         fail_ci_if_error: true
     - name: Cleanup xvfb
-          uses: bcomnes/cleanup-xvfb@v1
+        uses: bcomnes/cleanup-xvfb@v1
