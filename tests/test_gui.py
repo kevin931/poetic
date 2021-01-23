@@ -45,7 +45,6 @@ class TestGUI():
 
     
     def test_gui_constructor_with_mock(self, mocker):
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mock_main = mocker.MagicMock()
         mocker.patch("poetic.gui.Tk.mainloop", mock_main)
         gui.GUI()
@@ -53,7 +52,6 @@ class TestGUI():
             
             
     def test_sumbit_file(self, mocker):
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mock_submit = mocker.MagicMock()
         mocker.patch("poetic.gui.futures.ThreadPoolExecutor.submit", mock_submit)
@@ -66,7 +64,6 @@ class TestGUI():
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mocker.patch("poetic.gui.Entry.get", return_value="")
         gui.GUI(predictor=self.new_predictor)._submit_sentence()
@@ -79,7 +76,6 @@ class TestGUI():
         
         
     def test_submit_sentence_raise_general_error(self, mocker):
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mocker.patch("poetic.gui.Entry.get", return_value={})
         
@@ -90,7 +86,6 @@ class TestGUI():
     
     
     def test_submit_sentence(self, mocker):
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mocker.patch("poetic.gui.Entry.get", return_value="This is a test")
         gui.GUI(predictor=self.new_predictor)._submit_sentence()
@@ -101,7 +96,6 @@ class TestGUI():
                             ("poetic.gui.filedialog.askopenfilename", "_select_file")]
                             )      
     def test_select_directory_and_file(self, mocker, mock_object, method):
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         ask_mock = mocker.MagicMock()
         ask_mock.return_value = "./tests/"
         label_mock = mocker.MagicMock()
@@ -121,7 +115,6 @@ class TestGUI():
         predict_results = self.new_predictor.predict_file("./tests/data/file_test.txt")
         
         to_file_mock = mocker.MagicMock()
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mocker.patch("poetic.gui.IntVar.get", return_value=file_type)
         mocker.patch("poetic.predictor.Predictor.predict_file", return_value = predict_results)
@@ -141,7 +134,6 @@ class TestGUI():
         predict_results = self.new_predictor.predict_file("./tests/data/file_test.txt")
         
         to_file_mock = mocker.MagicMock()
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mocker.patch("poetic.gui.IntVar.get", return_value=file_type)
         mocker.patch("poetic.predictor.Predictor.predict_file", return_value = predict_results)
@@ -160,7 +152,6 @@ class TestGUI():
     def test_update_status(self, mocker):
                
         update_mock = mocker.MagicMock()
-        mocker.patch.dict("os.environ", {"DISPLAY": ":0.0"})
         mocker.patch("poetic.gui.Tk.mainloop")
         mocker.patch("poetic.gui.Label.config", update_mock)
 
