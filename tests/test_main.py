@@ -38,7 +38,9 @@ class TestMain():
         os.mkdir(cls.script_path + "/data/temp")
 
     
-    def test_main_return_none(self):
+    def test_main_return_none(self, mocker):
+        gui_mock = mocker.MagicMock()
+        mocker.patch("poetic.gui.GUI", gui_mock)
         result = main(_test=True, _test_args="") #pylint: disable=assignment-from-no-return
         assert result is None
         
@@ -51,10 +53,14 @@ class TestMain():
                              (["--GUI"], "Test GUI launch"),
                              ("", "Test GUI launch")]
                              )
-    def test_main_cli_parameters_sentence_file_gui(self, arguments, expected):
+    def test_main_cli_parameters_sentence_file_gui(self, mocker, arguments, expected):
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
+        
+        if "--GUI" in arguments or "" in arguments:
+            gui_mock = mocker.MagicMock()
+            mocker.patch("poetic.gui.GUI", gui_mock)
         
         main(_test=True, _test_args=arguments)
             
