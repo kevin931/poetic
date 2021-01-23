@@ -10,8 +10,8 @@
 
 | Branch | Release | Build Status | Docs | Coverage |
 | --- | --- | --- | --- | --- |
-| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success) | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=dev)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=dev)](https://coveralls.io/github/kevin931/poetic?branch=dev)
-| main | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success)  | [![DevBuild](https://travis-ci.com/kevin931/poetic.svg?branch=main)](https://travis-ci.com/kevin931/poetic) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![Coverage Status](https://coveralls.io/repos/github/kevin931/poetic/badge.svg?branch=main)](https://coveralls.io/github/kevin931/poetic?branch=main) |
+| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success) | ![devCI](https://github.com/kevin931/poetic/workflows/CI%20Test/badge.svg?branch=dev) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![codecov](https://codecov.io/gh/kevin931/poetic/branch/dev/graph/badge.svg?token=U24RMH7TA5)](https://codecov.io/gh/kevin931/poetic)
+| main | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success)  | ![example branch parameter](https://github.com/kevin931/poetic/workflows/CI%20Test/badge.svg?branch=main) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![codecov](https://codecov.io/gh/kevin931/poetic/branch/main/graph/badge.svg?token=U24RMH7TA5)](https://codecov.io/gh/kevin931/poetic) |
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
