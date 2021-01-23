@@ -25,10 +25,15 @@ jobs:
         python -m pip install pytest pytest-mock pytest-cov
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         python -c "import nltk; nltk.download('punkt')"
+    - name: Install xvfb
+      run: |
+        sudo apt-get install xvfb
     - name: Test with pytest
       run: |
-        pytest --cov poetic --cov-report xml
+        xvfb-run pytest --cov poetic --cov-report xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
         fail_ci_if_error: true
+    - name: Cleanup xvfb
+          uses: bcomnes/cleanup-xvfb@v1
