@@ -176,7 +176,7 @@ class TestDiagnostics():
         rhs = 1
     
         try:
-            lhs + rhs
+            lhs += rhs
         except TypeError:
             assert True
         except:
