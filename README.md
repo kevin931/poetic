@@ -10,8 +10,8 @@
 
 | Branch | Release | Build Status | Docs | Coverage |
 | --- | --- | --- | --- | --- |
-| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success) | ![devCI](https://github.com/kevin931/poetic/workflows/CI%20Test/badge.svg?branch=dev) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![codecov](https://codecov.io/gh/kevin931/poetic/branch/dev/graph/badge.svg?token=U24RMH7TA5)](https://codecov.io/gh/kevin931/poetic)
-| main | ![Badge1](https://img.shields.io/badge/Version-1.0.3-success)  | ![example branch parameter](https://github.com/kevin931/poetic/workflows/CI%20Test/badge.svg?branch=main) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![codecov](https://codecov.io/gh/kevin931/poetic/branch/main/graph/badge.svg?token=U24RMH7TA5)](https://codecov.io/gh/kevin931/poetic) |
+| dev (default) | ![Badge1](https://img.shields.io/badge/Version-1.1.0-success) | ![devCI](https://github.com/kevin931/poetic/workflows/CI%20Test/badge.svg?branch=dev) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=dev)](https://poetic.readthedocs.io/en/latest/?badge=dev) | [![codecov](https://codecov.io/gh/kevin931/poetic/branch/dev/graph/badge.svg?token=U24RMH7TA5)](https://codecov.io/gh/kevin931/poetic)
+| main | ![Badge1](https://img.shields.io/badge/Version-1.1.0-success)  | ![example branch parameter](https://github.com/kevin931/poetic/workflows/CI%20Test/badge.svg?branch=main) | [![Documentation Status](https://readthedocs.org/projects/poetic/badge/?version=latest)](https://poetic.readthedocs.io/en/latest/?badge=latest) | [![codecov](https://codecov.io/gh/kevin931/poetic/branch/main/graph/badge.svg?token=U24RMH7TA5)](https://codecov.io/gh/kevin931/poetic) |
 
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -57,7 +57,7 @@ Look no further. You have found poetic.
 **Have fun!!**
 
 ## Installation
-Python (3.6, 3.7, 3.8) and pip (or conda) are required for Poetic to work. Now, poetic officially supports conda as well. Installation from either source will work, but stick to one or the other. 
+Python (3.5, 3.6, 3.7, 3.8) and pip (or conda) are required for Poetic to work. Now, poetic officially supports conda as well. Installation from either source will work, but stick to one or the other. 
 
 To install from PyPi:
 
@@ -78,14 +78,15 @@ For installation issues and some caveats, take a look [here](https://poetic.read
 * tensorflow >= 2
 * nltk
 * gensim
+* numpy
 
 If you have encountered an issue with installation or dependencies, please open an issue so that I can help you out!
 
 ## Usage
-Poetic supports three modes: command-line usage, python import, and GUI.
+Poetic supports three modes: command-line usage, python import, and GUI. For a detailed guide on examples and other common usages, visit the [Tutorials and Examples](https://poetic.readthedocs.io/en/latest/usage/index.html) section of the documentation.
 
 ### Command-line Mode
-A single command is sufficient without need of a python script.
+A single command is sufficient without need of a python script or launching the GUI.
 
 #### Flags
 - ``-s`` or ``--Sentence``:  Supply a sentence or a string of text as an input.
@@ -146,6 +147,23 @@ Poetic's official [documentation page](https://poetic.readthedocs.io/en/latest/)
 To visit the documentation for the versions in development or older maintenance versions of ``poetic``, use the version selection at the bottom left of the page for the correct version.
 
 ## Versions and Updates
+
+* v1.1.0
+
+    - Added comparison operator support to the ``Diagnostics`` class
+    - Added support for concatenating two ``Diagnostics`` instances using ``+`` and ``+=``
+    - Implemented the ``Info`` class as a singleton
+    - Added support for using custom model and dictionary in the ``Predictor`` class
+    - Added support for loading custom dictionary and model using the ``Initializer`` class
+    - Changed "sent model" to "lexical model" for naming accuracy
+    - Added theoretical support for python 3.5 (No CI testing)
+    - Deprecated function parameters ("input" and "dict") to avoid overwriting builtin functions and methods
+    - Optimized unittest infrastructure with more test coverage
+    - Added Github README to ``pypi``
+    - Renamed all method parameter "input" to "lexical_input" in the ``Predictor`` class
+    - Renamed "dict" to "dictionary" in the ``poetic.predictor.Predictor`` constructor
+    - **For all deprecations, see [here](https://poetic.readthedocs.io/en/latest/change/deprecation.html)**
+
 * v1.0.3
   - Added "**Tutorials and Examples**" section to documentation
   - Fixed file output spacing issues
@@ -162,14 +180,14 @@ To visit the documentation for the versions in development or older maintenance 
 
 ## Roadmap
 Major milestones:
-  - Support for poetic meter: both parsing and predicting
-  - Support for custom models other than the default model
-  - Support for more default models
+  - [ ] Support for poetic meter: both parsing and predicting
+  - [x] Support for custom models other than the default model
+  - [ ] Support for more default models
 
 Tentative milestones (subject to change):
-  - Backwards compatibility with Python 3.5 (No other versions support planned)
-  - An improved GUI with better front and back end
-  - Package-level optimization
+  - [x] Backwards compatibility with Python 3.5 (No other versions support planned)
+  - [ ] An improved GUI with better front and back end
+  - [ ] Package-level optimization
 
 ## Collaboration
 Collaborations are welcomed for bug fixing, general improvements, future roadmap implementations, etc. Feel free to open an issue if there is something concrete or head to discussions to present new ideas. 
