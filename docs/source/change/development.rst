@@ -25,6 +25,7 @@ Changelog
 ~~~~~~~~~~
 
     - Added comparison operator support to the ``Diagnostics`` class
+    - Added support for concatenating two ``Diagnostics`` instances using ``+`` and ``+=``
     - Implemented the ``Info`` class as a singleton
     - Added support for using custom model and dictionary in the ``Predictor`` class
     - Added support for loading custom dictionary and model using the ``Initializer`` class
