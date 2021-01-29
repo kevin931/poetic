@@ -30,13 +30,14 @@ quick, easy guidelines to follow if you would like to contribute:
     * Take a look at the `roadmap <https://poetic.readthedocs.io/en/latest/Development.html>`_. 
 
 * For all changes and source codes:
-    * All functions and methods must be type annotated with ``typing``.
+    * **All** functions and methods must be type annotated with ``typing`` (unit tests can be an exception).
     * Unittests must be written to ensure new codes work. Existing tests must pass or modified to pass if relevant. Pytest is used for this package.
     * All public methods, functions, and modules must have a `Google-styled docstring <https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html>`_. If an interface is modified, docstring must relfect the change accordingly.
     * Comments are fine and sometimes necesary when codes are obscure, but obvious comments should be avoided. Use of expressive variable names are encouraged.
     * Commits must have a simple, meaningful title (e.g. 'Added support for csv files'. Not: 'Quick update').
     * *Breaking changes* and *deprecations* should be implemented with **extreme caution**. Backwards compatibility should be maintained with a deprecation notice unless absolutely impossible.
     * Additional dependencies should be added with caution since it can have remification for end-users.
+    * **All** Github Actions CI checks must pass, including test coverage checks.
 
 * Documentation changes:
     * For all changes to the public interface, add such changes to the development changelog at "docs/source/change/development.rst".

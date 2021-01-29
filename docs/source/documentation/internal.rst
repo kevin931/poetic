@@ -21,7 +21,7 @@ Internal Interfaces
 
 
 *poetic.util._Arguments* Class
--------------------------------
+--------------------------------
 
 .. autoclass:: poetic.util._Arguments
    :members:
