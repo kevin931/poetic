@@ -29,7 +29,7 @@ import sys
 import shutil
 import distutils
 
-VERSION = "1.0.3"
+VERSION = "1.1.0"
 
 
 class LicenseCommand(distutils.cmd.Command):

@@ -1,5 +1,5 @@
 {% set name = "poetic-py" %}
-{% set version = "1.0.3" %}
+{% set version = "1.1.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -20,7 +20,7 @@ requirements:
   host:
     - python
   run:
-    - python >=3.6,<3.9
+    - python >=3.5,<3.9
     - tensorflow >=2
     - gensim
     - nltk

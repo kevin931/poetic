@@ -96,8 +96,8 @@ class Info():
     """
     
     __INSTANCE = None
-    __VERSION = "1.0.3"
-    __BUILD_STATUS = "Dev"
+    __VERSION = "1.1.0"
+    __BUILD_STATUS = "Stable"
     
     
     def __init__(self, _test: Optional[bool] = False) -> None:
