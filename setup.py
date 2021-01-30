@@ -120,6 +120,7 @@ setuptools.setup(
     author = "Kevin Wang",
     author_email = "bridgemarian@gmail.com",
     description = "A poetry predictor and toolkit.",
+    long_description_content_type = "text/markdown",
     long_description = open("README.md").read(),
     packages=["poetic"],
     python_requires=">=3.5, <3.9",
