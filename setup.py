@@ -29,6 +29,8 @@ import sys
 import shutil
 import distutils
 
+from typing import List
+
 VERSION = "1.0.3"
 
 description = "Poetic (poetic-py on PyPi) is a Python package "
@@ -85,12 +87,31 @@ class CondaCommand(distutils.cmd.Command):
     description = "Build and upload for conda."
     user_options = []
     
+    
     @staticmethod
-    def build_arch():
-        directories = os.listdir("./dist_conda/")
-        for arch in ["win-64", "linux-64", "osx-64," "osx-arm64", "linux-armv7l"]:
-            if arch in directories:
-                return arch
+    def move_assets(origin: str, destination: str, exclude: List[str], new_destination_dir: bool) -> None:
+        
+        if origin[-1] != "\\" and origin[-1] != "/":
+            origin += "/"
+            
+        if destination[-1] != "\\" and destination[-1] != "/":
+            destination += "/"
+        
+        if new_destination_dir:    
+            if os.path.isdir(destination):
+                raise ValueError("Destination directory already exists.")
+            else:
+                os.mkdir(destination)
+            
+        all_files = os.listdir(origin)
+        
+        for files in all_files:
+            if files in exclude:
+                pass
+            else:
+                origin_path = origin + files
+                destination_path = destination + files
+                shutil.move(origin_path, destination_path)
         
     
     def initialize_options(self):
@@ -102,25 +123,16 @@ class CondaCommand(distutils.cmd.Command):
     
     
     def run(self):
-
+        
+        self.move_assets("./poetic/data/", "../temp_assets/", ["word_dictionary_complete.txt"], True)
+        
         shutil.rmtree("dist_conda/")
         os.system("conda build . --output-folder dist_conda/")
+        os.system("anaconda upload ./dist_conda/noarch/poetic-py-{}-py_0.tar.bz2".format(VERSION))
         
-        current_arch = self.build_arch()
-        os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(current_arch, VERSION))
-        
-        for platform in ["win-64", "linux-64", "osx-64", "osx-arm64", "linux-armv7l"]:
-            
-            if platform == current_arch:
-                continue
-            
-            command = ("conda convert " 
-                       "dist_conda/{}/poetic-py-{}-py37_0.tar.bz2 "
-                       "-p {} -o dist_conda/".format(current_arch, VERSION, platform)
-                       )
-            os.system(command)
-            os.system("anaconda upload ./dist_conda/{}/poetic-py-{}-py37_0.tar.bz2".format(platform, VERSION))
-        
+        self.move_assets("../temp_assets/", "./poetic/data/", [], False)
+        shutil.rmtree("../temp_assets/")
+           
 
 setuptools.setup(
     name = "poetic-py",
