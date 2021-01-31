@@ -10,6 +10,7 @@ source:
   sha256: eeff542371190522d05bc8d7e87a1f099a2c367640d4948ead9611393e1d8ddc
 
 build:
+  noarch: python
   number: 0
   script: "{{ PYTHON }} -m pip install . --force-reinstall --no-deps -vv "
 
