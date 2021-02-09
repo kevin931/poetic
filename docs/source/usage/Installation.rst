@@ -4,6 +4,8 @@ Installation Guide
 
 Welcome to Poetic (poetic-py on PyPi). Please see below for installation details. 
 
+---------------------
+
 ****
 Pip
 ****
@@ -16,6 +18,8 @@ System-wide installation:
     python -c "import nltk; nltk.download('punkt')"
 
 The usage of ``virtualenv`` is also recommended over system-wide installation.
+
+---------------------
 
 ********************
 Conda (Recommended)
@@ -39,7 +43,14 @@ limitation. If you are unable to install tensorflow from conda, please open
 to tensorflow's github Issue Tracker for support. For reference, you can also refer to
 `Microsoft's guide <https://docs.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation>`_
 . (Caution: Editing registry can have serious consequences. Please proceed with caution and
-be sure to know the issue.) 
+be sure to know the issue.)
+
+Older Conda Versions
+---------------------
+Currently, the oldest supported version on conda is 1.0.3. Older versions are no longer supported
+and hosted because of a build issue in the toolchain.
+
+---------------------
 
 **************************
 Supported Package Versions
@@ -59,6 +70,7 @@ Dependencies
 * nltk
 * gensim
 
+---------------------
 
 **************************
 Troubleshooting
