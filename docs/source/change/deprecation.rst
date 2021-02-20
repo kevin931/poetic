@@ -8,10 +8,29 @@ deprecations that are not yet removed from the codebase, and it also provides mo
 details than the release notes. Support for these features will be removed in the 
 next major release.
 
-This list is organized by releases, which represent the time each feature is\
+This list is organized by releases, which represent the time each feature is
 deprecated (not the time they are removed). 
 
 --------------------
+
+***********
+v1.1.0
+***********
+
+Some method parameters have been renamed:
+
+    - Renamed "input" to "lexical_input" in the following methods:
+
+        - ``poetic.predictor.Predictor.predict``
+        - ``poetic.predictor.Predictor.preprocess``
+        - ``poetic.predictor.Predictor.tokenize``
+        - ``poetic.predictor.Predictor.word_id``
+
+    - Renamed "dict" to "dictionary" in the ``poetic.predictor.Predictor`` constructor
+
+Positional arguments remain unchanged. Deprecated arguments, "input" or "dict", become
+keyword-only arguments for backwards compatibility if they have been explicitly named in
+function calls.
 
 ***********
 v1.0.0
