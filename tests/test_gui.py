@@ -37,11 +37,11 @@ class TestGUI():
     def setup_class(cls):
         util.Info(_test=True)
         
-        model = util.Initializer.load_model(
+        cls.model = util.Initializer.load_model(
             model_path="./tests/data/lexical_model_dummy.json",
             weights_path="./tests/data/lexical_model_dummy.h5"
         )
-        cls.new_predictor = predictor.Predictor(model=model)
+        cls.new_predictor = predictor.Predictor(model=cls.model)
 
     
     def test_gui_constructor_with_mock(self, mocker):
@@ -68,7 +68,7 @@ class TestGUI():
         mocker.patch("poetic.gui.Entry.get", return_value="")
         gui.GUI(predictor=self.new_predictor)._submit_sentence()
 
-        expected = "Input length out of bound: must be between 1 and 465"
+        expected = "Input length out of bound: must be between 1 and {}".format(self.model.input_shape[1])
         
         output = string_stdout.getvalue()
         sys.stdout = screen_stdout
