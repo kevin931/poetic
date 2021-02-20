@@ -309,7 +309,7 @@ class Predictor():
 
     def _check_requirement(self, _input: List[List[str]]) -> None:
         if len(_input)==0:
-            message = "Input length out of bound: must be between 1 and 465"
+            message = "Input length out of bound: must be between 1 and {}".format(self.model.input_shape[1])
             raise exceptions.InputLengthError(message)
 
 

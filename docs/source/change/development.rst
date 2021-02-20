@@ -18,3 +18,10 @@ Planned Updates
 
 All changes are up to date. For latest updates, please see the dev branch documentation and
 on Github.
+
+v.1.1.1
+----------
+
+Changelog
+~~~~~~~~~~
+    - Fixed an issue of ``poetic.exceptions.InputLengthError`` displaying incorrect message (#6)

@@ -93,12 +93,16 @@ class TestPredictor():
                              [("predict", ""),
                               ("_check_requirement", [])]
                              )    
-    def test_input_length_error_check(self, method, param):
+    def test_input_length_error_emmpty_check(self, method, param):
         try:
             getattr(self.pred, method)(param)
         except Exception as e:
+            message = "Input length out of bound: must be between 1 and {}".format(self.pred.model.input_shape[1])
+            assert str(e) == message
             assert isinstance(e, poetic.exceptions.InputLengthError)
-    
+        else:
+            assert False
+            
             
     def test_tokenize(self):
         tokens = self.pred.tokenize("This is just a test. Hi.")
