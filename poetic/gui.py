@@ -175,6 +175,10 @@ class _InteractiveGUI(_MainWindow):
                        [("Halvetica", 15), _],
                        [("Halvetica", 13), _])
         self.gui.run()
+                
+        
+    def _run_help_gui(self, gui: "guietta.Gui", *args) -> None:
+        _InteractiveHelpGUI()
     
         
     def _submit_lexical_input(self, gui: "guietta.Gui", *args) -> None:
@@ -241,6 +245,10 @@ class _FileGUI(_MainWindow):
                        [("helvetica", 13)])
         
         self.gui.run()
+        
+        
+    def _run_help_gui(self, gui: "guietta.Gui", *args) -> None:
+        _FileHelpGUI()
         
         
     def _submit_file_input(self, gui: "guietta.Gui", *args) -> None:
@@ -323,6 +331,7 @@ class _InfoGUI():
                          poetic.util.Info.build_status())
         return info
     
+    
     def _open_link(self, link:str) -> None:
         self.gui.execute_in_main_thread(QtGui.QDesktopServices.openUrl, 
                                         QtCore.QUrl(link))
@@ -339,6 +348,7 @@ class _InfoGUI():
     def _open_conda(self, gui: "guietta.Gui", *args) -> None: 
         self._open_link("https://anaconda.org/kevin931/poetic-py")
         
+        
     def _open_documentation(self, gui: "guietta.Gui", *args) -> None: 
         self._open_link("https://poetic.readthedocs.io/")
 
@@ -350,10 +360,103 @@ class _SettingsGUI():
     
 
 class _HelpGUI():
+    """
+    This is base GUI class for the Help page, which provides the basic layout and the default
+    help message. All specialized help page derives from this class and overrides the help
+    message.
+    
+    """
     
     def __init__(self):
-        pass
+        self.gui = Gui([GUIUtil.center("Poetic Help")],
+                       [(QPlainTextEdit, "help")],
+                       [["Full Documentation"]])
+        
+        self.gui.fonts([("Halvetica", 15)],
+                       [_],
+                       [("Halvetica", 13)])
+        
+        self.gui.help.setReadOnly(True)
+        self.gui.help.setPlainText(self._help_text())
+        self.gui.help.FullDocumentation = self._open_documentation_link
+        self.gui.run()
+        
+        
+    def _help_text(self) -> str:
+        
+        help_text = ("General Help Information\n\n"
+                     "The package is currently running under the GUI mode,"
+                     "which has support for both file prediction and interactive predictions. "
+                     "Below details the basic information with each mode and all supplementary "
+                     "information. For help on each section, refer to the help page on the respective "
+                     "page; for detailed documentation, view the 'Full Documentation' online.\n\n"
+                     "Interactive Mode: Making real-time predictions with inputs.\n\n"
+                     "File Processing Mode: Making predictions with text files.\n\n"
+                     "Info Page: Package information, including version, build, links, etc.\n\n"
+                     "Settings Page: Basic settings of the app, including choice of models.\n\n"
+                     "Help Page: Basic help of each section.")
+        
+        return help_text
+    
+    
+    def _open_documentation_link(self, gui: "guietta.Gui", *args) -> None:
+        self.gui.execute_in_main_thread(QtGui.QDesktopServices.openUrl, 
+                                        QtCore.QUrl("https://poetic.readthedocs.io/"))
+        
+        
+class _InteractiveHelpGUI(_HelpGUI):
+    """
+    This is the derived class for the Help section of the Interactive Mode. The Help section
+    message is overriden with specific model and IO information.
 
+    """
+    
+    def __init__(self) -> None:
+        super().__init__()
+        
+        
+    def _help_text(self) -> str:
+        
+        help_text = ("The Interactive Mode Help Information\n\n"
+                     "The interactive mode allows users to make predictions in real time "
+                     "with live results using the poetic's standard API. "
+                     "Just as the predict() method of the poetic.Predictor class, input of "
+                     "multiple sentences are supported with no limit, and results can be "
+                     "saved with files.\n\n"
+                     "All inputs are preprocessed with sentence and word tokenization and "
+                     "Gensim word ID conversion. Default model and dictionary are used. "
+                     "Each sentence is treated as a unit, and summary statistics will be "
+                     "shown on the results page. Models and dictionaries can be changed "
+                     "in Settings.\n\n"
+                     "For more information, view the Full Documentation online!\n")
+        
+        return help_text
+    
+    
+class _FileHelpGUI(_HelpGUI):
+    """
+    This is the derived class for the Help section of the File Processing Mode. The Help
+    section message is overriden with specific details on file handling and prediction.
+
+    """
+    
+    def __init__(self) -> None:
+        super().__init__()
+        
+        
+    def _help_text(self) -> str:
+        
+        help_text = ("The File Mode Help Information\n\n"
+                     "The file mode allows users to make predictions with previously "
+                     "stored text files. This uses the standard API of poetic with "
+                     "the predict_file() method of the poetid.Predictor class. \n\n"
+                     "To select the file, use the 'Select File' button. Right now, "
+                     "only selection of one file is supported. The results are "
+                     "shown through the standard results page.\n\n"
+                     "For more information, view the Full Documentation online!\n")
+        
+        return help_text
+        
             
 class _ResultsGUI():
     """
@@ -412,6 +515,7 @@ class GUIUtil():
     @staticmethod
     def center(text: str) -> str:
         return "<center>" + text + "</center"
+    
     
     @staticmethod
     def process_prediction_results(predictor_return: Union["poetic.Diagnostics", "Exception", "poetic.exceptions.InputLengthError"]) -> None:
