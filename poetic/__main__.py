@@ -87,7 +87,7 @@ def main(*, _test_args: Optional[Union[List[str], str]]=None) -> None:
     launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
 
     if args["GUI"] or launch_GUI:
-        gui.GUI(new_pred)
+        gui.GUI(new_pred, is_default_dictionary=True, is_default_model=True)
                    
 
 if __name__ == "__main__":

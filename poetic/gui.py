@@ -46,7 +46,7 @@ Examples:
         
 """
 
-from guietta import Gui, _, ___, III, splash, HSeparator
+from guietta import Gui, _, ___, III, splash, HSeparator, G, R1, Cancel
 from guietta import QMessageBox, QFileDialog, QPlainTextEdit
 from PySide2 import QtGui
 from PySide2 import QtCore
@@ -54,7 +54,7 @@ from PySide2 import QtCore
 import poetic
 
 import os
-from typing import Union
+from typing import Union, Dict, Optional
 import warnings
 
 
@@ -72,7 +72,7 @@ class _MainWindow():
         
         
     def _run_settings_gui(self, gui: "guietta.Gui", *args) -> None:
-        _SettingsGUI()
+        _SettingsGUI(self)
         
         
     def _run_help_gui(self, gui: "guietta.Gui", *args) -> None:
@@ -91,13 +91,23 @@ class GUI(_MainWindow):
             
     Attributes:
         gui (guietta.Gui): The GUI instance.
+        is_default_dictionary (Optional[bool]): Whether the pass by predictor's dictionary is the default dictionary.
+        is_default_model (Optional[bool]): Whether the pass by predictor's model is the default model.
+        metadata (Dict[str, Optional[str]]): A dictrionary storing model and dictionary status as GUI metadata.
         predictor (poetic.Predictor): A ``poetic.Predictor`` object. 
         splash (guietta.spash): A splash sreen for initialization. 
     """
     
-    def __init__(self, predictor: "poetic.predictor"=None) -> None:
+    def __init__(self,
+                 predictor: Optional["poetic.predictor"]=None,
+                 *,
+                 is_default_dictionary: Optional[bool]=None,
+                 is_default_model: Optional[bool]=None) -> None:
         
         super().__init__()
+        self.metadata = {"model": None, "dictionary": None}
+        self.is_default_dictionary = is_default_dictionary
+        self.is_default_model = is_default_model
         self.predictor = predictor
         self._initialize()
     
@@ -128,7 +138,15 @@ class GUI(_MainWindow):
                        "MIT License\n"
                        "GitHub: kevin931/poetic").format(poetic.util.Info.version())
         self.splash = splash(splash_text)
-        self.predictor = poetic.Predictor() if self.predictor is None else None
+        
+        if self.predictor is None:
+            self.predictor = poetic.Predictor()
+            self.metadata["model"] = "default"
+            self.metadata["dictionary"] = "default"
+        else:
+            self.metadata["model"] = "default" if self.is_default_model else "custom"
+            self.metadata["dictionary"] = "default" if self.is_default_dictionary else "custom"
+            
         self.splash.close()
         
         
@@ -355,9 +373,156 @@ class _InfoGUI():
 
 class _SettingsGUI():
     
-    def __init__(self):
-        pass
+    def __init__(self, main_GUI:"poetic.gui.GUI"):
+        self.main_GUI = main_GUI
+        self.new_config = {"model_path": None, "weights_path": None, "dictionary_path": None}
+        
+        self.gui = Gui([GUIUtil.center("Poetic Settings"), ___],
+                       [G("Model"), G("Dictionary")],
+                       [["Apply"], Cancel])
+        self.gui.fonts([("Halvetica", 15), _])
+        
+        self.model_selection = Gui([R1("Default Lexical Model")],
+                                   [R1("Custom Model")])
+        self.dictionary_selection = Gui([R1("Default Gensim Dictionary")],
+                                        [R1("Custom Gensim Dictionary")])
+        
+        if self.main_GUI.metadata["model"] == "default":
+            self.model_selection.DefaultLexicalModel.setChecked(True)
+        else:
+            self.model_selection.CustomModel.setChecked(True)
+            
+        if self.main_GUI.metadata["dictionary"] == "default":
+            self.dictionary_selection.DefaultGensimDictionary.setChecked(True)
+        else:
+            self.dictionary_selection.CustomGensimDictionary.setChecked(True)
+        
+        self.model_selection.DefaultLexicalModel = self._model_toggled
+        self.dictionary_selection.DefaultGensimDictionary = self._dictionary_toggled
+        
+        self.gui.Model = self.model_selection
+        self.gui.Dictionary = self.dictionary_selection
+        self.gui.Apply = self._apply_changes
+        
+        self.gui.run()
+        
+        
+    def _model_toggled(self, gui:"guietta.gui", *args) -> None:
+        
+        if self.model_selection.DefaultLexicalModel.isChecked(): #pylint: disable=no-member
+            if self.main_GUI.metadata["model"] != "default":
+                self.new_config["model_path"] = "default"
+                self.new_config["weights_path"] = "default"
+                
+        else:
+            self._model_selection_gui()
+            
+        
+    def _dictionary_toggled(self, gui:"guietta.gui", *args) -> None:
+        
+        if self.dictionary_selection.DefaultGensimDictionary.isChecked(): #pylint: disable=no-member
+            if self.main_GUI.metadata["dictionary"] != "default":
+               self.new_config["dictionary_path"] = "default"
+
+        else:
+            file_path = QFileDialog.getOpenFileName(None,
+                                                    "Select Dictionary",
+                                                    "/home",
+                                                    "Gensim Dictionary (*.txt)")
+            if file_path[0] != "":
+                self.new_config["dictionary_path"] = file_path[0]
+            
+            elif self.main_GUI.metadata["dictionary"] == "default":
+                self.dictionary_selection.DefaultGensimDictionary.setChecked(True) #pylint: disable=no-member
     
+        
+    def _model_selection_gui(self):
+        
+        gui = Gui([GUIUtil.center("Custom Models"), ___],
+                  [["Select Model"], ("None selected", "model_status")],
+                  [["Select Weights"], ("None selected (Optional)", "weights_status")],
+                  [HSeparator()],
+                  [["Done"], ["Cancel"]])
+        gui.fonts([("Halvetica", 15), _])
+        
+        gui.SelectModel = self._select_model
+        gui.SelectWeights = self._select_weights
+        gui.Done = self._model_selection_done
+        gui.Cancel = self._model_selection_cancel
+        
+        gui.run()
+        
+        
+    def _select_model(self, gui:"guietta.Gui", *args) -> None:
+        file_path = QFileDialog.getOpenFileName(None,
+                                                "Select Model",
+                                                "/home",
+                                                "Keras Model (*.json *.yaml *.h5)")
+        self.new_config["model_path"] = file_path[0]
+        gui.model_status = "Selected!"
+    
+    
+    def _select_weights(self, gui:"guietta.Gui", *args) -> None:
+        file_path = QFileDialog.getOpenFileName(None,
+                                                "Select Model Weights",
+                                                "/home",
+                                                "Keras Model Weights (*.h5)")
+        self.new_config["weights_path"] = file_path[0]
+        gui.weights_status = "Selected!"
+        
+        
+    def _model_selection_done(self, gui:"guietta.Gui", *args) -> None:
+        if self.new_config["model_path"] in ["", None]:
+            if self.main_GUI.metadata["model"] == "default":
+                self.model_selection.DefaultLexicalModel.setChecked(True) #pylint: disable=no-member
+        gui.close()
+        
+        
+    def _model_selection_cancel(self, gui:"guietta.Gui", *args) -> None:
+        if self.main_GUI.metadata["model"] == "default":
+            self.model_selection.DefaultLexicalModel.setChecked(True) #pylint: disable=no-member
+        gui.close()
+        
+        
+    def _apply_changes(self, gui:"guietta.Gui", *args) -> None:
+        
+        if self.new_config["dictionary_path"] is not None:
+            if self.new_config["dictionary_path"] == "default":
+                self.main_GUI.predictor.dictionary = poetic.util.Initializer.load_dict()
+                self.main_GUI.metadata["dictionary"] = "default"
+                
+            else:
+                try:
+                    self.main_GUI.predictor.dictionary = poetic.util.Initializer.load_dict(dictionary_path=self.new_config["dictionary_path"])
+                    
+                except Exception as e:
+                    print("error")
+                    raise e
+                
+                else:
+                    self.main_GUI.metadata["dictionary"] = "custom"
+    
+        if self.new_config["model_path"] is not None:
+            if self.new_config["model_path"] == "default":
+                self.main_GUI.predictor.model = poetic.util.Initializer.load_model()
+                self.main_GUI.metadata["model"] = "default"
+                
+            else:
+                if self.new_config["weights_path"] == "":
+                    self.new_config["weights_path"] == None
+                    
+                try:
+                    self.main_GUI.predictor.model = poetic.util.Initializer.load_model(model_path=self.new_config["model_path"],
+                                                                                       weights_path=self.new_config["weights_path"])
+                     
+                except Exception as e:
+                    raise e
+                
+                else:
+                    self.main_GUI.metadata["model"] = "custom"
+
+        self.gui.close()
+                
 
 class _HelpGUI():
     """
