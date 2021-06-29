@@ -52,6 +52,7 @@ import re
 import os
 from concurrent import futures
 
+import poetic
 from poetic.util import Info
 from poetic import exceptions
 
@@ -67,14 +68,14 @@ class GUI():
     it through the command line.
 
     Attributes:
-        predictor (Predictor, optional): A ``Predictor`` object created
+        predictor (poetic.Predictor, optional): A ``Predictor`` object created
             through the predictor module. If not supplying a :code:`Predictor`
             object, the GUI will have no predicting functionality.
     """
 
-    def __init__(self, predictor: Optional["poetic.Predictor.predictor"] =None, 
+    def __init__(self, predictor: Optional["poetic.Predictor"] =None, 
                  *, 
-                 _test: Optional[bool]=False) -> None:
+                 _test: bool=False) -> None:
         self.predictor = predictor
         # GUI parameters
         self.root = Tk()
@@ -186,6 +187,7 @@ class GUI():
         # Predict with sentence in interactive mode
 
         input = self.sentence_input.get()
+        assert self.predictor is not None
         try:
             score =self.predictor.predict(input)
         # Input Length Error
@@ -203,7 +205,7 @@ class GUI():
         else:
             # Process outputs
             score.run_diagnostics()
-            score = score.diagnostics["Five_num"]["Median"]
+            score = score.diagnostics["Five_num"]["Median"] #type: ignore
             score = round(score, 2)
             # Display results
             self.result2.config(text="Your score is "+str(score))
@@ -237,7 +239,7 @@ class GUI():
         # Update status
         self.root.after(0, self._update_status, "Running")
         # Run the results
-        results = self.predictor.predict_file(self.filepath)
+        results = self.predictor.predict_file(self.filepath) #type: ignore
         results.run_diagnostics()
         # Save filepath
         file_name = re.split("/",self.filepath)[-1]

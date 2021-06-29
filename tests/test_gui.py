@@ -37,4 +37,3 @@ class TestGUI():
             assert False
         else:
             assert True
-        

@@ -41,7 +41,7 @@ class TestMain():
     def test_main_return_none(self, mocker):
         gui_mock = mocker.MagicMock()
         mocker.patch("poetic.gui.GUI", gui_mock)
-        result = main(_test=True, _test_args="") #pylint: disable=assignment-from-no-return
+        result = main(_test=True, _test_args=[])
         assert result is None
         
     

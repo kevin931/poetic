@@ -60,15 +60,15 @@ Examples:
 
 """
 
-from poetic import gui, predictor, util, results
-from typing import List, Union, Optional
+from poetic import gui, predictor, util
+from typing import List, Optional
 
-def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None) -> None:
+def main(*, _test: bool=False, _test_args: Optional[List[str]]=None) -> None:
     
     args, model, dictionary = util.Initializer.initialize(_test=_test, _test_args=_test_args)
     new_pred = predictor.Predictor(model, dictionary)
 
-   
+    score = None
     if args["Sentence"] is not None or args["File"] is not None:
 
         if args["Sentence"] is not None:
@@ -76,14 +76,13 @@ def main(*, _test: bool=False, _test_args: Optional[Union[List[str], str]]=None)
 
         if args["File"] is not None:
             score = new_pred.predict_file(args["File"])
-
+        assert score is not None
         score.run_diagnostics()
 
         if args["Out"] is not None:
             score.to_file(args["Out"])
         else:
             print(score.generate_report())
-
 
     launch_GUI = True if args["Sentence"] is None and args["File"] is None else False
 

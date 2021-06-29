@@ -66,7 +66,7 @@ Examples:
 
 """
 
-from tensorflow import keras
+from tensorflow import keras #type: ignore
 import gensim
 
 from zipfile import ZipFile
@@ -136,7 +136,7 @@ class Initializer():
 
 
     @classmethod
-    def initialize(cls, *, _test: Optional[bool]=False, _test_args: Optional[Union[List[str], str]]=None):
+    def initialize(cls, *, _test: Optional[bool]=False, _test_args: Optional[List[str]]=None):
         """Initializes the package.
 
         This methods checks for any command line arguments,

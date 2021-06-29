@@ -51,15 +51,15 @@ Examples:
         result = pred.predict_file("<PATH>")
 """
 
-from tensorflow import keras
-from gensim.corpora.dictionary import Dictionary
-from tensorflow.python.keras.engine.training import Model # pylint: disable=no-name-in-module, import-error
+from tensorflow import keras #type: ignore
+import tensorflow
+import gensim
 from nltk.tokenize import word_tokenize, sent_tokenize
 from poetic.results import Diagnostics
 from poetic.util import Initializer
 from poetic import exceptions
 
-from typing import Optional, Union, List
+from typing import Optional, List, Union
 import numpy
 
 
@@ -77,7 +77,7 @@ class Predictor():
             Gensim dictionary for word IDs. If nothing is supplied, the default dictionary
             will be loaded. The default dictionary will be required for the the default
             model to work correctly although it is not strictly enforced.
-        force_download_assets (bool, optional):
+        force_download_assets (bool):
             Wheher to download assets (the default models) without asking/user input.
 
 
@@ -90,9 +90,9 @@ class Predictor():
 
 
     def __init__(self, 
-                 model: Optional["tensorflow.keras.Model"]=None, 
+                 model: Optional["tensorflow.keras.Model"]=None, #type: ignore
                  dict: Optional["gensim.corpora.dictionary.Dictionary"]=None, 
-                 force_download_assets: Optional[bool]=False) -> None:
+                 force_download_assets: bool=False) -> None:
 
         self.model = model if model is not None else Initializer.load_model(force_download=force_download_assets)
         self.dict = dict if dict is not None else Initializer.load_dict()
@@ -107,15 +107,15 @@ class Predictor():
             input (str): Text content to be predicted.
 
         Returns:
-            Predictions: 
+            poetic.predictor.Predictions: 
                 A Predictions object with predicted scores of the given input.
                 
         Raises:
             poetic.exceptions.InputLengthError: Error for processing input length of zero.
         """
 
-        input = self.preprocess(input)
-        results = self.model.predict(input)
+        input_processed = self.preprocess(input)
+        results = self.model.predict(input_processed)
         results = results.tolist()
         score = Predictions(results, self._sentences)
 
@@ -133,7 +133,7 @@ class Predictor():
             path (str): The path to the text file.
 
         Returns:
-            Predictions: A Predictions object with predicted scores of the given input.
+            poetic.predictor.Predictions: A Predictions object with predicted scores of the given input.
             
         Raises:
             poetic.exceptions.InputLengthError: Error for processing empty file, resulting in input
@@ -223,11 +223,11 @@ class Predictor():
         for sentence in input:
             id_sent = []
             for word in sentence:
-                try:
-                    self.dict.token2id.get(word) > 0
-                    id_sent.append(self.dict.token2id.get(word))
-                except:
+                word_id = self.dict.token2id.get(word)
+                if word_id is None:
                     id_sent.append(0)
+                else:
+                    id_sent.append(self.dict.token2id.get(word))
             id_input.append(id_sent)
 
         return(id_input)
@@ -262,6 +262,6 @@ class Predictions(Diagnostics):
              
         """
 
-    def __init__(self, results: List[List[float]], sentences: Optional[List[str]]) -> None:
-        results = [prediction[0] for prediction in results]
-        super().__init__(predictions=results, sentences=sentences)
+    def __init__(self, results: Union[List[List[int]], List[List[float]]], sentences: Optional[List[str]]) -> None:
+        results = [prediction[0] for prediction in results] #type: ignore
+        super().__init__(predictions=results, sentences=sentences) #type: ignore

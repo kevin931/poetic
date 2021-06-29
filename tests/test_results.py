@@ -107,6 +107,7 @@ class TestDiagnostics():
         
         
     def test_diagnostics_keys(self):
+        assert self.results.diagnostics is not None
         stats = self.results.diagnostics
         keys = list(stats.keys())
         expected = ["Sentence_count", "Five_num", "Predictions"]
@@ -118,6 +119,7 @@ class TestDiagnostics():
                             ("Predictions", [1,0,1,0])]
                             )
     def test_diagnostics(self, key, expected):
+        assert self.results.diagnostics is not None
         stats = self.results.diagnostics
         assert stats[key] == expected
         
@@ -146,6 +148,8 @@ class TestDiagnostics():
         string_stdout = StringIO()
         sys.stdout = string_stdout
         
+        output = ""
+        
         try:
             self.results.to_csv(nonexistant_path)
         except:
@@ -162,6 +166,8 @@ class TestDiagnostics():
         screen_stdout = sys.stdout
         string_stdout = StringIO()
         sys.stdout = string_stdout
+        
+        output = ""
         
         try:
             self.results.to_file(nonexistant_path)
@@ -217,6 +223,8 @@ class TestDiagnostics():
         
     def test_generate_report_contents(self):
         report = self.results.generate_report()
+        
+        assert self.results.diagnostics is not None
         
         contents = []
         contents.append(Info.version())

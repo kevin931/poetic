@@ -25,7 +25,7 @@
 #
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
+from tensorflow import keras #type: ignore
 import gensim as gs
 import os
 

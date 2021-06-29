@@ -64,10 +64,11 @@ Examples:
 
 
 import numpy as np
+import numpy
 import csv
 from poetic.util import Info
 
-from typing import Optional, List, Sequence, Union, Dict
+from typing import Optional, List, Union, Dict
 
 
 class Diagnostics():
@@ -88,7 +89,7 @@ class Diagnostics():
             including sentence count, five number summary, and the predictions themselves. 
     """
 
-    def __init__(self, predictions: List[float], sentences: Optional[List[str]]=None) -> None:
+    def __init__(self, predictions: Union[List[float], List[int]], sentences: Optional[List[str]]=None) -> None:
 
         self.predictions = predictions
         self.sentences = sentences
@@ -139,7 +140,7 @@ class Diagnostics():
 
 
     @classmethod
-    def five_number(cls, input: Union["numpy.ndarray", List[float]]) -> Dict[str, float]:
+    def five_number(cls, input: Union["numpy.ndarray", List[float], List[int]]) -> Dict[str, float]:
         """Five number summary.
 
         This methods generates five number summary of a given input.
@@ -192,8 +193,6 @@ class Diagnostics():
             path (str): An string representing the file path.
 
         """
-
-
         # Check for csv
         path_len = len(path)
         if (path[(path_len-4):path_len]==".csv"):
@@ -254,7 +253,8 @@ class Diagnostics():
         """
 
         version = Info.version()
-
+        
+        assert self.diagnostics is not None
         # Program Information
         r = "Poetic\n"
         r += f"Version: {version}\n"

@@ -33,8 +33,6 @@ class TestExceptions():
             raise exceptions.InputLengthError()
         except exceptions.InputLengthError as e:
             message = str(e)
-        else:
-            assert False
             
         expected = "The current length is unsupported or out of bound."
         assert expected in message
@@ -45,8 +43,6 @@ class TestExceptions():
             raise exceptions.InputLengthError()
         except exceptions.InputLengthError as e:
             assert isinstance(e, Exception)
-        else:
-            assert False
             
               
     def test_unsupported_config_message(self):
@@ -55,8 +51,6 @@ class TestExceptions():
             raise exceptions.UnsupportedConfigError()
         except exceptions.UnsupportedConfigError as e:
             message = str(e)
-        else:
-            assert False
             
         expected = "Unsupported configuration: Please refer to docummentation."
         assert expected in message
@@ -67,5 +61,3 @@ class TestExceptions():
             raise exceptions.UnsupportedConfigError()
         except exceptions.UnsupportedConfigError as e:
             assert isinstance(e, Exception)
-        else:
-            assert False

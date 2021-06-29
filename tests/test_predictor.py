@@ -26,7 +26,7 @@
 from poetic.predictor import Predictor
 import poetic
 
-from tensorflow import keras
+from tensorflow import keras #type: ignore
 import numpy as np
 import os
 
@@ -73,12 +73,12 @@ class TestPredictor():
         
     def test_predict_type(self):
         score = self.pred.predict("This is a test.")
-        assert isinstance(score, poetic.predictor.Predictions)
+        assert isinstance(score, poetic.predictor.Predictions) #type: ignore
  
         
     def test_predict_type_inheritance(self):
         score = self.pred.predict("This is a test.")
-        assert isinstance(score, poetic.results.Diagnostics)
+        assert isinstance(score, poetic.results.Diagnostics) #type: ignore
 
 
     def test_file_predict(self):
@@ -97,14 +97,14 @@ class TestPredictor():
         try:
             self.pred.predict("")
         except Exception as e:
-            assert isinstance(e, poetic.exceptions.InputLengthError)
+            assert isinstance(e, poetic.exceptions.InputLengthError) #type:ignore
        
             
     def test_check_requirement(self):
         try:
             self.pred._check_requirement([])
         except Exception as e:
-            assert isinstance(e, poetic.exceptions.InputLengthError)
+            assert isinstance(e, poetic.exceptions.InputLengthError) #type:ignore
     
             
     def test_tokenize(self):

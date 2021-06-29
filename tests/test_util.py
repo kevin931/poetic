@@ -34,7 +34,7 @@ import sys
 import http
 
 import gensim
-from tensorflow import keras
+from tensorflow import keras #type: ignore
 
 class TestInfo():
     
@@ -67,7 +67,7 @@ class TestInitializer():
     def setup_class(cls):
         # File paths
         cls.script_path = os.path.dirname(os.path.realpath(__file__))
-        cls.initialize_return =  Initializer.initialize(_test=True, _test_args="")
+        cls.initialize_return =  Initializer.initialize(_test=True, _test_args=[])
         cls.assets_status = Initializer.check_assets()
         
         
@@ -205,7 +205,7 @@ class Test_Arguments():
         try:
             self.parser.parse(input)
         except Exception as e:
-            assert isinstance(e, poetic.exceptions.UnsupportedConfigError)
+            assert isinstance(e, poetic.exceptions.UnsupportedConfigError) #type: ignore
             
             
     @pytest.mark.parametrize("input,key",
